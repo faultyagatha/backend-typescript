@@ -43,3 +43,12 @@ export class BadRequestError extends ApiError {
     super(400, message, source)
   }
 }
+
+export class JWTError extends ApiError {
+  constructor(
+    readonly message: string = 'Invalid Token. Please login again',
+    source?: Error
+  ) {
+    super(400, message, source)
+  }
+}
