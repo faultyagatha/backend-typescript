@@ -110,7 +110,7 @@ export const updateMyAccount = async (
     res.status(200).json({
       status: 'success',
       data: {
-        user: updatedUser,
+        user: updatedUser
       },
     })
   } catch (err) {
@@ -129,7 +129,7 @@ export const deleteMyAccount = async (
 ) => {
   try {
     const userReq = req.user as Payload
-    // console.log(userReq)
+    console.log('userReq: ', userReq)
     await UserService.deleteMyAccount(userReq.id)
     res.status(204).json({
       status: 'success',

@@ -7,14 +7,21 @@ import {
   findAll,
   updateProduct,
 } from '../controllers/product'
-import { isLoggedin, restrictTo } from '../middlewares/authHandlers'
+import {
+  isLoggedin,
+  restrictTo
+} from '../middlewares/authHandlers'
 
 const router = express.Router()
 
 router.get('/', findAll)
 router.get('/:productId', findById)
-router.put('/:productId', isLoggedin, restrictTo('admin'), updateProduct)
-router.delete('/:productId', isLoggedin, restrictTo('admin'), deleteProduct)
-router.post('/', isLoggedin, restrictTo('admin'), createProduct)
+
+//remove for testing
+// router.use(isLoggedin)
+// router.use(restrictTo('admin'))
+router.post('/', createProduct)
+router.put('/:productId', updateProduct)
+router.delete('/:productId', deleteProduct)
 
 export default router
