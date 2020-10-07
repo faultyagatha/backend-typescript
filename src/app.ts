@@ -45,6 +45,8 @@ mongoose
 app.set('port', process.env.PORT || 5000)
 
 // Use common 3rd-party middlewares
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(cors())
 app.use(compression())
 app.use(bodyParser.json())

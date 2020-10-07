@@ -126,6 +126,36 @@ export const login = async (
   }
 }
 
+export const googleLogin = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email, password } = req.body
+    //1). Check if email & password exist
+    if (!email || !password) {
+      return next(new BadRequestError('Please provide email and password'))
+    }
+
+    //2). Check is user exists & the password is correct
+    const user = await User.findOne({ email }).select('+password')
+    console.log(user)
+    if (!user) {
+      return next(new NotFoundError('Email not found'))
+    }
+    if (!user.isCorrectPassword(password, user.password)) {
+      return next(new BadRequestError('Passwords do not match'))
+    }
+
+    //3). If successful send token to a client
+    createSendToken(user, 200, res)
+  } catch (err) {
+    new BadRequestError('User is not found')
+  }
+
+}
+
 //PATCH/ users/forgotPassword
 export const forgotPassword = async (
   req: Request,

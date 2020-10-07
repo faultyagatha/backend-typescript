@@ -11,6 +11,7 @@ import {
 import {
   signup,
   login,
+  googleLogin,
   forgotPassword,
   resetPassword,
   updatePassword,
@@ -23,6 +24,7 @@ const router = express.Router()
 
 router.post('/signup', signup)
 router.post('/login', login)
+router.post('/googleLogin', googleLogin)
 
 //KEEP THESE ROUTES ON TOP!!
 router.post('/forgotPassword', forgotPassword)
