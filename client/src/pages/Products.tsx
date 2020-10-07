@@ -19,8 +19,6 @@ export default function Products() {
     return <div>Product not found</div>;
   }
 
-  const style = { width: "30%", marginBottom: "20px" };
-
   const renderProducts = () => {
     return allProducts.map((product) => {
       return (
@@ -35,19 +33,6 @@ export default function Products() {
           price={product.price}
         />
       );
-      //   <div
-      //     className="card"
-      //     style={style}
-      //     key={product.name}>
-      //     <p>{product.name}</p>
-      //     <p>{product.imageCover}</p>
-      //     <p>{product.duration}</p>
-      //     <p>{product.difficulty}</p>
-      //     <p>{product.description}</p>
-      //     <p>{product.price}</p>
-      //     {/* <h3> {product.description}</h3> */}
-      //   </div>
-      // )
     });
   };
   return (

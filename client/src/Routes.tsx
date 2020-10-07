@@ -4,12 +4,18 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
+import SignUp from "./pages/Signup";
+import About from "./pages/About";
+import GoogleLogin from "./pages/GoogleAuth";
 
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
+    <Route exact path="/about" component={About} />
     <Route exact path="/products/" component={Products} />
     <Route exact path="/products/:id" component={Product} />
+    <Route exact path="/signup" component={SignUp} />
+    <Route exact path="/login" component={GoogleLogin} />
   </Switch>
 );
 

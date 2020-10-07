@@ -11,8 +11,8 @@ const initState: AppState = {
     allProducts: [],
     inCart: [],
   },
-  ui: {
-    dialogOpen: {},
+  user: {
+    user: {},
   },
 };
 

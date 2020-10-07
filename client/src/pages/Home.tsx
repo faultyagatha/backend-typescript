@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Product, AppState } from "../types";
 import { addProduct, removeProduct } from "../redux/actions";
 import Menu from "../components/Menu";
+import Products from "./Products";
 
 const names = ["Apple", "Orange", "Avocado", "Banana", "Cucumber", "Carrot"];
 
@@ -27,8 +28,9 @@ export default function Home() {
 
   return (
     <>
-      <h1>Home page</h1>
       <Menu />
+      <Products />
+      {/* <h1 className="text-center">Welcome to our shop</h1> */}
       {products.length <= 0 && <div>No products in cart</div>}
       <ul>
         {products.map((p) => (

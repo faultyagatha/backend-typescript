@@ -4,13 +4,9 @@ export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 
-export const TOGGLE_DIALOG = "TOGGLE_DIALOG";
-
-// Enum
-export enum DialogType {
-  SignIn = "signIn",
-  SignUp = "signUp",
-}
+export const SIGNUP = "SIGNUP";
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
 
 // A product
 export type Product = {
@@ -25,9 +21,7 @@ export type Product = {
 
 export type GetProductsAction = {
   type: typeof GET_PRODUCTS;
-  payload: {
-    allProducts: Product[];
-  };
+  payload: { allProducts: Product[] };
 };
 
 export type AddProductAction = {
@@ -40,15 +34,6 @@ export type RemoveProductAction = {
   payload: { product: Product };
 };
 
-export type ToggleDialogAction = {
-  type: typeof TOGGLE_DIALOG;
-  payload: {
-    dialog: DialogType;
-  };
-};
-
-export type UiActions = ToggleDialogAction;
-
 // Use this union in reducer
 export type ProductActions =
   | GetProductsAction
@@ -60,14 +45,53 @@ export type ProductState = {
   inCart: Product[];
 };
 
-// Using dynamic keys from an enum
-export type UiState = {
-  dialogOpen: {
-    [key in DialogType]?: boolean;
-  };
-};
-
 export type AppState = {
   product: ProductState;
-  ui: UiState;
+  user: UserState;
+};
+
+export type GoBackButton = {
+  handleGoBackClick: (event: any) => void;
+};
+
+export type User = {
+  id: string;
+  userName: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  firstName?: string;
+  lastName?: string;
+  role?: string;
+};
+
+export type LoggedInUser = {
+  id?: string;
+  userName?: string;
+  email?: string;
+  password?: string;
+  passwordConfirmation?: string;
+  firstName?: string;
+  lastName?: string;
+  role?: string;
+};
+
+export type LoginAction = {
+  type: typeof LOGIN;
+  payload: { user: LoggedInUser };
+};
+
+export type LogoutAction = {
+  type: typeof LOGOUT;
+};
+
+export type SignupAction = {
+  type: typeof SIGNUP;
+  payload: { user: User };
+};
+
+export type UserActions = LoginAction | LogoutAction | SignupAction;
+
+export type UserState = {
+  user: LoggedInUser;
 };
