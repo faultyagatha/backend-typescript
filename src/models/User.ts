@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import crypto from 'crypto'
 
 export type UserDocument = Document & {
+  googleId: string;
   userName: string;
   email: string;
   password: string;
@@ -24,6 +25,10 @@ export type UserDocument = Document & {
 };
 
 const userSchema = new mongoose.Schema<UserDocument>({
+  googleId: {
+    type: String,
+    unique: true
+  },
   userName: {
     type: String,
     index: true,

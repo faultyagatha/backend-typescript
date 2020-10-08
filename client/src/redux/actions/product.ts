@@ -10,6 +10,7 @@ import {
 import { getAllProducts } from "../../api";
 
 export function addProduct(product: Product): ProductActions {
+  console.log(product);
   return {
     type: ADD_PRODUCT,
     payload: { product },

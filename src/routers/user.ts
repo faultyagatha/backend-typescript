@@ -26,19 +26,27 @@ const router = express.Router()
 
 router.post(
   '/login/google',
-  passport.authenticate('google-id-token'),
-  // function (req, res) {
-  //   res.send(req.user ? 200 : 401).json()
-  // }
-  googleLogin
+  passport.authenticate('google-id-token', {
+    successRedirect: '/',
+    failureRedirect: '/',
+    failureFlash: true
+  }),
+  function (req, res) {
+    res.send(req.user ? 200 : 401).json()
+  }
+  // googleLogin
 )
+
+router.get('/login/google', passport.authenticate('google', {
+  scope: ['profile', 'email']
+}))
 
 router.post('/signup', signup)
 router.post('/login', login)
 
-router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
-  (req, res) => res.send(req.user))
+// router.get('/google/callback',
+//   passport.authenticate('google', { failureRedirect: '/' }),
+//   (req, res) => res.send(req.user))
 
 
 //KEEP THESE ROUTES ON TOP!!

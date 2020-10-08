@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import GoogleAuth from "../GoogleAuth";
+import CartButton from "../CartButton";
 
 const Menu = () => {
   return (
@@ -22,6 +23,9 @@ const Menu = () => {
           </Link>
           <Link to="/login">
           </Link> */}
+          <li className="nav-item">
+            <CartButton />
+          </li>
           <li className="nav-item">
             <GoogleAuth />
           </li>

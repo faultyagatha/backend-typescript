@@ -11,7 +11,6 @@ export const GOOGLE_LOGIN = "GOOGLE_LOGIN";
 
 // A product
 export type Product = {
-  id: string;
   name: string;
   imageCover: string;
   description: string;

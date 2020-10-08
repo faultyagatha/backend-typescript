@@ -3,8 +3,6 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { AppState } from "../types";
-// import { removeCountry } from '../redux/actions';
-// import CountryFlag from '../components/Flag';
 import BackButton from "../components/BackButton";
 import { removeProduct } from "../redux/actions";
 

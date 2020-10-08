@@ -7,6 +7,7 @@ import Products from "./pages/Products";
 import SignUp from "./pages/Signup";
 import About from "./pages/About";
 import GoogleLogin from "./pages/GoogleAuth";
+import Cart from "./pages/Cart";
 
 const Routes = () => (
   <Switch>
@@ -16,6 +17,7 @@ const Routes = () => (
     <Route exact path="/products/:id" component={Product} />
     <Route exact path="/signup" component={SignUp} />
     <Route exact path="/login" component={GoogleLogin} />
+    <Route exact path="/cart" component={Cart} />
   </Switch>
 );
 

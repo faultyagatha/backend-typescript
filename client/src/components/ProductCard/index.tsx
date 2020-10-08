@@ -8,7 +8,6 @@ import AddToCartButton from "../AddToCartButton";
 const style = { width: "30%", marginBottom: "20px" };
 
 const ProductCard = ({
-  id,
   name,
   imageCover,
   duration,
@@ -23,7 +22,6 @@ const ProductCard = ({
   const handleClick = () => {
     dispatch(
       addProduct({
-        id,
         name,
         imageCover,
         description,

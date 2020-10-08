@@ -5,10 +5,10 @@ import { useSelector } from "react-redux";
 import { AppState } from "../types";
 
 export default function Product() {
-  const { id } = useParams();
+  const { name } = useParams();
 
   const product = useSelector((state: AppState) =>
-    state.product.inCart.find((p) => p.id === id)
+    state.product.inCart.find((p) => p.name === name)
   );
 
   if (!product) {
