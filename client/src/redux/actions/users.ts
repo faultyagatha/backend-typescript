@@ -3,24 +3,30 @@ import { Dispatch } from "redux";
 import {
   LOGIN,
   SIGNUP,
+  GOOGLE_LOGIN,
   UserActions,
   User,
-  LoggedInUser,
+  CurrUser,
   LOGOUT,
 } from "../../types";
-import { signUpReq, logInReq } from "../../services";
+import { signUpReq, logInReq, loginGoogleReq } from "../../api";
 
-function login(data: LoggedInUser): UserActions {
+function login(data: CurrUser): UserActions {
   return {
     type: LOGIN,
     payload: { user: data },
   };
 }
 
-function logout(): UserActions {
+export function googleLogin(data: CurrUser): UserActions {
   return {
-    type: LOGOUT,
+    type: GOOGLE_LOGIN,
+    payload: { user: data },
   };
+}
+
+function logout(): UserActions {
+  return { type: LOGOUT };
 }
 
 function signUp(data: User): UserActions {
@@ -43,5 +49,12 @@ export function loginUser(): any {
     const { data } = await logInReq();
     console.log(data);
     return dispatch(login(data));
+  };
+}
+
+export function loginWithGoogle(res: any): any {
+  return async (dispatch: Dispatch) => {
+    const { data } = await loginGoogleReq();
+    return dispatch(googleLogin(data));
   };
 }

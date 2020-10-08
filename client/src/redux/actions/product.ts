@@ -7,7 +7,7 @@ import {
   ProductActions,
   Product,
 } from "../../types";
-import { getAllProducts } from "../../services";
+import { getAllProducts } from "../../api";
 
 export function addProduct(product: Product): ProductActions {
   return {

@@ -45,19 +45,20 @@ mongoose
 app.set('port', process.env.PORT || 5000)
 
 // Use common 3rd-party middlewares
-app.use(passport.initialize())
-app.use(passport.session())
 app.use(cors())
 app.use(compression())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(lusca.xframe('SAMEORIGIN'))
 app.use(lusca.xssProtection(true))
+app.use(passport.initialize())
+app.use(passport.session())
 
 // Use routers
 app.use('/api/v1/movies', movieRouter)
 app.use('/api/v1/products', productRouter)
 app.use('/api/v1/users', userRouter)
+
 
 // Custom API error handler
 app.use(apiErrorHandler)

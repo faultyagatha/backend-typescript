@@ -47,13 +47,18 @@ const createSendToken = (
   res.cookie('jwt', token, cookieOptions)
 
   // Remove password from output
-  user.password = 'undefined' //I don't know if it's a good idea
+  const { userName, email, products, firstName, lastName, role } = user
   res.status(statusCode).json({
     status: 'success',
     token,
     data: {
-      user,
-    },
+      userName,
+      email,
+      products,
+      firstName,
+      lastName,
+      role
+    }
   })
 }
 
@@ -112,48 +117,36 @@ export const login = async (
 
     //2). Check is user exists & the password is correct
     const user = await User.findOne({ email }).select('+password')
-    if (!user) {
-      return next(new NotFoundError('Email not found'))
-    }
-    if (!user.isCorrectPassword(password, user.password)) {
-      return next(new BadRequestError('Passwords do not match'))
+    if (!user || !user.isCorrectPassword(password, user.password)) {
+      return next(new BadRequestError('Invalid login data'))
     }
 
     //3). If successful send token to a client
     createSendToken(user, 200, res)
+
   } catch (err) {
     new BadRequestError('User is not found')
   }
 }
 
+//POST/ users/login/google
 export const googleLogin = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { email, password } = req.body
-    //1). Check if email & password exist
-    if (!email || !password) {
+    const user = req.body
+    console.log(user)
+    //1). Check if there is a response
+    if (!user) {
       return next(new BadRequestError('Please provide email and password'))
     }
-
-    //2). Check is user exists & the password is correct
-    const user = await User.findOne({ email }).select('+password')
-    console.log(user)
-    if (!user) {
-      return next(new NotFoundError('Email not found'))
-    }
-    if (!user.isCorrectPassword(password, user.password)) {
-      return next(new BadRequestError('Passwords do not match'))
-    }
-
     //3). If successful send token to a client
     createSendToken(user, 200, res)
   } catch (err) {
     new BadRequestError('User is not found')
   }
-
 }
 
 //PATCH/ users/forgotPassword

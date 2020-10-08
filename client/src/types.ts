@@ -7,6 +7,7 @@ export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+export const GOOGLE_LOGIN = "GOOGLE_LOGIN";
 
 // A product
 export type Product = {
@@ -65,7 +66,7 @@ export type User = {
   role?: string;
 };
 
-export type LoggedInUser = {
+export type CurrUser = {
   id?: string;
   userName?: string;
   email?: string;
@@ -78,11 +79,16 @@ export type LoggedInUser = {
 
 export type LoginAction = {
   type: typeof LOGIN;
-  payload: { user: LoggedInUser };
+  payload: { user: CurrUser };
 };
 
 export type LogoutAction = {
   type: typeof LOGOUT;
+};
+
+export type GoogleLoginAction = {
+  type: typeof GOOGLE_LOGIN;
+  payload: { user: CurrUser };
 };
 
 export type SignupAction = {
@@ -90,8 +96,12 @@ export type SignupAction = {
   payload: { user: User };
 };
 
-export type UserActions = LoginAction | LogoutAction | SignupAction;
+export type UserActions =
+  | LoginAction
+  | LogoutAction
+  | SignupAction
+  | GoogleLoginAction;
 
 export type UserState = {
-  user: LoggedInUser;
+  user: CurrUser;
 };
