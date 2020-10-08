@@ -14,42 +14,31 @@ const Cart = () => {
   return (
     <>
       <BackButton handleGoBackClick={() => history.goBack()} />
-      <div className="ui two column stackable center aligned grid">
-        <div className="middle aligned row">
-          <div className="column">
-            <h1>{`You have ${productsInCart.length} items in your cart`}</h1>
-          </div>
-          <br />
-          <br />
-          <br />
-          <br />
-        </div>
-      </div>
+      <h3 className="text-center">
+        {`You have ${productsInCart.length} items in your cart`}
+        <span> {`Total: ${productsInCart.length}€`}</span>
+      </h3>
       <div className="cart">
         {productsInCart.map((product) => {
           return (
-            <div className="ui two column centered grid" key={product.name}>
-              <div className="column">
-                <div className="ui massive middle aligned animated list">
-                  <div className="item">
-                    {/* <CountryFlag url={country.flag} country={country.name} /> */}
-                    <div className="content">
-                      <div className="header">{product.name}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="column">
-                <div className="btn-col">
-                  <span>
-                    <button
-                      className="ui teal basic button"
-                      onClick={() => dispatch(removeProduct(product))}
-                    >
-                      Cancel
-                    </button>
-                  </span>
-                </div>
+            <div className="card rounded" key={product.name}>
+              <p className="card-img-top">{product.imageCover}</p>
+              <div className="card-body text-center">
+                <h5 className="card-title">{product.name}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">
+                  {product.description}
+                </h6>
+                <p className="card-text">{`Duration: ${product.duration} hours`}</p>
+                <p>{`Difficulty: ${product.difficulty}`}</p>
+                <p>{`Price: ${product.price}€`}</p>
+                <p>
+                  <button
+                    className="ui teal basic button"
+                    onClick={() => dispatch(removeProduct(product))}
+                  >
+                    Cancel
+                  </button>
+                </p>
               </div>
             </div>
           );

@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { AppState } from "../types";
@@ -23,6 +22,7 @@ export default function Products() {
     return allProducts.map((product) => {
       return (
         <ProductCard
+          // key={product.id}
           key={product.name}
           name={product.name}
           imageCover={product.imageCover}

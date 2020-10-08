@@ -1,5 +1,6 @@
 // Action types
 export const GET_PRODUCTS = "GET_PRODUCTS";
+export const GET_PRODUCT = "GET_PRODUCT";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
@@ -11,6 +12,7 @@ export const GOOGLE_LOGIN = "GOOGLE_LOGIN";
 
 // A product
 export type Product = {
+  id?: string;
   name: string;
   imageCover: string;
   description: string;
@@ -22,6 +24,11 @@ export type Product = {
 export type GetProductsAction = {
   type: typeof GET_PRODUCTS;
   payload: { allProducts: Product[] };
+};
+
+export type GetProductAction = {
+  type: typeof GET_PRODUCT;
+  payload: { product: Product };
 };
 
 export type AddProductAction = {
@@ -37,6 +44,7 @@ export type RemoveProductAction = {
 // Use this union in reducer
 export type ProductActions =
   | GetProductsAction
+  | GetProductAction
   | AddProductAction
   | RemoveProductAction;
 
