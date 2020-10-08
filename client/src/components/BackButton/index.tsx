@@ -1,8 +1,8 @@
 import React from "react";
 
-import { GoBackButton } from "../../types";
+import { GoBackBtn } from "../../types";
 
-const BackButton = ({ handleGoBackClick }: GoBackButton) => {
+const GoBackButton = ({ handleGoBackClick }: GoBackBtn) => {
   return (
     <button className="btn btn-primary" onClick={handleGoBackClick}>
       <svg
@@ -22,4 +22,4 @@ const BackButton = ({ handleGoBackClick }: GoBackButton) => {
   );
 };
 
-export default BackButton;
+export default GoBackButton;

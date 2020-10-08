@@ -12,18 +12,14 @@ import { getAllProducts } from "../../api";
 export function addProduct(product: Product): ProductActions {
   return {
     type: ADD_PRODUCT,
-    payload: {
-      product,
-    },
+    payload: { product },
   };
 }
 
 export function removeProduct(product: Product): ProductActions {
   return {
     type: REMOVE_PRODUCT,
-    payload: {
-      product,
-    },
+    payload: { product },
   };
 }
 

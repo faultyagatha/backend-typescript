@@ -1,11 +1,14 @@
 import React from "react";
-import { Product } from "../../types";
+import { useDispatch, useSelector } from "react-redux";
 
-import CartButton from "../CartButton";
+import { addProduct } from "../../redux/actions";
+import { Product, AppState } from "../../types";
+import AddToCartButton from "../AddToCartButton";
 
 const style = { width: "30%", marginBottom: "20px" };
 
 const ProductCard = ({
+  id,
   name,
   imageCover,
   duration,
@@ -13,6 +16,26 @@ const ProductCard = ({
   difficulty,
   price,
 }: Product) => {
+  const dispatch = useDispatch();
+
+  const { inCart } = useSelector((state: AppState) => state.product);
+
+  const handleClick = () => {
+    dispatch(
+      addProduct({
+        id,
+        name,
+        imageCover,
+        description,
+        difficulty,
+        duration,
+        price,
+      })
+    );
+  };
+
+  let isDisabled: boolean = inCart.find((c) => c.name === name) ? true : false;
+
   return (
     <div className="card" style={style} key={name}>
       <p className="card-img-top">{imageCover}</p>
@@ -23,7 +46,7 @@ const ProductCard = ({
         <p>{difficulty}</p>
         <p>{price}</p>
         <p>
-          <CartButton />
+          <AddToCartButton handleClick={handleClick} isDisabled={isDisabled} />
         </p>
       </div>
     </div>

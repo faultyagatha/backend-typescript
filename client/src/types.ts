@@ -51,8 +51,13 @@ export type AppState = {
   user: UserState;
 };
 
-export type GoBackButton = {
+export type GoBackBtn = {
   handleGoBackClick: (event: any) => void;
+};
+
+export type AddToCartBtn = {
+  handleClick: (event: any) => void;
+  isDisabled: boolean;
 };
 
 export type User = {
