@@ -2,7 +2,6 @@ import {
   ProductState,
   ProductActions,
   GET_PRODUCTS,
-  GET_PRODUCT,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
 } from "../../types";
@@ -18,11 +17,6 @@ export default function product(
     case GET_PRODUCTS: {
       const { allProducts } = action.payload;
       return { ...state, allProducts: allProducts };
-    }
-    case GET_PRODUCT: {
-      const { product } = action.payload;
-      console.log(product);
-      return { ...state };
     }
     case ADD_PRODUCT: {
       const { product } = action.payload;

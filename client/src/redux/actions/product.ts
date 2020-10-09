@@ -33,7 +33,6 @@ function getProducts(data: Product[]): ProductActions {
 }
 
 function getProduct(product: Product): ProductActions {
-  console.log(product);
   return {
     type: GET_PRODUCT,
     payload: { product },
@@ -49,10 +48,36 @@ export function fetchProducts(): any {
   };
 }
 
-export function fetchProduct(productId: string) {
-  return async (dispatch: Dispatch) => {
-    const { data } = await getProductById(productId);
-    console.log(data);
-    dispatch(getProduct(data));
-  };
-}
+// export function fetchProduct(productId: string) {
+//   return (dispatch: Dispatch) => {
+//     return fetch(`products/${productId}`)
+//       .then((resp) => resp.json())
+//       .then((product) => {
+//         dispatch(addProduct(product));
+//       });
+//   };
+// }
+
+// function getProduct(product: Product): ProductActions {
+//   return {
+//     type: GET_PRODUCT,
+//     payload: { product }
+//   }
+// }
+
+/** Async actions processed by redux-thunk middleware */
+// export function fetchProducts(): any {
+//   return async (dispatch: Dispatch) => {
+//     const { data } = await getAllProducts();
+//     console.log(data);
+//     return dispatch(getProducts(data));
+//   };
+// }
+
+// export function fetchProduct(productId: string) {
+//   return async (dispatch: Dispatch) => {
+//     const { data } = await getProductById(productId)
+//     console.log(data)
+//     dispatch(getProduct(data));
+//   }
+// }

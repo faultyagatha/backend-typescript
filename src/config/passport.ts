@@ -11,15 +11,15 @@ const GOOGLE_CLIENT_ID = '66461290434-jd6st0fq3gulg1rpi1dchp9ll42hnsl5.apps.goog
 const GOOGLE_CLIENT_SECRET = '-ozQ0WGNLiVy72cdzh_mnlUk'
 const GoogleStrategy = passportGoogle.OAuth2Strategy
 
-passport.serializeUser<any, any>((user, done) => {
-  done(null, user.id)
-})
+// passport.serializeUser<any, any>((user, done) => {
+//   done(null, user.id)
+// })
 
-passport.deserializeUser((id, done) => {
-  User.findById(id).then(user => {
-    done(null, user)
-  })
-})
+// passport.deserializeUser((id, done) => {
+//   User.findById(id).then(user => {
+//     done(null, user)
+//   })
+// })
 
 passport.use(new GoogleStrategy(
   {
