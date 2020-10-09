@@ -7,6 +7,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import makeStore from "./redux/store";
 import "./index.css";
+import "./bootstrap.min.css";
 
 const store = makeStore();
 

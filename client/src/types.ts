@@ -77,7 +77,7 @@ export type User = {
   role?: string;
 };
 
-export type CurrUser = {
+export type CurrentUser = {
   id?: string;
   email?: string;
   password?: string;
@@ -89,7 +89,7 @@ export type CurrUser = {
 
 export type LoginAction = {
   type: typeof LOGIN;
-  payload: { user: CurrUser };
+  payload: { user: CurrentUser };
 };
 
 export type LogoutAction = {
@@ -98,7 +98,7 @@ export type LogoutAction = {
 
 export type GoogleLoginAction = {
   type: typeof GOOGLE_LOGIN;
-  payload: { user: CurrUser };
+  payload: { user: CurrentUser };
 };
 
 export type SignupAction = {
@@ -113,5 +113,5 @@ export type UserActions =
   | GoogleLoginAction;
 
 export type UserState = {
-  user: CurrUser;
+  user: CurrentUser;
 };

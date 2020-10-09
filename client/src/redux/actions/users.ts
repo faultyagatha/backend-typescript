@@ -6,19 +6,19 @@ import {
   GOOGLE_LOGIN,
   UserActions,
   User,
-  CurrUser,
+  CurrentUser,
   LOGOUT,
 } from "../../types";
 import { signUpReq, logInReq, loginGoogleReq } from "../../api";
 
-function login(data: CurrUser): UserActions {
+function login(data: CurrentUser): UserActions {
   return {
     type: LOGIN,
     payload: { user: data },
   };
 }
 
-export function googleLogin(data: CurrUser): UserActions {
+export function googleLogin(data: CurrentUser): UserActions {
   return {
     type: GOOGLE_LOGIN,
     payload: { user: data },

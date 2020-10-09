@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Row, Col, Card } from "react-bootstrap";
 
 import { addProduct } from "../../redux/actions";
 import { Product, AppState } from "../../types";
@@ -18,7 +19,6 @@ const ProductCard = ({
   price,
 }: Product) => {
   const dispatch = useDispatch();
-
   const { inCart } = useSelector((state: AppState) => state.product);
 
   const handleClick = () => {
@@ -38,21 +38,33 @@ const ProductCard = ({
   let isDisabled: boolean = inCart.find((c) => c.name === name) ? true : false;
 
   return (
-    <div className="card rounded" style={style} key={name}>
-      <p className="card-img-top">{imageCover}</p>
-      <div className="card-body text-center">
+    <Card className="my-3 p-3 rounded" key={name}>
+      <Card.Img src={imageCover} variant="top" />
+      <Card.Body>
         <Link to={`products/${name.toLowerCase()}`}>
-          <h5 className="card-title">{name}</h5>
+          <Card.Title as="div">
+            <strong>{name}</strong>
+          </Card.Title>
         </Link>
-        <h6 className="card-subtitle mb-2 text-muted">{description}</h6>
-        <p className="card-text">{`Duration: ${duration} hours`}</p>
-        <p>{`Difficulty: ${difficulty}`}</p>
-        <p>{`Price: ${price}€`}</p>
-        <p>
-          <AddToCartButton handleClick={handleClick} isDisabled={isDisabled} />
-        </p>
-      </div>
-    </div>
+        <Card.Text as="div">
+          <div className="my-3">{description}</div>
+        </Card.Text>
+        <Card.Text as="div">
+          <div className="my-3">{`Duration: ${duration} hours`}</div>
+        </Card.Text>
+        <Card.Text as="div">
+          <div className="my-3">{`Difficulty: ${difficulty}`}</div>
+        </Card.Text>
+        <Card.Text as="h3">{`Price: ${price}€`}</Card.Text>
+        {/* <button
+                    className="ui teal basic button"
+                    onClick={() => dispatch(removeProduct(product))}
+                  >
+                    Cancel
+                  </button> */}
+        <AddToCartButton handleClick={handleClick} isDisabled={isDisabled} />
+      </Card.Body>
+    </Card>
   );
 };
 

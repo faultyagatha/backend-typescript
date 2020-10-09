@@ -1,0 +1,34 @@
+[
+  {
+    "email": "valeria.barvinska@integrify.io",
+    "password": "xxxx",
+    "passwordConfirm": "xxxx",
+    "firstName": "Admin User",
+    "lastName": "",
+    "role": "admin"
+  },
+  {
+    "email": "martina@test.io",
+    "password": "xxxx",
+    "passwordConfirm": "xxxx",
+    "firstName": "Martina",
+    "lastName": "",
+    "role": "user"
+  },
+  {
+    "email": "kora@test.io",
+    "password": "xxxx",
+    "passwordConfirm": "xxxx",
+    "firstName": "Kora",
+    "lastName": "",
+    "role": "user"
+  },
+  {
+    "email": "sam@test.io",
+    "password": "xxxx",
+    "passwordConfirm": "xxxx",
+    "firstName": "Sam",
+    "lastName": "",
+    "role": "user"
+  }
+]

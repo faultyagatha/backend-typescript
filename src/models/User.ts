@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema<UserDocument>({
   password: {
     type: String,
     required: [true, 'Please provide your password'],
-    minlength: 8,
+    minlength: 3, // TODO: change for deployment (now it's for testing) 
     select: false, //never show a password in the output
   },
   passwordConfirm: {

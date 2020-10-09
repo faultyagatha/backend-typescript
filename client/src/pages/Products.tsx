@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Row, Col } from "react-bootstrap";
 
 import { AppState } from "../types";
 import { useProducts } from "../hooks";
@@ -21,25 +22,42 @@ export default function Products() {
   const renderProducts = () => {
     return allProducts.map((product) => {
       return (
-        <ProductCard
-          // key={product.id}
-          key={product.name}
-          name={product.name}
-          imageCover={product.imageCover}
-          description={product.description}
-          duration={product.duration}
-          difficulty={product.difficulty}
-          price={product.price}
-        />
+        <Col sm={12} md={6} lg={4} xl={3}>
+          <ProductCard
+            // key={product.id}
+            key={product.name}
+            name={product.name}
+            imageCover={product.imageCover}
+            description={product.description}
+            duration={product.duration}
+            difficulty={product.difficulty}
+            price={product.price}
+          />
+        </Col>
       );
     });
   };
   return (
     <>
       <h1 className="text-center">In Store</h1>
-      <div className="d-flex flex-row flex-wrap justify-content-between">
+      <Row>
         {renderProducts()}
-      </div>
+        {/* {allProducts.map((product) => (
+          <Col sm={12} md={6} lg={4} xl={3}>
+            <ProductCard
+              // key={product.id}
+              key={product.name}
+              name={product.name}
+              imageCover={product.imageCover}
+              description={product.description}
+              duration={product.duration}
+              difficulty={product.difficulty}
+              price={product.price}
+            />
+          </Col>
+        )
+        )}; */}
+      </Row>
     </>
   );
 }
