@@ -15,13 +15,12 @@ const GoogleAuth = () => {
     console.log("from google: ", response);
     //dispatch(loginWithGoogle(response))
     try {
-      // let res = await axios.post(`${rootURL}/login/google`);
-      // {
-      //   id_token: response.tokenObj.id_token,
-      // });
+      const res = await axios.post(`${rootURL}/login/google`, {
+        id_token: response.tokenId,
+      });
       console.log("trying to login");
-      // dispatch(googleLogin(res.data));
-      // localStorage.setItem("token", res.data.token);
+      dispatch(googleLogin(res.data));
+      //localStorage.setItem("token", res.data.token);
     } catch (err) {
       console.log("client axios error: ", err);
     }

@@ -8,8 +8,8 @@ import UserService from '../services/user'
 import { BadRequestError } from '../helpers/apiError'
 
 const GOOGLE_CLIENT_ID = '66461290434-jd6st0fq3gulg1rpi1dchp9ll42hnsl5.apps.googleusercontent.com'
-const GOOGLE_CLIENT_SECRET = '-ozQ0WGNLiVy72cdzh_mnlUk'
-const GoogleStrategy = passportGoogle.OAuth2Strategy
+// const GOOGLE_CLIENT_SECRET = '-ozQ0WGNLiVy72cdzh_mnlUk'
+// const GoogleStrategy = passportGoogle.OAuth2Strategy
 
 // passport.serializeUser<any, any>((user, done) => {
 //   done(null, user.id)
@@ -21,27 +21,27 @@ const GoogleStrategy = passportGoogle.OAuth2Strategy
 //   })
 // })
 
-passport.use(new GoogleStrategy(
-  {
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: '/login/google/redirect'
-  }, (accessToken, refreshToken, profile, done) => {
-    User.findOne({ googleId: profile.id }).then(currentUser => {
-      if (currentUser) {
-        //if we already have a record with the given profile ID
-        done(null, currentUser)
-      } else {
-        //if not, create a new user 
-        new User({
-          googleId: profile.id,
-        }).save().then((newUser) => {
-          done(null, newUser)
-        })
-      }
-    })
-  }
-))
+// passport.use(new GoogleStrategy(
+//   {
+//     clientID: GOOGLE_CLIENT_ID,
+//     clientSecret: GOOGLE_CLIENT_SECRET,
+//     callbackURL: '/login/google/redirect'
+//   }, (accessToken, refreshToken, profile, done) => {
+//     User.findOne({ googleId: profile.id }).then(currentUser => {
+//       if (currentUser) {
+//         //if we already have a record with the given profile ID
+//         done(null, currentUser)
+//       } else {
+//         //if not, create a new user 
+//         new User({
+//           googleId: profile.id,
+//         }).save().then((newUser) => {
+//           done(null, newUser)
+//         })
+//       }
+//     })
+//   }
+// ))
 
 //determines which data of the user object should be stored in the session
 //result is attached to the session as req.session.passport.user = {}.
@@ -87,12 +87,12 @@ passport.use(new GoogleStrategy(
 //   }
 // ))
 
-// passport.use(new GoogleTokenStrategy({
-//   clientID: GOOGLE_CLIENT_ID
-// },
-//   function (parsedToken: any, googleId: string, done: any) {
-//     User.findById({ id: googleId }, function (err, user) {
-//       return done(err, user)
-//     })
-//   }
-// ))
+passport.use(new GoogleTokenStrategy({
+  clientID: GOOGLE_CLIENT_ID
+},
+  function (parsedToken: any, googleId: string, done: any) {
+    User.findById({ id: googleId }, function (err, user) {
+      return done(err, user)
+    })
+  }
+))

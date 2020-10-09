@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 
 import { loginUser } from "../../redux/actions";
-import { response } from "express";
+import { useApiRequest } from "../../hooks";
 
 //TODO: refactor and add fill property on each of the fields for errors <input fill='' >
 const SignUpForm = () => {
@@ -11,28 +11,39 @@ const SignUpForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-  const [errors, setErrors] = useState<any[]>([]);
+  // const [errors, setErrors] = useState<any[]>([]);
+  const { doRequest, errors } = useApiRequest({
+    url: "http://localhost:5000/api/v1/users/signup",
+    method: "post",
+    body: {
+      userName,
+      email,
+      password,
+      passwordConfirm,
+    },
+  });
   const dispatch = useDispatch();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     // dispatch(signinUser());
     // console.log(loginUser);
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/users/signup",
-        {
-          userName,
-          email,
-          password,
-          passwordConfirm,
-        }
-      );
-      console.log(response);
-    } catch (err) {
-      console.log(errors);
-      setErrors(err.response.data.errors);
-    }
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:5000/api/v1/users/signup",
+    //     {
+    //       userName,
+    //       email,
+    //       password,
+    //       passwordConfirm,
+    //     }
+    //   );
+    //   console.log(response);
+    // } catch (err) {
+    //   console.log(errors);
+    //   setErrors(err.response.data.errors);
+    // }
+    doRequest();
   };
   return (
     <div>
@@ -69,7 +80,7 @@ const SignUpForm = () => {
             onChange={(e) => setPasswordConfirm(e.target.value)}
           />
         </div>
-        {errors.length > 0 && (
+        {/* {errors.length > 0 && (
           <div className="alert alert-danger">
             <h4> Oopsy... </h4>
             <ul className="my-0">
@@ -78,7 +89,8 @@ const SignUpForm = () => {
               ))}
             </ul>
           </div>
-        )}
+        )} */}
+        {errors}
         <button type="submit" className="btn btn-primary">
           Sign Up
         </button>
