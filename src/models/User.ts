@@ -5,7 +5,6 @@ import crypto from 'crypto'
 
 export type UserDocument = Document & {
   googleId: string;
-  userName: string;
   email: string;
   password: string;
   passwordConfirm: string | undefined;
@@ -28,12 +27,6 @@ const userSchema = new mongoose.Schema<UserDocument>({
   googleId: {
     type: String,
     unique: true
-  },
-  userName: {
-    type: String,
-    index: true,
-    required: [true, 'Please provide your name'],
-    unique: true,
   },
   email: {
     type: String,

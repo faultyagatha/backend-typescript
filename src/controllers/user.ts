@@ -92,9 +92,8 @@ export const updateMyAccount = async (
     )
   }
   // 2) Leave only fields that are allowed to be updated
-  const { userName, firstName, lastName, email, products } = req.body
+  const { firstName, lastName, email, products } = req.body
   const allowedToUpdate = {
-    userName,
     firstName,
     lastName,
     email,

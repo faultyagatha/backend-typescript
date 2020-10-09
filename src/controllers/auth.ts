@@ -47,12 +47,11 @@ const createSendToken = (
   res.cookie('jwt', token, cookieOptions)
 
   // Remove password from output
-  const { userName, email, products, firstName, lastName, role } = user
+  const { email, products, firstName, lastName, role } = user
   res.status(statusCode).json({
     status: 'success',
     token,
     data: {
-      userName,
       email,
       products,
       firstName,
@@ -70,21 +69,15 @@ export const signup = async (
   next: NextFunction
 ) => {
   try {
-    const { userName, email, password, passwordConfirm } = req.body
+    const { email, password, passwordConfirm } = req.body
     const user: UserDocument = new User({
-      userName,
       email,
       password,
       passwordConfirm,
     })
 
-    const userExists = await User.findOne({ userName })
+    const userExists = await User.findOne({ email })
     if (userExists) {
-      return res.status(409).json({ message: 'Username already in use' })
-    }
-
-    const emailExists = await User.findOne({ email })
-    if (emailExists) {
       return res.status(409).json({ message: 'Email already in use' })
     }
 

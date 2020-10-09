@@ -69,7 +69,6 @@ export type AddToCartBtn = {
 
 export type User = {
   id: string;
-  userName: string;
   email: string;
   password: string;
   passwordConfirmation: string;
@@ -80,7 +79,6 @@ export type User = {
 
 export type CurrUser = {
   id?: string;
-  userName?: string;
   email?: string;
   password?: string;
   passwordConfirmation?: string;

@@ -16,14 +16,16 @@ const Login = () => {
     <div>
       <form className="navbar-form navbar-center" onSubmit={handleSubmit}>
         <div className="form-group">
-          {/* <label>Email</label> */}
-          <input className="form-control" placeholder="Email" />
-          {/* <label>Password</label> */}
-          <input className="form-control" placeholder="Password" />
-          <button type="submit" className="btn btn-default">
-            Login
-          </button>
+          <label>Email</label>
+          <input className="form-control" />
         </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input className="form-control" />
+        </div>
+        <button type="submit" className="btn btn-default">
+          Login
+        </button>
       </form>
     </div>
   );
