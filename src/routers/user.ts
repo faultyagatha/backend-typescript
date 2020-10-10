@@ -28,9 +28,9 @@ router.post(
   '/login/google',
   passport.authenticate('google-id-token', {
     session: false,
-    successRedirect: '/',
-    failureRedirect: '/',
-    failureFlash: true
+    // successRedirect: '/',
+    // failureRedirect: '/',
+    // failureFlash: true
   }),
   function (req, res) {
     res.send(req.user ? 200 : 401).json()

@@ -1,14 +1,16 @@
 import { Dispatch } from "redux";
+import axios from "axios";
 
 import {
   GET_PRODUCTS,
-  GET_PRODUCT,
+  // GET_PRODUCT,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
   ProductActions,
   Product,
 } from "../../types";
-import { getAllProducts, getProductById } from "../../api";
+
+const baseURL = "http://localhost:5000/api/v1/products";
 
 export function addProduct(product: Product): ProductActions {
   console.log(product);
@@ -32,17 +34,17 @@ function getProducts(data: Product[]): ProductActions {
   };
 }
 
-function getProduct(product: Product): ProductActions {
-  return {
-    type: GET_PRODUCT,
-    payload: { product },
-  };
-}
+// function getProduct(product: Product): ProductActions {
+//   return {
+//     type: GET_PRODUCT,
+//     payload: { product },
+//   };
+// }
 
 /** Async actions processed by redux-thunk middleware */
 export function fetchProducts(): any {
   return async (dispatch: Dispatch) => {
-    const { data } = await getAllProducts();
+    const { data } = await axios.get(baseURL);
     console.log(data);
     return dispatch(getProducts(data));
   };

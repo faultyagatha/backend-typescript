@@ -110,7 +110,7 @@ export const login = async (
 
     //2). Check is user exists & the password is correct
     const user = await User.findOne({ email }).select('+password')
-    if (!user || !user.isCorrectPassword(password, user.password)) {
+    if (!user || !user.isCorrectPassword(password)) {
       return next(new BadRequestError('Invalid login data'))
     }
 
@@ -136,6 +136,7 @@ export const googleLogin = async (
       return next(new BadRequestError('Please provide email and password'))
     }
     //3). If successful send token to a client
+    // res.send(user)
     createSendToken(user, 200, res)
   } catch (err) {
     new BadRequestError('User is not found')
@@ -237,7 +238,7 @@ export const updatePassword = async (
       return next(new NotFoundError('Please login to update your password'))
     }
     // 2). Check if the POSTed password is correct (security matters)
-    if (!user.isCorrectPassword(passwordCurrent, user.password)) {
+    if (!user.isCorrectPassword(passwordCurrent)) {
       return next(new UnauthorizedError('Your current password is wrong.'))
     }
     // 3). Update the password

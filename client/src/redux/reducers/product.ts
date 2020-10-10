@@ -9,6 +9,7 @@ import {
 export default function product(
   state: ProductState = {
     allProducts: [],
+    error: null,
     inCart: [],
   },
   action: ProductActions

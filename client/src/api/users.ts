@@ -12,7 +12,12 @@ export const signUpReq = async () => {
 
 //TODO
 export const logInReq = async () => {
-  return await axios.post(`${rootURL}/login`);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  return await axios.post(`${rootURL}/login`, config);
 };
 
 export const loginGoogleReq = async () => {

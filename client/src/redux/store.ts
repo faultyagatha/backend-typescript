@@ -9,10 +9,16 @@ import rootSaga from "./sagas";
 const initState: AppState = {
   product: {
     allProducts: [],
+    error: null,
     inCart: [],
   },
   user: {
-    user: {},
+    user: {
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+    },
+    error: null,
   },
 };
 
