@@ -9,7 +9,7 @@ type Message = ({
   children: any;
 }) => JSX.Element;
 
-const Message: Message = ({ variant, children }) => {
+const Message: Message = ({ variant = "info", children }) => {
   return <Alert variant={variant}>{children}</Alert>;
 };
 

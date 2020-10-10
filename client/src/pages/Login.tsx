@@ -18,15 +18,15 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPasword] = useState("");
 
-  useEffect(() => {
-    if (user) {
-      history.push("/");
-    }
-  }, [history, user]);
+  // useEffect(() => {
+  //   if (user.email) {
+  //     history.push("/");
+  //   }
+  // }, [history, user]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(loginUser);
+    dispatch(loginUser(email, password));
   };
 
   const handleEmailChange = (e: any) => {

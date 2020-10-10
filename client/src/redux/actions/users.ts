@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import axios from "axios";
 
 import {
   LOGIN_REQ,
@@ -12,6 +13,8 @@ import {
   User,
 } from "../../types";
 import { signUpReq, logInReq, loginGoogleReq } from "../../api";
+
+const rootURL = "http://localhost:5000/api/v1/users";
 
 function login(data: User): UserActions {
   return {
@@ -41,41 +44,65 @@ function signUp(data: User): UserActions {
 function loginFail(data: any): UserActions {
   return {
     type: LOGIN_FAIL,
-    payload: { error: data },
+    payload:
+      data.response && data.response.data.message
+        ? data.response.data.message
+        : data.message,
   };
 }
 
 export function googleLoginFail(data: any): UserActions {
   return {
     type: GOOGLE_LOGIN_REQ,
-    payload: { error: data },
+    payload:
+      data.response && data.response.data.message
+        ? data.response.data.message
+        : data.message,
   };
 }
 
 function signUpFail(data: any): UserActions {
   return {
     type: SIGNUP_FAIL,
-    payload: { error: data },
+    payload:
+      data.response && data.response.data.message
+        ? data.response.data.message
+        : data.message,
   };
 }
 
 export function signUpUser(): any {
   return async (dispatch: Dispatch) => {
     try {
-      const { data } = await signUpReq();
-      console.log(data);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axios.post(`${rootURL}/signup`, config);
+      console.log("axios req: ", data);
       localStorage.setItem("user", JSON.stringify(data));
       return dispatch(signUp(data));
     } catch (err) {
+      console.log("error action: ", err);
       return dispatch(signUpFail(err));
     }
   };
 }
 
-export function loginUser(): any {
+export function loginUser(email: string, password: string): any {
   return async (dispatch: Dispatch) => {
     try {
-      const { data } = await logInReq();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        `${rootURL}/login`,
+        { email, password },
+        config
+      );
       console.log(data);
       localStorage.setItem("user", JSON.stringify(data));
       return dispatch(login(data));

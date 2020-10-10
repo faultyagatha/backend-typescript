@@ -9,28 +9,28 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import GoogleAuth from "../components/GoogleAuth";
 import FormContainer from "../components/Form";
+import SignUpForm from "../components/SignUp";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const { user, error } = useSelector((state: AppState) => state.user);
   const history = useHistory();
   const [email, setEmail] = useState("");
-  const [password, setPasword] = useState("");
-  const [passwordConfirm, setPaswordConfirm] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (user) {
+    if (user.email) {
       history.push("/");
     }
-  }, [history, user]);
+  }, [history, user.email]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (password !== passwordConfirm) {
       setMessage("Passwords do not match");
     }
-
     dispatch(signUpUser());
   };
 
@@ -39,11 +39,13 @@ const SignUp = () => {
   };
 
   const handlePasswordChange = (e: any) => {
-    setPasword(e.target.value);
+    setPassword(e.target.value);
+    console.log(password);
   };
 
   const handlePasswordConfirmChange = (e: any) => {
-    setPaswordConfirm(e.target.value);
+    setPasswordConfirm(e.target.value);
+    console.log(passwordConfirm);
   };
 
   return (
@@ -97,6 +99,7 @@ const SignUp = () => {
       </FormContainer>
     </>
   );
+  // return <><SignUpForm /></>
 };
 
 export default SignUp;

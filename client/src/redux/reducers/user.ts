@@ -27,6 +27,7 @@ export default function user(
     }
     case SIGNUP_REQ: {
       const { user } = action.payload;
+      console.log(user);
       return { ...state, user };
     }
     case LOGOUT_REQ: {

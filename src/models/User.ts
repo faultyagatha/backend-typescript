@@ -16,7 +16,8 @@ export type UserDocument = Document & {
   passwordResetExpires: number | undefined;
   products: mongoose.Schema.Types.ObjectId[];
   isCorrectPassword(
-    candidatePassword: string
+    candidatePassword: string,
+    userPassword: string
   ): Promise<boolean>;
   isChangedPassAfterJwt(JwtTimeStamp: any): boolean;
   createPasswordResetToken(): string;
@@ -114,9 +115,10 @@ userSchema.pre<UserDocument>('validate', function (next) {
 
 /** add instance methods to userSchema. */
 userSchema.methods.isCorrectPassword = async function (
-  candidatePassword: string
+  candidatePassword: string,
+  userPassword: string
 ) {
-  return await bcrypt.compare(candidatePassword, this.password)
+  return await bcrypt.compare(candidatePassword, userPassword)
 }
 
 userSchema.methods.isChangedPassAfterJwt = function (JwtTimeStamp: any) {

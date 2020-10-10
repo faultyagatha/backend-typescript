@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Row, Col, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 import { AppState } from "../../types";
 import { logoutUser } from "../../redux/actions";
@@ -10,10 +10,11 @@ const Menu = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { user } = useSelector((state: AppState) => state.user);
+  user ? console.log(user) : console.log("no user");
 
   const logoutHandler = () => {
     dispatch(logoutUser());
-    history.push("/");
+    history.push("/signup");
   };
 
   return (
@@ -23,20 +24,18 @@ const Menu = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Link to="/">
-                <Nav.Link href="#home">Home</Nav.Link>
-              </Link>
-              <Link to="/about">
-                <Nav.Link href="#link">About</Nav.Link>
-              </Link>
+              <Nav.Link as={Link} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="/about">
+                About
+              </Nav.Link>
             </Nav>
             <Nav className="ml-auto">
-              <Link to="/cart">
-                <Nav.Link href="#link">
-                  <i className="fa fa-shopping-cart"></i>Cart
-                </Nav.Link>
-              </Link>
-              {user ? (
+              <Nav.Link as={Link} to="/cart">
+                <i className="fa fa-shopping-cart"></i>Cart
+              </Nav.Link>
+              {user.email ? (
                 <NavDropdown title="Hello" id="name">
                   <Link to="/profile">
                     <NavDropdown.Item>Profile</NavDropdown.Item>
@@ -47,14 +46,13 @@ const Menu = () => {
                 </NavDropdown>
               ) : (
                 <>
-                  <Link to="/login">
-                    <Nav.Link href="#link">
-                      <i className="fa fa-user"></i>Login
-                    </Nav.Link>
-                  </Link>
-                  <Link to="/signup">
-                    <Nav.Link href="#link">Signup</Nav.Link>
-                  </Link>
+                  <Nav.Link as={Link} to="/login">
+                    <i className="fa fa-user" />
+                    Login
+                  </Nav.Link>
+                  <Nav.Link as={Link} to="/signup">
+                    Signup
+                  </Nav.Link>
                 </>
               )}
             </Nav>
