@@ -6,17 +6,16 @@ import { AppState } from "../types";
 import { useProducts } from "../hooks";
 import { fetchProducts } from "../redux/actions";
 import ProductCard from "../components/ProductCard";
-
-//TODO: ADD LOADER spinner
+import Loader from "../components/Loader";
 
 export default function Products() {
   // const dispatch = useDispatch();
   const { allProducts } = useSelector((state: AppState) => state.product);
-  useProducts();
+  // useProducts();
   // dispatch(fetchProducts);
 
   if (!allProducts) {
-    return <div>Products are loading</div>;
+    return <Loader />;
   }
 
   const renderProducts = () => {

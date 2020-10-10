@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 
 import { useApiRequest } from "../../hooks";
 import { loginUser } from "../../redux/actions";
+import Loader from "../Loader";
+import FormContainer from "../Form";
 
 //TODO: refactor with actions
 const Login = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPasword] = useState("");
@@ -26,6 +29,11 @@ const Login = () => {
     doRequest();
     // dispatch(loginUser);
   };
+
+  const handleEmailChange = (e: any) => {
+    setEmail(e.target.value);
+  };
+
   return (
     <div>
       <form className="navbar-form navbar-center" onSubmit={handleSubmit}>
@@ -53,4 +61,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+// export default Login;
