@@ -64,6 +64,7 @@ export function signUpUser(): any {
     try {
       const { data } = await signUpReq();
       console.log(data);
+      localStorage.setItem("user", JSON.stringify(data));
       return dispatch(signUp(data));
     } catch (err) {
       return dispatch(signUpFail(err));
@@ -92,5 +93,12 @@ export function loginWithGoogle(res: any): any {
     } catch (err) {
       return dispatch(googleLoginFail(err));
     }
+  };
+}
+
+export function logoutUser(): any {
+  return async (dispatch: Dispatch) => {
+    localStorage.removeItem("user");
+    dispatch(logout());
   };
 }
