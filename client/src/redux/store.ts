@@ -13,11 +13,7 @@ const initState: AppState = {
     inCart: [],
   },
   user: {
-    user: {
-      email: "",
-      password: "",
-      passwordConfirmation: "",
-    },
+    user: {},
     error: "",
   },
 };

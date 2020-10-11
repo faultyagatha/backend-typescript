@@ -15,10 +15,11 @@ export const LOGOUT_REQ = "LOGOUT_REQ";
 export const GOOGLE_LOGIN_REQ = "GOOGLE_LOGIN_REQ";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const SIGNUP_FAIL = "SIGNUP_FAIL";
-export const LOGOUT_FAIL = "LOGOUT_FAIL";
 export const GOOGLE_LOGIN_FAIL = "GOOGLE_LOGIN_FAIL";
 
-// A product
+export const GET_USER_REQ = "GET_USER_REQ";
+export const GET_USER_FAIL = "GET_USER_FAIL";
+
 export type Product = {
   id?: string;
   name: string;
@@ -62,7 +63,6 @@ export type RemoveProductFailAction = {
 // Use this union in reducer
 export type ProductActions =
   | GetProductsAction
-  // | GetProductAction
   | AddProductAction
   | RemoveProductAction
   | GetProductsFailAction
@@ -99,19 +99,14 @@ export type User = {
   role?: string;
 };
 
-// export type CurrUser = {
-//   id?: string;
-//   email?: string;
-//   password?: string;
-//   passwordConfirmation?: string;
-//   firstName?: string;
-//   lastName?: string;
-//   role?: string;
-// };
-
 export type LoginAction = {
   type: typeof LOGIN_REQ;
   payload: { user: User };
+};
+
+export type LoginFailAction = {
+  type: typeof LOGIN_FAIL;
+  payload: { error: any };
 };
 
 export type LogoutAction = {
@@ -124,23 +119,28 @@ export type GoogleLoginAction = {
   payload: { user: User };
 };
 
-export type SignupAction = {
-  type: typeof SIGNUP_REQ;
-  payload: { user: User };
-};
-
-export type LoginFailAction = {
-  type: typeof LOGIN_FAIL;
-  payload: { error: any };
-};
-
 export type LoginGoogleFailAction = {
   type: typeof GOOGLE_LOGIN_REQ;
   payload: { error: any };
 };
 
+export type SignupAction = {
+  type: typeof SIGNUP_REQ;
+  payload: { user: User };
+};
+
 export type SignupFailAction = {
   type: typeof SIGNUP_FAIL;
+  payload: { error: any };
+};
+
+export type GetUserAction = {
+  type: typeof GET_USER_REQ;
+  payload: { user: User };
+};
+
+export type GetUserFailAction = {
+  type: typeof GET_USER_FAIL;
   payload: { error: any };
 };
 
@@ -151,7 +151,9 @@ export type UserActions =
   | GoogleLoginAction
   | LoginFailAction
   | SignupFailAction
-  | LoginGoogleFailAction;
+  | LoginGoogleFailAction
+  | GetUserAction
+  | GetUserFailAction;
 
 export type UserState = {
   user: User;

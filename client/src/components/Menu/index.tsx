@@ -38,9 +38,11 @@ const Menu = () => {
               </Nav.Link>
               {user.email ? (
                 <NavDropdown title="Hello" id="name">
-                  <Link to="/profile">
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </Link>
+                  {/* <Link to="/profile"> */}
+                  <NavDropdown.Item as={Link} to="/profile">
+                    Profile
+                  </NavDropdown.Item>
+                  {/* </Link> */}
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>

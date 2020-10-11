@@ -12,16 +12,16 @@ import FormContainer from "../components/Form";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { error } = useSelector((state: AppState) => state.user);
+  const { user, error } = useSelector((state: AppState) => state.user);
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPasword] = useState("");
 
-  // useEffect(() => {
-  //   if (user.email) {
-  //     history.push("/");
-  //   }
-  // }, [history, user]);
+  useEffect(() => {
+    if (user.email) {
+      history.push("/");
+    }
+  }, [history, user]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

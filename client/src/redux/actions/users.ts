@@ -9,10 +9,12 @@ import {
   LOGIN_FAIL,
   SIGNUP_FAIL,
   GOOGLE_LOGIN_FAIL,
+  GET_USER_REQ,
+  GET_USER_FAIL,
   UserActions,
   User,
 } from "../../types";
-import { signUpReq, logInReq, loginGoogleReq } from "../../api";
+import { loginGoogleReq } from "../../api";
 
 const rootURL = "http://localhost:5000/api/v1/users";
 
@@ -54,33 +56,40 @@ function loginFail(error: any): UserActions {
   };
 }
 
-// function loginFail(error: any): UserActions {
-//   return {
-//     type: LOGIN_FAIL,
-//     payload:
-//       error && error.message
-//         ? error.message
-//         : error,
-//   };
-// }
-
-export function googleLoginFail(data: any): UserActions {
+export function googleLoginFail(error: any): UserActions {
   return {
     type: GOOGLE_LOGIN_REQ,
     payload:
-      data.response && data.response.data.message
-        ? data.response.data.message
-        : data.message,
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
   };
 }
 
-function signUpFail(data: any): UserActions {
+function signUpFail(error: any): UserActions {
   return {
     type: SIGNUP_FAIL,
     payload:
-      data.response && data.response.data.message
-        ? data.response.data.message
-        : data.message,
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
+  };
+}
+
+function getUser(data: User): UserActions {
+  return {
+    type: GET_USER_REQ,
+    payload: { user: data },
+  };
+}
+
+function getUserFail(error: any): UserActions {
+  return {
+    type: GET_USER_FAIL,
+    payload:
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
   };
 }
 
@@ -149,5 +158,23 @@ export function logoutUser(): any {
   return async (dispatch: Dispatch) => {
     localStorage.removeItem("user");
     dispatch(logout());
+  };
+}
+
+export function getUserData(id: string): any {
+  return async (dispatch: Dispatch, getState: any) => {
+    try {
+      const { user } = getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.get(`${rootURL}/${id}`, config);
+      dispatch(getUser(data));
+    } catch (err) {
+      dispatch(getUserFail(err));
+    }
   };
 }
