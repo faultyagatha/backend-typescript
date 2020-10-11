@@ -17,7 +17,9 @@ export const findAll = async (
   try {
     res.json(await ProductService.findAll())
   } catch (err) {
+    console.log(err)
     next(new NotFoundError('Products not found', err))
+    //next(new Error('Products not found'))
   }
 }
 

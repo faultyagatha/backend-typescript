@@ -46,17 +46,17 @@ export type RemoveProductAction = {
 
 export type GetProductsFailAction = {
   type: typeof GET_PRODUCTS_FAIL;
-  payload: { allProducts: Product[] };
+  payload: { error: any };
 };
 
 export type AddProductFailAction = {
   type: typeof ADD_PRODUCT_FAIL;
-  payload: { product: Product };
+  payload: { error: any };
 };
 
 export type RemoveProductFailAction = {
   type: typeof REMOVE_PRODUCT_FAIL;
-  payload: { product: Product };
+  payload: { error: any };
 };
 
 // Use this union in reducer
@@ -91,9 +91,9 @@ export type AddToCartBtn = {
 
 export type User = {
   id?: string;
-  email: string;
-  password: string;
-  passwordConfirmation: string;
+  email?: string;
+  password?: string;
+  passwordConfirmation?: string;
   firstName?: string;
   lastName?: string;
   role?: string;
@@ -116,6 +116,7 @@ export type LoginAction = {
 
 export type LogoutAction = {
   type: typeof LOGOUT_REQ;
+  payload: { user: User };
 };
 
 export type GoogleLoginAction = {

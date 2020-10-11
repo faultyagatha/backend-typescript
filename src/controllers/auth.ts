@@ -48,16 +48,13 @@ const createSendToken = (
 
   // Remove password from output
   const { email, products, firstName, lastName, role } = user
-  res.status(statusCode).json({
-    status: 'success',
-    token,
-    data: {
-      email,
-      products,
-      firstName,
-      lastName,
-      role
-    }
+  res.json({
+    email,
+    products,
+    firstName,
+    lastName,
+    role,
+    token
   })
 }
 
@@ -80,8 +77,8 @@ export const signup = async (
     if (userExists) {
       return res.status(409).json({ message: 'Email already in use' })
     }
-
-    await UserService.create(user)
+    //TODO: check this one
+    // await UserService.create(user)
     createSendToken(user, 201, res)
   } catch (err) {
     if (err.name === 'ValidationError') {

@@ -8,6 +8,7 @@ import {
   REMOVE_PRODUCT,
   ProductActions,
   Product,
+  GET_PRODUCTS_FAIL,
 } from "../../types";
 
 const baseURL = "http://localhost:5000/api/v1/products";
@@ -34,19 +35,27 @@ function getProducts(data: Product[]): ProductActions {
   };
 }
 
-// function getProduct(product: Product): ProductActions {
-//   return {
-//     type: GET_PRODUCT,
-//     payload: { product },
-//   };
-// }
+function getProductsFail(error: any): ProductActions {
+  return {
+    type: GET_PRODUCTS_FAIL,
+    payload:
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.response.statusText,
+  };
+}
 
 /** Async actions processed by redux-thunk middleware */
 export function fetchProducts(): any {
   return async (dispatch: Dispatch) => {
-    const { data } = await axios.get(baseURL);
-    console.log(data);
-    return dispatch(getProducts(data));
+    try {
+      const { data } = await axios.get("baseURL");
+      console.log(data);
+      return dispatch(getProducts(data));
+    } catch (err) {
+      console.log(err);
+      return dispatch(getProductsFail(err));
+    }
   };
 }
 

@@ -2,6 +2,7 @@ import {
   ProductState,
   ProductActions,
   GET_PRODUCTS,
+  GET_PRODUCTS_FAIL,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
 } from "../../types";
@@ -9,7 +10,7 @@ import {
 export default function product(
   state: ProductState = {
     allProducts: [],
-    error: null,
+    error: "",
     inCart: [],
   },
   action: ProductActions
@@ -17,14 +18,18 @@ export default function product(
   switch (action.type) {
     case GET_PRODUCTS: {
       const { allProducts } = action.payload;
-      return { ...state, allProducts: allProducts };
+      return { ...state, allProducts };
+    }
+    case GET_PRODUCTS_FAIL: {
+      const { error } = action.payload;
+      console.log(state);
+      return { ...state, error };
     }
     case ADD_PRODUCT: {
       const { product } = action.payload;
       if (state.inCart.find((p) => p.name === product.name)) {
         return state;
       }
-      // Always return new state (e.g, new object) if changed
       return { ...state, inCart: [...state.inCart, product] };
     }
 

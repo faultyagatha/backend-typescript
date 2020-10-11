@@ -31,7 +31,8 @@ export default function user(
       return { ...state, user };
     }
     case LOGOUT_REQ: {
-      return state;
+      const { user } = action.payload;
+      return { ...state, user };
     }
     case LOGIN_FAIL: {
       const { error } = action.payload;

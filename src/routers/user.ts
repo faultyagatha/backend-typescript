@@ -54,7 +54,7 @@ router.post('/login', login)
 router.post('/forgotPassword', forgotPassword)
 router.patch('/resetPassword/:token', resetPassword)
 
-router.use(isLoggedin) //remove for testing
+// router.use(isLoggedin) //remove for testing
 router.patch('/updatePassword', updatePassword)
 router.patch('/updateMyAccount', updateMyAccount)
 router.patch('/deleteMyAccount', deleteMyAccount)

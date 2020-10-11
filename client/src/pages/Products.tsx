@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 
 import { AppState } from "../types";
-import { useProducts } from "../hooks";
 import { fetchProducts } from "../redux/actions";
 import ProductCard from "../components/ProductCard";
 import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 export default function Products() {
-  // const dispatch = useDispatch();
-  const { allProducts } = useSelector((state: AppState) => state.product);
-  // useProducts();
-  // dispatch(fetchProducts);
+  const dispatch = useDispatch();
+  const { allProducts, error } = useSelector(
+    (state: AppState) => state.product
+  );
+  console.log(error);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   if (!allProducts) {
     return <Loader />;
@@ -23,7 +28,6 @@ export default function Products() {
       return (
         <Col sm={12} md={6} lg={4} xl={3}>
           <ProductCard
-            // key={product.id}
             key={product.name}
             name={product.name}
             imageCover={product.imageCover}
@@ -39,6 +43,7 @@ export default function Products() {
   return (
     <>
       <h1 className="text-center">In Store</h1>
+      {error && <Message variant="danger">{error}</Message>}
       <Row>{renderProducts()}</Row>
     </>
   );

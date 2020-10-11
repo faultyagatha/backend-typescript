@@ -16,7 +16,7 @@ function findById(userId: string): Promise<UserDocument> {
 }
 
 function findAll(): Promise<UserDocument[]> {
-  return User.find().sort({ userName: 1 }).exec() // Return a Promise
+  return User.find().sort({ email: 1 }).exec() // Return a Promise
 }
 
 function updateUser(

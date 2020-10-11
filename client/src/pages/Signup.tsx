@@ -31,7 +31,8 @@ const SignUp = () => {
     if (password !== passwordConfirm) {
       setMessage("Passwords do not match");
     }
-    dispatch(signUpUser());
+    console.log(email, password, passwordConfirm);
+    dispatch(signUpUser(email, password, passwordConfirm));
   };
 
   const handleEmailChange = (e: any) => {
@@ -40,12 +41,10 @@ const SignUp = () => {
 
   const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
-    console.log(password);
   };
 
   const handlePasswordConfirmChange = (e: any) => {
     setPasswordConfirm(e.target.value);
-    console.log(passwordConfirm);
   };
 
   return (
@@ -86,11 +85,6 @@ const SignUp = () => {
             Sign Up
           </Button>
         </Form>
-        <Row className="py-3">
-          <Col>
-            <GoogleAuth />
-          </Col>
-        </Row>
         <Row className="py-3">
           <Col>
             <Link to="/login">Already a customer? </Link>

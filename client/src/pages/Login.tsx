@@ -12,7 +12,6 @@ import FormContainer from "../components/Form";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.user);
   const history = useHistory();
   const [email, setEmail] = useState("");
@@ -27,6 +26,7 @@ const Login = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(loginUser(email, password));
+    console.log(dispatch(loginUser(email, password)));
   };
 
   const handleEmailChange = (e: any) => {
@@ -36,6 +36,8 @@ const Login = () => {
   const handlePasswordChange = (e: any) => {
     setPasword(e.target.value);
   };
+
+  console.log(error);
   return (
     <>
       <FormContainer>

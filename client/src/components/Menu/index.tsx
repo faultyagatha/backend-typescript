@@ -13,6 +13,7 @@ const Menu = () => {
   user ? console.log(user) : console.log("no user");
 
   const logoutHandler = () => {
+    console.log(user);
     dispatch(logoutUser());
     history.push("/signup");
   };

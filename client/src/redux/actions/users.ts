@@ -31,7 +31,10 @@ export function googleLogin(data: User): UserActions {
 }
 
 function logout(): UserActions {
-  return { type: LOGOUT_REQ };
+  return {
+    type: LOGOUT_REQ,
+    payload: { user: {} },
+  };
 }
 
 function signUp(data: User): UserActions {
@@ -41,15 +44,25 @@ function signUp(data: User): UserActions {
   };
 }
 
-function loginFail(data: any): UserActions {
+function loginFail(error: any): UserActions {
   return {
     type: LOGIN_FAIL,
     payload:
-      data.response && data.response.data.message
-        ? data.response.data.message
-        : data.message,
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
   };
 }
+
+// function loginFail(error: any): UserActions {
+//   return {
+//     type: LOGIN_FAIL,
+//     payload:
+//       error && error.message
+//         ? error.message
+//         : error,
+//   };
+// }
 
 export function googleLoginFail(data: any): UserActions {
   return {
@@ -71,7 +84,11 @@ function signUpFail(data: any): UserActions {
   };
 }
 
-export function signUpUser(): any {
+export function signUpUser(
+  email: string,
+  password: string,
+  passwordConfirm: string
+): any {
   return async (dispatch: Dispatch) => {
     try {
       const config = {
@@ -79,7 +96,11 @@ export function signUpUser(): any {
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post(`${rootURL}/signup`, config);
+      const { data } = await axios.post(
+        `${rootURL}/signup`,
+        { email, password, passwordConfirm },
+        config
+      );
       console.log("axios req: ", data);
       localStorage.setItem("user", JSON.stringify(data));
       return dispatch(signUp(data));
@@ -107,6 +128,7 @@ export function loginUser(email: string, password: string): any {
       localStorage.setItem("user", JSON.stringify(data));
       return dispatch(login(data));
     } catch (err) {
+      console.log("error action: ", err);
       return dispatch(loginFail(err));
     }
   };
