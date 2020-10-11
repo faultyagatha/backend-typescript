@@ -51,7 +51,7 @@ export const isLoggedin = async (
 
     // 5) Grant access to protected route and pass the role to the next middleware
     req.user = currentUser
-    req.body.role = currentUser.role
+    req.body.isAdmin = currentUser.isAdmin
     next()
   } catch (err) {
     if (err.name === 'ValidationError') {

@@ -19,6 +19,8 @@ export const GOOGLE_LOGIN_FAIL = "GOOGLE_LOGIN_FAIL";
 
 export const GET_USER_REQ = "GET_USER_REQ";
 export const GET_USER_FAIL = "GET_USER_FAIL";
+export const UPDATE_USER_REQ = "UPDATE_USER_REQ";
+export const UPDATE_USER_FAIL = "UPDATE_USER_FAIL";
 
 export type Product = {
   id?: string;
@@ -93,7 +95,7 @@ export type User = {
   id?: string;
   email?: string;
   password?: string;
-  passwordConfirmation?: string;
+  passwordConfirm?: string;
   firstName?: string;
   lastName?: string;
   role?: string;
@@ -144,6 +146,16 @@ export type GetUserFailAction = {
   payload: { error: any };
 };
 
+export type UpdateUserAction = {
+  type: typeof UPDATE_USER_REQ;
+  payload: { user: User };
+};
+
+export type UpdateUserFailAction = {
+  type: typeof UPDATE_USER_FAIL;
+  payload: { error: any };
+};
+
 export type UserActions =
   | LoginAction
   | LogoutAction
@@ -153,7 +165,9 @@ export type UserActions =
   | SignupFailAction
   | LoginGoogleFailAction
   | GetUserAction
-  | GetUserFailAction;
+  | GetUserFailAction
+  | UpdateUserAction
+  | UpdateUserFailAction;
 
 export type UserState = {
   user: User;

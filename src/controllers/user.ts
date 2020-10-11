@@ -79,8 +79,29 @@ export const deleteUser = async (
   }
 }
 
+export const getProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userReq = req.user as Payload
+    const user = await await UserService.findById(userReq.id)
+    if (user) {
+      res.json({
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        isAdmin: user.isAdmin,
+      })
+    }
+  } catch (err) {
+    next(new NotFoundError('User not found', err))
+  }
+}
+
 //PATCH / users/updateMyAccount
-export const updateMyAccount = async (
+export const updateProfile = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -102,7 +123,7 @@ export const updateMyAccount = async (
   try {
     // 3) Update user document
     const userReq = req.user as Payload
-    const updatedUser = await UserService.updateMyAccount(
+    const updatedUser = await UserService.updateProfile(
       userReq.id,
       allowedToUpdate
     )
@@ -121,7 +142,7 @@ export const updateMyAccount = async (
 }
 
 //DELETE / users/deleteMyAccount
-export const deleteMyAccount = async (
+export const deleteProfile = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -129,7 +150,7 @@ export const deleteMyAccount = async (
   try {
     const userReq = req.user as Payload
     console.log('userReq: ', userReq)
-    await UserService.deleteMyAccount(userReq.id)
+    await UserService.deleteProfile(userReq.id)
     res.status(204).json({
       status: 'success',
       data: null,

@@ -11,6 +11,8 @@ import {
   GOOGLE_LOGIN_FAIL,
   GET_USER_REQ,
   GET_USER_FAIL,
+  UPDATE_USER_REQ,
+  UPDATE_USER_FAIL,
   UserActions,
   User,
 } from "../../types";
@@ -18,6 +20,7 @@ import { loginGoogleReq } from "../../api";
 
 const rootURL = "http://localhost:5000/api/v1/users";
 
+//////// ACTIONS TO DISPATCH INSIDE
 function login(data: User): UserActions {
   return {
     type: LOGIN_REQ,
@@ -93,6 +96,24 @@ function getUserFail(error: any): UserActions {
   };
 }
 
+function updateUser(data: User): UserActions {
+  return {
+    type: UPDATE_USER_REQ,
+    payload: { user: data },
+  };
+}
+
+function updateUserFail(error: any): UserActions {
+  return {
+    type: UPDATE_USER_FAIL,
+    payload:
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
+  };
+}
+
+//////// ACTIONS TO DISPATCH OUTSIDE
 export function signUpUser(
   email: string,
   password: string,
@@ -175,6 +196,28 @@ export function getUserData(id: string): any {
       dispatch(getUser(data));
     } catch (err) {
       dispatch(getUserFail(err));
+    }
+  };
+}
+
+export function updateUserData(userData: User): any {
+  return async (dispatch: Dispatch, getState: any) => {
+    try {
+      const { user } = getState();
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.patch(
+        `${rootURL}/profile`,
+        userData,
+        config
+      );
+      dispatch(updateUser(data));
+    } catch (err) {
+      dispatch(updateUserFail(err));
     }
   };
 }

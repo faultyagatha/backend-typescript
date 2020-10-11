@@ -8,6 +8,8 @@ import {
   SIGNUP_FAIL,
   GET_USER_REQ,
   GET_USER_FAIL,
+  UPDATE_USER_REQ,
+  UPDATE_USER_FAIL,
 } from "../../types";
 
 export default function user(
@@ -44,6 +46,14 @@ export default function user(
       return { ...state, user };
     }
     case GET_USER_FAIL: {
+      const { error } = action.payload;
+      return { ...state, error };
+    }
+    case UPDATE_USER_REQ: {
+      const { user } = action.payload;
+      return { ...state, user };
+    }
+    case UPDATE_USER_FAIL: {
       const { error } = action.payload;
       return { ...state, error };
     }

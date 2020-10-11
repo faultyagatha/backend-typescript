@@ -10,7 +10,7 @@ export type UserDocument = Document & {
   passwordConfirm: string | undefined;
   firstName: string;
   lastName: string;
-  role: string;
+  isAdmin: boolean;
   passwordChangedAt: Date;
   passwordResetToken: string | undefined;
   passwordResetExpires: number | undefined;
@@ -53,10 +53,9 @@ const userSchema = new mongoose.Schema<UserDocument>({
     type: String,
     validate: [validator.isAlpha, 'Please provide a valid last name'],
   },
-  role: {
-    type: String,
-    enum: ['user', 'admin'],
-    default: 'user',
+  isAdmin: {
+    type: Boolean,
+    default: false
   },
   passwordChangedAt: Date,
   passwordResetToken: String,

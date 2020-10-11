@@ -5,9 +5,10 @@ import {
   findById,
   deleteUser,
   findAll,
+  getProfile,
   updateUser,
-  updateMyAccount,
-  deleteMyAccount,
+  updateProfile,
+  deleteProfile,
 } from '../controllers/user'
 import {
   signup,
@@ -56,8 +57,9 @@ router.patch('/resetPassword/:token', resetPassword)
 
 // router.use(isLoggedin) //remove for testing
 router.patch('/updatePassword', updatePassword)
-router.patch('/updateMyAccount', updateMyAccount)
-router.patch('/deleteMyAccount', deleteMyAccount)
+router.get('/profile', getProfile)
+router.patch('/profile', updateProfile)
+router.patch('/deleteMyAccount', deleteProfile)
 
 // router.use(restrictTo('admin')) //remove for testing
 router.get('/', findAll)

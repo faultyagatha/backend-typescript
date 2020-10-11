@@ -47,13 +47,13 @@ const createSendToken = (
   res.cookie('jwt', token, cookieOptions)
 
   // Remove password from output
-  const { email, products, firstName, lastName, role } = user
+  const { email, products, firstName, lastName, isAdmin } = user
   res.json({
     email,
     products,
     firstName,
     lastName,
-    role,
+    isAdmin,
     token
   })
 }

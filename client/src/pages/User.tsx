@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 import { AppState } from "../types";
-import { getUserData } from "../redux/actions";
+import { getUserData, updateUserData } from "../redux/actions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
@@ -12,9 +12,12 @@ const User = () => {
   const dispatch = useDispatch();
   const { user, error } = useSelector((state: AppState) => state.user);
   const history = useHistory();
+  const { id } = useParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -25,6 +28,8 @@ const User = () => {
         dispatch(getUserData("profile"));
       } else {
         setEmail(user.email);
+        if (user.firstName) setFirstName(user.firstName);
+        if (user.lastName) setLastName(user.lastName);
       }
     }
   }, [dispatch, history, user]);
@@ -34,8 +39,9 @@ const User = () => {
     if (password !== passwordConfirm) {
       setMessage("Passwords do not match");
     }
-    console.log(email, password, passwordConfirm);
-    //DISPATCH UPDATE PROFILE
+    dispatch(
+      updateUserData({ email, password, passwordConfirm, firstName, lastName })
+    );
   };
 
   const handleEmailChange = (e: any) => {
@@ -48,6 +54,14 @@ const User = () => {
 
   const handlePasswordConfirmChange = (e: any) => {
     setPasswordConfirm(e.target.value);
+  };
+
+  const handleFirstNameChange = (e: any) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e: any) => {
+    setLastName(e.target.value);
   };
 
   return (
@@ -84,6 +98,24 @@ const User = () => {
                 value={passwordConfirm}
                 onChange={handlePasswordConfirmChange}
               ></Form.Control>
+              <Form.Group controlId="email">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control
+                  type="firstName"
+                  placeholder="enter first name"
+                  value={firstName}
+                  onChange={handleFirstNameChange}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group controlId="lastName">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  type="lastName"
+                  placeholder="enter last name"
+                  value={lastName}
+                  onChange={handleLastNameChange}
+                ></Form.Control>
+              </Form.Group>
             </Form.Group>
             <Button type="submit" variant="primary">
               Update

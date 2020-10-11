@@ -36,7 +36,7 @@ function deleteUser(userId: string): Promise<UserDocument | null> {
   return User.findByIdAndDelete(userId).exec()
 }
 
-function updateMyAccount(
+function updateProfile(
   userId: string,
   update: Partial<UserDocument>
 ): Promise<UserDocument | null> {
@@ -50,7 +50,7 @@ function updateMyAccount(
 }
 
 //don't delete from the DB but only set active to false
-function deleteMyAccount(userId: string): Promise<UserDocument | null> {
+function deleteProfile(userId: string): Promise<UserDocument | null> {
   return User.findByIdAndUpdate(userId, { active: false }).exec()
 }
 
@@ -60,6 +60,6 @@ export default {
   findAll,
   updateUser,
   deleteUser,
-  updateMyAccount,
-  deleteMyAccount,
+  updateProfile,
+  deleteProfile,
 }
