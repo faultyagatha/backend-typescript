@@ -17,7 +17,7 @@ import {
   resetPassword,
 } from '../controllers/auth'
 import {
-  isLoggedin, restrictTo
+  protect, admin
 } from '../middlewares/authHandlers'
 
 
@@ -53,11 +53,11 @@ router.post('/login', login)
 router.post('/forgotPassword', forgotPassword)
 router.patch('/resetPassword/:token', resetPassword)
 
-router.use(isLoggedin) //remove for testing
+router.use(protect) //remove for testing
 router.get('/profile', getProfile)
 router.patch('/profile', updateProfile)
 
-// router.use(restrictTo('admin')) //remove for testing
+router.use(admin) //remove for testing
 router.get('/', findAll)
 router.get('/:userId', findById)
 router.patch('/:userId', updateUser)

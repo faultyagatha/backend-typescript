@@ -5,7 +5,7 @@
     "passwordConfirm": "xxxx",
     "firstName": "Admin User",
     "lastName": "",
-    "role": "admin"
+    "isAdmin": "true"
   },
   {
     "email": "martina@test.io",
@@ -13,7 +13,7 @@
     "passwordConfirm": "xxxx",
     "firstName": "Martina",
     "lastName": "",
-    "role": "user"
+    "isAdmin": "false"
   },
   {
     "email": "kora@test.io",
@@ -21,7 +21,7 @@
     "passwordConfirm": "xxxx",
     "firstName": "Kora",
     "lastName": "",
-    "role": "user"
+    "isAdmin": "false"
   },
   {
     "email": "sam@test.io",
@@ -29,6 +29,6 @@
     "passwordConfirm": "xxxx",
     "firstName": "Sam",
     "lastName": "",
-    "role": "user"
+    "isAdmin": "false"
   }
 ]

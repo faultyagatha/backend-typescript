@@ -28,7 +28,8 @@ export default function Products() {
       return (
         <Col sm={12} md={6} lg={4} xl={3} key={product.name}>
           <ProductCard
-            key={product.name}
+            _id={product._id}
+            key={product._id}
             name={product.name}
             imageCover={product.imageCover}
             description={product.description}

@@ -1,26 +1,34 @@
-import React from "react";
-import { useParams, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Card, Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 
 import { AppState } from "../types";
-import BackButton from "../components/BackButton";
+import { fetchProduct, removeProduct } from "../redux/actions";
 
 const Product = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
+  console.log(id);
   const history = useHistory();
+  const { allProducts, inCart } = useSelector(
+    (state: AppState) => state.product
+  );
+  const [product] = allProducts.filter((p) => console.log(p)); //p._id === id);
+  console.log(product);
 
-  const { allProducts } = useSelector((state: AppState) => state.product);
-  console.log(allProducts);
-  const [product] = allProducts.filter((p) => p.name.toLowerCase() === id);
+  if (!product) return <div>Product not found</div>;
 
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+  const handleAddToCart = () => {
+    history.push(`/cart/${id}`);
+    dispatch(fetchProduct(id));
+  };
 
   return (
     <>
-      <BackButton handleGoBackClick={() => history.goBack()} />
+      <Link className="btn btn-light my-3" to="/">
+        Go Back
+      </Link>
       <h1>Product page</h1>
       <Row>
         <Col md={6}>
@@ -52,20 +60,17 @@ const Product = () => {
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Button className="btn-block" type="button">
+                <Button
+                  className="btn-block"
+                  type="button"
+                  onClick={handleAddToCart}
+                >
                   Add to Cart
                 </Button>
               </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>
-
-        {/* <button
-                    className="ui teal basic button"
-                    onClick={() => dispatch(removeProduct(product))}
-                  >
-                    Cancel
-                  </button> */}
       </Row>
     </>
   );

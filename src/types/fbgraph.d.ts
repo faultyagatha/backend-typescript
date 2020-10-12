@@ -56,3 +56,7 @@ export type FacebookUser = {
 export type Payload = {
   id: string;
 };
+
+export type AdminPayload = {
+  isAdmin: boolean;
+};

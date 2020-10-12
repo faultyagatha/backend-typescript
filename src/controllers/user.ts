@@ -86,7 +86,6 @@ export const getProfile = async (
 ) => {
   try {
     const userReq = req.user as Payload
-    // console.log(userReq)
     const user = await UserService.findById(userReq.id)
     if (user) {
       res.json({

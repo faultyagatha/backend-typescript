@@ -10,7 +10,7 @@ import Message from "../components/Message";
 
 const User = () => {
   const dispatch = useDispatch();
-  const { user, error } = useSelector((state: AppState) => state.user);
+  const { user, error, success } = useSelector((state: AppState) => state.user);
   const history = useHistory();
   const { id } = useParams();
   const [email, setEmail] = useState("");
@@ -73,6 +73,7 @@ const User = () => {
           <h2>My Profile</h2>
           {message && <Message variant="danger">{message}</Message>}
           {error && <Message variant="danger">{error}</Message>}
+          {success && <Message variant="success">Profile Updated</Message>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>

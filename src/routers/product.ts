@@ -8,8 +8,8 @@ import {
   updateProduct,
 } from '../controllers/product'
 import {
-  isLoggedin,
-  restrictTo
+  protect,
+  admin
 } from '../middlewares/authHandlers'
 
 const router = express.Router()
@@ -18,10 +18,10 @@ router.get('/', findAll)
 router.get('/:productId', findById)
 
 //remove for testing
-// router.use(isLoggedin)
-// router.use(restrictTo('admin'))
+router.use(protect)
+router.use(admin)
 router.post('/', createProduct)
-router.put('/:productId', updateProduct)
+router.patch('/:productId', updateProduct)
 router.delete('/:productId', deleteProduct)
 
 export default router

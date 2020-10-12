@@ -13,6 +13,10 @@ import {
   GET_USER_FAIL,
   UPDATE_USER_REQ,
   UPDATE_USER_FAIL,
+  GET_USERS_ADMIN,
+  GET_USERS_ADMIN_FAIL,
+  UPDATE_USER_ADMIN,
+  UPDATE_USER_ADMIN_FAIL,
   UserActions,
   User,
 } from "../../types";
@@ -106,6 +110,23 @@ function updateUser(data: User): UserActions {
 function updateUserFail(error: any): UserActions {
   return {
     type: UPDATE_USER_FAIL,
+    payload:
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message,
+  };
+}
+
+function getUsersAdmin(data: User[]): UserActions {
+  return {
+    type: GET_USERS_ADMIN,
+    payload: { allUsers: data },
+  };
+}
+
+function getUsersAdminFail(error: any): UserActions {
+  return {
+    type: GET_USERS_ADMIN_FAIL,
     payload:
       error.response && error.response.data.message
         ? error.response.data.message
@@ -222,6 +243,23 @@ export function updateUserData(userData: User): any {
     } catch (err) {
       dispatch(updateUserFail(err));
       console.log(err);
+    }
+  };
+}
+
+export function getAllUsers() {
+  return async (dispatch: Dispatch, getState: any) => {
+    try {
+      const { user } = getState();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const { data } = await axios.get(`${rootURL}`, config);
+      dispatch(getUsersAdmin(data));
+    } catch (err) {
+      dispatch(getUsersAdminFail(err));
     }
   };
 }

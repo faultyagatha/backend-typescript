@@ -49,6 +49,9 @@ const SignUp = () => {
 
   return (
     <>
+      <Link className="btn btn-light my-3" to="/">
+        Go Back
+      </Link>
       <FormContainer>
         <h1>Sign Up</h1>
         {message && <Message variant="danger">{message}</Message>}

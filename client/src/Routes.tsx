@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import User from "./pages/User";
+import AllUsers from "./pages/AllUsers";
 
 const Routes = () => (
   <Switch>
@@ -18,8 +19,9 @@ const Routes = () => (
     <Route exact path="/products/:id" component={Product} />
     <Route exact path="/signup" component={SignUp} />
     <Route exact path="/login" component={Login} />
-    <Route exact path="/cart" component={Cart} />
+    <Route exact path="/cart/:id?" component={Cart} />
     <Route exact path="/profile" component={User} />
+    <Route exact path="/users" component={AllUsers} />
   </Switch>
 );
 

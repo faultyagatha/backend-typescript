@@ -15,7 +15,9 @@ const initState: AppState = {
   },
   user: {
     user: {},
+    allUsers: [],
     error: "",
+    success: true,
   },
 };
 
@@ -32,8 +34,10 @@ export default function makeStore(initialState = initState) {
 
   //must be above the store!!
   const productItemsFromStorage = localStorage.getItem("product") || "";
-  if (productItemsFromStorage)
+  if (productItemsFromStorage) {
+    console.log(productItemsFromStorage);
     initialState = JSON.parse(productItemsFromStorage);
+  }
 
   const usersFromStorage = localStorage.getItem("user") || "";
   if (usersFromStorage) initialState = JSON.parse(usersFromStorage);

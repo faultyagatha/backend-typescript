@@ -14,7 +14,7 @@ import {
 
 const baseURL = "http://localhost:5000/api/v1/products";
 
-export function addProduct(product: Product): ProductActions {
+function addProduct(product: Product): ProductActions {
   console.log(product);
   return {
     type: ADD_PRODUCT,
@@ -67,15 +67,17 @@ export function fetchProducts(): any {
   };
 }
 
-// export function fetchProduct(productId: string) {
-//   return (dispatch: Dispatch) => {
-//     return fetch(`products/${productId}`)
-//       .then((resp) => resp.json())
-//       .then((product) => {
-//         dispatch(addProduct(product));
-//       });
-//   };
-// }
+export function fetchProduct(productId: string) {
+  return async (dispatch: Dispatch, getState: any) => {
+    try {
+      const { data } = await axios.get(`${baseURL}/${productId}`);
+      dispatch(addProduct(data));
+      localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}
 
 // function getProduct(product: Product): ProductActions {
 //   return {

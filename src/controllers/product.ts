@@ -45,8 +45,9 @@ export const updateProduct = async (
   try {
     const update = req.body
     const productId = req.params.productId
+    // console.log(productId)
     const updatedProduct = await ProductService.update(productId, update)
-    res.json(updatedProduct)
+    res.status(201).json(updatedProduct)
   } catch (err) {
     next(new NotFoundError('Product not found', err))
   }

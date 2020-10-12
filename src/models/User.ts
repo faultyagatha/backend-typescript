@@ -45,12 +45,10 @@ const userSchema = new mongoose.Schema<UserDocument>({
     required: [true, 'Please confirm your password'],
   },
   firstName: {
-    type: String,
-    validate: [validator.isAlpha, 'Please provide a valid first name'],
+    type: String
   },
   lastName: {
-    type: String,
-    validate: [validator.isAlpha, 'Please provide a valid last name'],
+    type: String
   },
   isAdmin: {
     type: Boolean,

@@ -1,9 +1,8 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { AppState } from "../types";
-import BackButton from "../components/BackButton";
 import { removeProduct } from "../redux/actions";
 
 const Cart = () => {
@@ -13,7 +12,9 @@ const Cart = () => {
 
   return (
     <>
-      <BackButton handleGoBackClick={() => history.goBack()} />
+      <Link className="btn btn-light my-3" to="/">
+        Go Back
+      </Link>
       <h3 className="text-center">
         {`You have ${productsInCart.length} items in your cart`}
         <span> {`Total: ${productsInCart.length}€`}</span>

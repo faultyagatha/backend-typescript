@@ -25,8 +25,13 @@ export const GET_USER_FAIL = "GET_USER_FAIL";
 export const UPDATE_USER_REQ = "UPDATE_USER_REQ";
 export const UPDATE_USER_FAIL = "UPDATE_USER_FAIL";
 
+export const GET_USERS_ADMIN = "GET_USERS_ADMIN";
+export const GET_USERS_ADMIN_FAIL = "GET_USERS_ADMIN_FAIL";
+export const UPDATE_USER_ADMIN = "UPDATE_USER_ADMIN";
+export const UPDATE_USER_ADMIN_FAIL = "UPDATE_USER_ADMIN_FAIL";
+
 export type Product = {
-  id?: string;
+  _id: string;
   name: string;
   imageCover: string;
   description: string;
@@ -36,13 +41,13 @@ export type Product = {
 };
 
 export type User = {
-  id?: string;
+  _id?: string;
   email?: string;
   password?: string;
   passwordConfirm?: string;
   firstName?: string;
   lastName?: string;
-  role?: string;
+  isAdmin?: boolean;
 };
 
 export type ProductState = {
@@ -54,7 +59,9 @@ export type ProductState = {
 
 export type UserState = {
   user: User;
+  allUsers: User[];
   error: any;
+  success: boolean;
 };
 
 export type AppState = {
@@ -162,6 +169,26 @@ export type UpdateUserFailAction = {
   payload: { error: any };
 };
 
+export type GetUsersAdminAction = {
+  type: typeof GET_USERS_ADMIN;
+  payload: { allUsers: User[] };
+};
+
+export type GetUsersAdminFailAction = {
+  type: typeof GET_USERS_ADMIN_FAIL;
+  payload: { error: any };
+};
+
+export type UpdateUserAdminAction = {
+  type: typeof UPDATE_USER_ADMIN;
+  payload: { user: User };
+};
+
+export type UpdateUserAdminFailAction = {
+  type: typeof UPDATE_USER_ADMIN_FAIL;
+  payload: { error: any };
+};
+
 export type UserActions =
   | LoginAction
   | LogoutAction
@@ -173,7 +200,11 @@ export type UserActions =
   | GetUserAction
   | GetUserFailAction
   | UpdateUserAction
-  | UpdateUserFailAction;
+  | UpdateUserFailAction
+  | GetUsersAdminAction
+  | GetUsersAdminFailAction
+  | UpdateUserAdminAction
+  | UpdateUserAdminFailAction;
 
 export type GoBackBtn = {
   handleGoBackClick: (event: any) => void;

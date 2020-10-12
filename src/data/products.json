@@ -1,8 +1,8 @@
 [
   {
       "name": "Mercury",
-      "imageCover": "someimage",
-      "description": "some description",
+      "imageCover": "./images/someimage.png",
+      "description": "A trip to a wonderful Mercury",
       "duration": 3,
       "difficulty": "medium",
       "price": 200
