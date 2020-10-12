@@ -43,12 +43,12 @@ export const isLoggedin = async (
       )
     }
 
-    // // 4) Check if a user changed the password
-    // if (currentUser.isChangedPassAfterJwt(decoded.iat)) {
-    //   return next(
-    //     new JWTError('The user has changed the password. Please login again.')
-    //   )
-    // }
+    // 4) Check if a user changed the password
+    if (currentUser.isChangedPassAfterJwt(decoded.iat)) {
+      return next(
+        new JWTError('The user has changed the password. Please login again.')
+      )
+    }
 
     // 5) Grant access to protected route and pass the role to the next middleware
     req.user = currentUser

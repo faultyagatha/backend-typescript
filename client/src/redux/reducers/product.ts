@@ -5,24 +5,30 @@ import {
   GET_PRODUCTS_FAIL,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
+  GET_PRODUCTS_SUCCESS,
 } from "../../types";
 
 export default function product(
   state: ProductState = {
     allProducts: [],
-    error: "",
+    loading: true,
+    error: null,
     inCart: [],
   },
   action: ProductActions
 ): ProductState {
   switch (action.type) {
     case GET_PRODUCTS: {
+      // const { allProducts } = action.payload;
+      return { ...state };
+    }
+    case GET_PRODUCTS_SUCCESS: {
       const { allProducts } = action.payload;
-      return { ...state, allProducts };
+      return { ...state, allProducts, loading: false };
     }
     case GET_PRODUCTS_FAIL: {
       const error = action.payload;
-      return { ...state, error };
+      return { ...state, error, loading: false };
     }
     case ADD_PRODUCT: {
       const { product } = action.payload;

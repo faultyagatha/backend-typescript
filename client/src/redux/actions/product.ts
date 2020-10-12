@@ -9,6 +9,7 @@ import {
   ProductActions,
   Product,
   GET_PRODUCTS_FAIL,
+  GET_PRODUCTS_SUCCESS,
 } from "../../types";
 
 const baseURL = "http://localhost:5000/api/v1/products";
@@ -28,9 +29,15 @@ export function removeProduct(product: Product): ProductActions {
   };
 }
 
-function getProducts(data: Product[]): ProductActions {
+function getProducts(): ProductActions {
   return {
     type: GET_PRODUCTS,
+  };
+}
+
+function getProductsSuccess(data: Product[]): ProductActions {
+  return {
+    type: GET_PRODUCTS_SUCCESS,
     payload: { allProducts: data },
   };
 }
@@ -49,9 +56,10 @@ function getProductsFail(error: any): ProductActions {
 export function fetchProducts(): any {
   return async (dispatch: Dispatch) => {
     try {
+      dispatch(getProducts());
       const { data } = await axios.get(baseURL);
       console.log(data);
-      return dispatch(getProducts(data));
+      return dispatch(getProductsSuccess(data));
     } catch (err) {
       console.log(err);
       return dispatch(getProductsFail(err));

@@ -10,7 +10,7 @@ import Message from "../components/Message";
 
 export default function Products() {
   const dispatch = useDispatch();
-  const { allProducts, error } = useSelector(
+  const { allProducts, loading, error } = useSelector(
     (state: AppState) => state.product
   );
   console.log(error);
@@ -43,8 +43,14 @@ export default function Products() {
   return (
     <>
       <h1 className="text-center">In Store</h1>
-      {error && <Message variant="danger">{error}</Message>}
-      <Row>{renderProducts()}</Row>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        // {error && <Message variant="danger">{error}</Message>}
+        <Row>{renderProducts()}</Row>
+      )}
     </>
   );
 }
