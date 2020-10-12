@@ -23,6 +23,7 @@ export const isLoggedin = async (
       req.headers.authorization &&
       req.headers.authorization.startsWith('Bearer')
     ) {
+      //take only 'Bearer'
       token = req.headers.authorization.split(' ')[1]
     }
     if (!token) {
@@ -34,7 +35,7 @@ export const isLoggedin = async (
     const decoded: any = jwt.verify(token, process.env['JWT_SECRET'] as string)
 
     // 3) Check if a user still exists
-    const currentUser = await User.findById(decoded.id)
+    const currentUser = await User.findById(decoded.id).select('-password')
     // console.log(currentUser)
     if (!currentUser) {
       return next(
@@ -42,12 +43,12 @@ export const isLoggedin = async (
       )
     }
 
-    // 4) Check if a user changed the password
-    if (currentUser.isChangedPassAfterJwt(decoded.iat)) {
-      return next(
-        new JWTError('The user has changed the password. Please login again.')
-      )
-    }
+    // // 4) Check if a user changed the password
+    // if (currentUser.isChangedPassAfterJwt(decoded.iat)) {
+    //   return next(
+    //     new JWTError('The user has changed the password. Please login again.')
+    //   )
+    // }
 
     // 5) Grant access to protected route and pass the role to the next middleware
     req.user = currentUser

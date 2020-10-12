@@ -48,7 +48,7 @@ const createSendToken = (
 
   // Remove password from output
   const { email, products, firstName, lastName, isAdmin } = user
-  res.json({
+  res.status(statusCode).json({
     email,
     products,
     firstName,

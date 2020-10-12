@@ -79,6 +79,7 @@ export const deleteUser = async (
   }
 }
 
+//GET / users/profile
 export const getProfile = async (
   req: Request,
   res: Response,
@@ -86,7 +87,7 @@ export const getProfile = async (
 ) => {
   try {
     const userReq = req.user as Payload
-    const user = await await UserService.findById(userReq.id)
+    const user = await UserService.findById(userReq.id)
     if (user) {
       res.json({
         email: user.email,
@@ -100,7 +101,7 @@ export const getProfile = async (
   }
 }
 
-//PATCH / users/updateMyAccount
+//PATCH / users/profile
 export const updateProfile = async (
   req: Request,
   res: Response,
