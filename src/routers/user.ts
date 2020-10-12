@@ -7,8 +7,7 @@ import {
   findAll,
   getProfile,
   updateUser,
-  updateProfile,
-  deleteProfile,
+  updateProfile
 } from '../controllers/user'
 import {
   signup,
@@ -16,7 +15,6 @@ import {
   googleLogin,
   forgotPassword,
   resetPassword,
-  updatePassword,
 } from '../controllers/auth'
 import {
   isLoggedin, restrictTo
@@ -56,10 +54,8 @@ router.post('/forgotPassword', forgotPassword)
 router.patch('/resetPassword/:token', resetPassword)
 
 router.use(isLoggedin) //remove for testing
-router.patch('/updatePassword', updatePassword)
 router.get('/profile', getProfile)
 router.patch('/profile', updateProfile)
-router.patch('/deleteMyAccount', deleteProfile)
 
 // router.use(restrictTo('admin')) //remove for testing
 router.get('/', findAll)

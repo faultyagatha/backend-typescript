@@ -3,17 +3,14 @@ import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 
 import {
-  NotFoundError,
   BadRequestError,
   InternalServerError,
-  JWTError,
-  UnauthorizedError,
+  JWTError
 } from '../helpers/apiError'
 
 import { sendEmail } from '../util/email'
 import User, { UserDocument } from '../models/User'
 import UserService from '../services/user'
-import { Payload } from '../types/fbgraph'
 
 /** JWT handlers */
 const signToken = (id: string): string => {
@@ -77,8 +74,8 @@ export const signup = async (
     if (userExists) {
       return res.status(409).json({ message: 'Email already in use' })
     }
-    //TODO: check this one
-    //await UserService.create(user)
+
+    await UserService.create(user)
     createSendToken(user, 201, res)
   } catch (err) {
     if (err.name === 'ValidationError') {
@@ -103,7 +100,7 @@ export const login = async (
 
     //2). Check is user exists & the password is correct
     const user = await User.findOne({ email }).select('+password')
-    if (!user || !user.isCorrectPassword(password, user.password)) {
+    if (!user || !user.isCorrectPassword(password)) {
       return next(new BadRequestError('Invalid login data'))
     }
 
@@ -153,7 +150,6 @@ export const forgotPassword = async (
   const resetToken = user.createPasswordResetToken()
   //important: set <validateBeforeSave> to false to bypass the validators
   await user.save({ validateBeforeSave: false })
-  // console.log(user)
 
   // 3). Send it to user's email
   const resetURL = `${req.protocol}://${req.get(
@@ -208,37 +204,7 @@ export const resetPassword = async (
     await user.save()
 
     // 3). Update changedPasswordAt: implemented on a User model
-
     // 4). Log the user in and send JWT
-    createSendToken(user, 200, res)
-  } catch (err) {
-    next(new BadRequestError('Invalid Request', err))
-  }
-}
-
-//PATCH / users/updatePassword
-export const updatePassword = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    // 1). Get a user from the collection
-    const { passwordCurrent, password, passwordConfirm } = req.body
-    const userReq = req.user as Payload //thanks @Giang for this!
-    const user = await User.findById(userReq.id).select('+password')
-    if (!user) {
-      return next(new NotFoundError('Please login to update your password'))
-    }
-    // 2). Check if the POSTed password is correct (security matters)
-    if (!user.isCorrectPassword(passwordCurrent, user.password)) {
-      return next(new UnauthorizedError('Your current password is wrong.'))
-    }
-    // 3). Update the password
-    user.password = password
-    user.passwordConfirm = passwordConfirm
-    await user.save()
-    // 4). Login the user and send a Jwt
     createSendToken(user, 200, res)
   } catch (err) {
     next(new BadRequestError('Invalid Request', err))

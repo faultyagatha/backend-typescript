@@ -24,7 +24,7 @@ const SignUp = () => {
     if (user.email) {
       history.push("/");
     }
-  }, [history, user.email]);
+  }, [history, user.email, error]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

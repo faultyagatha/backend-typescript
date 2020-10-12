@@ -204,11 +204,11 @@ export function updateUserData(userData: User): any {
   return async (dispatch: Dispatch, getState: any) => {
     try {
       const { user } = getState();
-      console.log(user);
+      console.log("user: ", user);
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user.user.token}`,
         },
       };
       console.log(userData);
@@ -217,6 +217,7 @@ export function updateUserData(userData: User): any {
         userData,
         config
       );
+      console.log(data);
       dispatch(updateUser(data));
     } catch (err) {
       dispatch(updateUserFail(err));

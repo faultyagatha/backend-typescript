@@ -7,7 +7,6 @@ import {
   UnauthorizedError,
 } from '../helpers/apiError'
 
-import User, { UserDocument } from '../models/User'
 import UserService from '../services/user'
 import { Payload } from '../types/fbgraph'
 
@@ -87,6 +86,7 @@ export const getProfile = async (
 ) => {
   try {
     const userReq = req.user as Payload
+    // console.log(userReq)
     const user = await UserService.findById(userReq.id)
     if (user) {
       res.json({
@@ -107,54 +107,30 @@ export const updateProfile = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { password, passwordConfirm } = req.body
-  if (password || passwordConfirm) {
-    return next(
-      new UnauthorizedError('For password update, use updatePassword option.')
-    )
-  }
-  // 2) Leave only fields that are allowed to be updated
-  const { firstName, lastName, email, products } = req.body
+  const {
+    firstName,
+    lastName,
+    email,
+    password,
+    passwordConfirm,
+    products } = req.body
+
   const allowedToUpdate = {
     firstName,
     lastName,
     email,
+    password,
+    passwordConfirm,
     products,
   }
   try {
-    // 3) Update user document
     const userReq = req.user as Payload
     const updatedUser = await UserService.updateProfile(
       userReq.id,
       allowedToUpdate
     )
     res.status(200).json({
-      status: 'success',
-      data: {
-        user: updatedUser
-      },
-    })
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      next(new BadRequestError('User name and email cannot be empty', err))
-    }
-    next(new NotFoundError('User not found', err))
-  }
-}
-
-//DELETE / users/deleteMyAccount
-export const deleteProfile = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const userReq = req.user as Payload
-    console.log('userReq: ', userReq)
-    await UserService.deleteProfile(userReq.id)
-    res.status(204).json({
-      status: 'success',
-      data: null,
+      updatedUser
     })
   } catch (err) {
     next(new NotFoundError('User not found', err))

@@ -20,6 +20,8 @@ const User = () => {
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
 
+  console.log(error);
+
   useEffect(() => {
     if (!user) {
       history.push("/login");
@@ -32,7 +34,7 @@ const User = () => {
         if (user.lastName) setLastName(user.lastName);
       }
     }
-  }, [dispatch, history, user]);
+  }, [dispatch, history, user, error]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -98,7 +100,7 @@ const User = () => {
                 value={passwordConfirm}
                 onChange={handlePasswordConfirmChange}
               ></Form.Control>
-              <Form.Group controlId="email">
+              <Form.Group controlId="firstName">
                 <Form.Label>First Name</Form.Label>
                 <Form.Control
                   type="firstName"
