@@ -4,7 +4,7 @@ import thunk from "redux-thunk";
 
 import { AppState } from "../types";
 import createRootReducer from "./reducers";
-// import rootSaga from "./sagas";
+import rootSaga from "./sagas";
 
 const initState: AppState = {
   product: {
@@ -30,15 +30,15 @@ export default function makeStore(initialState = initState) {
   }
 
   //must be above the store!!
-  const productItemsFromStorage = localStorage.getItem("product") || "";
-  if (productItemsFromStorage)
-    initialState = JSON.parse(productItemsFromStorage);
+  // const productItemsFromStorage = localStorage.getItem("product") || "";
+  // if (productItemsFromStorage)
+  //   initialState = JSON.parse(productItemsFromStorage);
 
-  const usersFromStorage = localStorage.getItem("user") || "";
-  if (usersFromStorage) initialState = JSON.parse(usersFromStorage);
+  // const usersFromStorage = localStorage.getItem("user") || "";
+  // if (usersFromStorage) initialState = JSON.parse(usersFromStorage);
 
-  // const savedStore = localStorage.getItem("store") || "";
-  // if (savedStore) initialState = JSON.parse(savedStore);
+  const savedStore = localStorage.getItem("store") || "";
+  if (savedStore) initialState = JSON.parse(savedStore);
 
   const store = createStore(
     createRootReducer(),
@@ -46,7 +46,7 @@ export default function makeStore(initialState = initState) {
     composeEnhancers(applyMiddleware(...middlewares))
   );
 
-  // sagaMiddleware.run(rootSaga);
+  sagaMiddleware.run(rootSaga);
 
   if ((module as any).hot) {
     (module as any).hot.accept("./reducers", () => {

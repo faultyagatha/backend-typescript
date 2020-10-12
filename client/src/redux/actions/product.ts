@@ -49,7 +49,7 @@ function getProductsFail(error: any): ProductActions {
 export function fetchProducts(): any {
   return async (dispatch: Dispatch) => {
     try {
-      const { data } = await axios.get("baseURL");
+      const { data } = await axios.get(baseURL);
       console.log(data);
       return dispatch(getProducts(data));
     } catch (err) {

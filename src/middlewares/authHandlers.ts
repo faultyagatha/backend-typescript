@@ -18,7 +18,7 @@ export const isLoggedin = async (
 ) => {
   try {
     // 1) Get a token and check of it's there
-    let token = null
+    let token
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith('Bearer')

@@ -132,7 +132,7 @@ export function signUpUser(
         config
       );
       console.log("axios req: ", data);
-      localStorage.setItem("user", JSON.stringify(data));
+      // localStorage.setItem("user", JSON.stringify(data));
       return dispatch(signUp(data));
     } catch (err) {
       console.log("error action: ", err);
@@ -155,7 +155,7 @@ export function loginUser(email: string, password: string): any {
         config
       );
       console.log(data);
-      localStorage.setItem("user", JSON.stringify(data));
+      // localStorage.setItem("user", JSON.stringify(data));
       return dispatch(login(data));
     } catch (err) {
       console.log("error action: ", err);
@@ -204,12 +204,14 @@ export function updateUserData(userData: User): any {
   return async (dispatch: Dispatch, getState: any) => {
     try {
       const { user } = getState();
+      console.log(user);
       const config = {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
       };
+      console.log(userData);
       const { data } = await axios.patch(
         `${rootURL}/profile`,
         userData,
@@ -218,6 +220,7 @@ export function updateUserData(userData: User): any {
       dispatch(updateUser(data));
     } catch (err) {
       dispatch(updateUserFail(err));
+      console.log(err);
     }
   };
 }

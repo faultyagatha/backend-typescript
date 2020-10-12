@@ -21,8 +21,7 @@ export default function product(
       return { ...state, allProducts };
     }
     case GET_PRODUCTS_FAIL: {
-      const { error } = action.payload;
-      console.log(state);
+      const error = action.payload;
       return { ...state, error };
     }
     case ADD_PRODUCT: {

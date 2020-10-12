@@ -40,23 +40,24 @@ function updateProfile(
   userId: string,
   update: Partial<UserDocument>
 ): Promise<UserDocument | null> {
-  return User.findById(userId)
-    .exec()
-    .then((user) => {
-      console.log(user)
-      if (!user) throw new Error(`User ${userId} not found`)
-      if (update.email) user.email = update.email
-      if (update.password) user.password = update.password
-      if (update.passwordConfirm) user.passwordConfirm = update.passwordConfirm
-      if (update.firstName) user.firstName = update.firstName
-      if (update.lastName) user.lastName = update.lastName
-      return user.save()
+  // return User.findById(userId)
+  //   .exec()
+  //   .then((user) => {
+  //     console.log(user)
+  //     if (!user) throw new Error(`User ${userId} not found`)
+  //     if (update.email) user.email = update.email
+  //     if (update.password) user.password = update.password
+  //     if (update.passwordConfirm) user.passwordConfirm = update.passwordConfirm
+  //     if (update.firstName) user.firstName = update.firstName
+  //     if (update.lastName) user.lastName = update.lastName
+  //     return user.save()
+  // })
 
-      // return User.findByIdAndUpdate(userId, update, {
-      //   new: true,
-      //   runValidators: true,
-      // }).exec()
-    })
+  return User.findByIdAndUpdate(userId, update, {
+    new: true,
+    runValidators: true,
+  }).exec()
+
 }
 
 //don't delete from the DB but only set active to false

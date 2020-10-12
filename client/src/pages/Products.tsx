@@ -26,7 +26,7 @@ export default function Products() {
   const renderProducts = () => {
     return allProducts.map((product) => {
       return (
-        <Col sm={12} md={6} lg={4} xl={3}>
+        <Col sm={12} md={6} lg={4} xl={3} key={product.name}>
           <ProductCard
             key={product.name}
             name={product.name}

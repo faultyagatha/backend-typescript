@@ -6,6 +6,6 @@ function* saveStoreState() {
   yield localStorage.setItem("store", JSON.stringify(state));
 }
 
-// export default function* rootSaga() {
-//   yield all([takeLatest("*", saveStoreState)]);
-// }
+export default function* rootSaga() {
+  yield all([takeLatest("*", saveStoreState)]);
+}

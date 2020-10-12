@@ -78,17 +78,13 @@ export const signup = async (
       return res.status(409).json({ message: 'Email already in use' })
     }
     //TODO: check this one
-    // await UserService.create(user)
+    //await UserService.create(user)
     createSendToken(user, 201, res)
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequestError('Passwords do not match', err))
     }
-    if (err.name === 'MongoError') {
-      next(
-        new BadRequestError('A user with this user name already exists', err)
-      )
-    } else next(new InternalServerError('Internal Server Error', err))
+    else next(new InternalServerError('Internal Server Error', err))
   }
 }
 
