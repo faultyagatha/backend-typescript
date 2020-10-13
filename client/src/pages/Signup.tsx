@@ -13,7 +13,8 @@ import SignUpForm from "../components/SignUp";
 
 const SignUp = () => {
   const dispatch = useDispatch();
-  const { user, error } = useSelector((state: AppState) => state.user);
+  const { user } = useSelector((state: AppState) => state.user);
+  const { error } = useSelector((state: AppState) => state.error);
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

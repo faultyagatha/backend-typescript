@@ -8,6 +8,7 @@ const createRootReducer = () =>
   combineReducers({
     product,
     user,
+    error,
   });
 
 export default createRootReducer;

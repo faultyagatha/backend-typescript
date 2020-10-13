@@ -10,7 +10,8 @@ import Message from "../components/Message";
 
 const User = () => {
   const dispatch = useDispatch();
-  const { user, error, success } = useSelector((state: AppState) => state.user);
+  const { user, success } = useSelector((state: AppState) => state.user);
+  const { error } = useSelector((state: AppState) => state.error);
   const history = useHistory();
   const { id } = useParams();
   const [email, setEmail] = useState("");

@@ -13,7 +13,7 @@ import FormContainer from "../components/Form";
 const Login = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: AppState) => state.user);
-  const error = useSelector((state: AppState) => state.error);
+  const { error } = useSelector((state: AppState) => state.error);
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPasword] = useState("");

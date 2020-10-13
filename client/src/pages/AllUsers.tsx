@@ -10,7 +10,8 @@ import { AppState } from "../types";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
-  const { allUsers, error } = useSelector((state: AppState) => state.user);
+  const { allUsers } = useSelector((state: AppState) => state.user);
+  const error = useSelector((state: AppState) => state.error);
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);

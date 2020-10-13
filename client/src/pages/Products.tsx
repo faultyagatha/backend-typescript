@@ -10,9 +10,10 @@ import Message from "../components/Message";
 
 export default function Products() {
   const dispatch = useDispatch();
-  const { allProducts, loading, error } = useSelector(
+  const { allProducts, loading } = useSelector(
     (state: AppState) => state.product
   );
+  const { error } = useSelector((state: AppState) => state.error);
   console.log(error);
 
   useEffect(() => {

@@ -13,7 +13,6 @@ export default function error(
   switch (action.type) {
     case ACTION_FAIL: {
       const error = action.payload;
-      console.log(error);
       return { ...state, error };
     }
     default:

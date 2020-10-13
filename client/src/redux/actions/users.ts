@@ -6,23 +6,14 @@ import {
   SIGNUP_REQ,
   GOOGLE_LOGIN_REQ,
   LOGOUT_REQ,
-  LOGIN_FAIL,
-  SIGNUP_FAIL,
-  GOOGLE_LOGIN_FAIL,
   GET_USER_REQ,
-  GET_USER_FAIL,
   UPDATE_USER_REQ,
-  UPDATE_USER_FAIL,
   GET_USERS_ADMIN,
-  GET_USERS_ADMIN_FAIL,
-  UPDATE_USER_ADMIN,
-  UPDATE_USER_ADMIN_FAIL,
-  ACTION_FAIL,
-  ErrorAction,
   UserActions,
   User,
 } from "../../types";
 import { loginGoogleReq } from "../../api";
+import { actionFail } from "./errors";
 
 const rootURL = "http://localhost:5000/api/v1/users";
 
@@ -54,50 +45,10 @@ function signUp(data: User): UserActions {
   };
 }
 
-function loginFail(error: any): ErrorAction {
-  return {
-    type: ACTION_FAIL,
-    payload:
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message,
-  };
-}
-
-export function googleLoginFail(error: any): UserActions {
-  return {
-    type: GOOGLE_LOGIN_REQ,
-    payload:
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message,
-  };
-}
-
-function signUpFail(error: any): UserActions {
-  return {
-    type: SIGNUP_FAIL,
-    payload:
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message,
-  };
-}
-
 function getUser(data: User): UserActions {
   return {
     type: GET_USER_REQ,
     payload: { user: data },
-  };
-}
-
-function getUserFail(error: any): UserActions {
-  return {
-    type: GET_USER_FAIL,
-    payload:
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message,
   };
 }
 
@@ -108,30 +59,10 @@ function updateUser(data: User): UserActions {
   };
 }
 
-function updateUserFail(error: any): UserActions {
-  return {
-    type: UPDATE_USER_FAIL,
-    payload:
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message,
-  };
-}
-
 function getUsersAdmin(data: User[]): UserActions {
   return {
     type: GET_USERS_ADMIN,
     payload: { allUsers: data },
-  };
-}
-
-function getUsersAdminFail(error: any): UserActions {
-  return {
-    type: GET_USERS_ADMIN_FAIL,
-    payload:
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message,
   };
 }
 
@@ -153,11 +84,11 @@ export function signUpUser(
         config
       );
       console.log("axios req: ", data);
-      // localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(data));
       return dispatch(signUp(data));
     } catch (err) {
       console.log("error action: ", err);
-      return dispatch(signUpFail(err));
+      return dispatch(actionFail(err));
     }
   };
 }
@@ -176,11 +107,11 @@ export function loginUser(email: string, password: string): any {
         config
       );
       console.log(data);
-      // localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(data));
       return dispatch(login(data));
     } catch (err) {
       console.log("error action: ", err);
-      return dispatch(loginFail(err));
+      return dispatch(actionFail(err));
     }
   };
 }
@@ -191,14 +122,14 @@ export function loginWithGoogle(res: any): any {
       const { data } = await loginGoogleReq();
       return dispatch(googleLogin(data));
     } catch (err) {
-      return dispatch(googleLoginFail(err));
+      return dispatch(actionFail(err));
     }
   };
 }
 
 export function logoutUser(): any {
   return async (dispatch: Dispatch) => {
-    // localStorage.removeItem("user");
+    localStorage.removeItem("user");
     dispatch(logout());
   };
 }
@@ -215,7 +146,7 @@ export function getUserData(id: string): any {
       const { data } = await axios.get(`${rootURL}/${id}`, config);
       dispatch(getUser(data));
     } catch (err) {
-      dispatch(getUserFail(err));
+      dispatch(actionFail(err));
     }
   };
 }
@@ -240,7 +171,7 @@ export function updateUserData(userData: User): any {
       console.log(data);
       dispatch(updateUser(data));
     } catch (err) {
-      dispatch(updateUserFail(err));
+      dispatch(actionFail(err));
       console.log(err);
     }
   };
@@ -258,7 +189,7 @@ export function getAllUsers() {
       const { data } = await axios.get(`${rootURL}`, config);
       dispatch(getUsersAdmin(data));
     } catch (err) {
-      dispatch(getUsersAdminFail(err));
+      dispatch(actionFail(err));
     }
   };
 }
