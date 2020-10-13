@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import {
   NotFoundError,
   BadRequestError,
-  InternalServerError,
+  AppError,
 } from '../helpers/apiError'
 
 import Product from '../models/Product'
@@ -19,7 +19,6 @@ export const findAll = async (
   } catch (err) {
     console.log(err)
     next(new NotFoundError('Products not found', err))
-    //next(new Error('Products not found'))
   }
 }
 
@@ -98,7 +97,7 @@ export const createProduct = async (
     if (error.name === 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
     } else {
-      next(new InternalServerError('Internal Server Error', error))
+      next(new AppError())
     }
   }
 }

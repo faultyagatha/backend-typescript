@@ -20,7 +20,7 @@ const ProductCard = ({
     <Card className="my-3 p-3 rounded" key={name}>
       <Card.Img src={imageCover} variant="top" />
       <Card.Body>
-        <Link to={`${_id}`}>
+        <Link to={`products/${name.toLowerCase()}`}>
           <Card.Title as="h4">
             <strong>{name}</strong>
           </Card.Title>

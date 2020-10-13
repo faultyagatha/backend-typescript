@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 
 import {
   BadRequestError,
-  InternalServerError,
+  AppError,
   JWTError
 } from '../helpers/apiError'
 
@@ -21,7 +21,9 @@ const signToken = (id: string): string => {
   } catch (err) {
     if (err.name === 'JsonWebTokenError')
       throw new JWTError('Invalid Token. Please login again', err)
-    else throw new InternalServerError('Internal Server Error', err)
+    else {
+      throw new AppError()
+    }
   }
 }
 
@@ -31,17 +33,18 @@ const createSendToken = (
   res: Response
 ): void => {
   const token = signToken(user._id)
-  const JWT_COOKIE_EXPIRES_IN = process.env['JWT_COOKIE_EXPIRES_IN'] as unknown
-  const cookieOptions = {
-    expires: new Date(
-      Date.now() + (JWT_COOKIE_EXPIRES_IN as number) * 24 * 60 * 60 * 1000 //convert to milsec
-    ),
-    secure: false,
-    httpOnly: true,
-  }
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true
+  console.log('token: ', token)
+  // const JWT_COOKIE_EXPIRES_IN = process.env['JWT_COOKIE_EXPIRES_IN'] as unknown
+  // const cookieOptions = {
+  //   expires: new Date(
+  //     Date.now() + (JWT_COOKIE_EXPIRES_IN as number) * 24 * 60 * 60 * 1000 //convert to milsec
+  //   ),
+  //   secure: false,
+  //   httpOnly: true,
+  // }
+  // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true
 
-  res.cookie('jwt', token, cookieOptions)
+  // res.cookie('jwt', token, cookieOptions)
 
   // Remove password from output
   const { email, products, firstName, lastName, isAdmin } = user
@@ -77,11 +80,12 @@ export const signup = async (
 
     await UserService.create(user)
     createSendToken(user, 201, res)
+
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequestError('Passwords do not match', err))
     }
-    else next(new InternalServerError('Internal Server Error', err))
+    else next(new AppError())
   }
 }
 
@@ -98,7 +102,7 @@ export const login = async (
       return next(new BadRequestError('Please provide email and password'))
     }
 
-    //2). Check is user exists & the password is correct
+    //2). Check if user exists & the password is correct
     const user = await User.findOne({ email }).select('+password')
     if (!user || !user.isCorrectPassword(password)) {
       return next(new BadRequestError('Invalid login data'))
@@ -171,7 +175,7 @@ export const forgotPassword = async (
     user.passwordResetExpires = undefined
     await user.save({ validateBeforeSave: false })
     return next(
-      new InternalServerError('Error sending the email. Try again later')
+      new AppError('Error sending the email. Try again later')
     )
   }
 }

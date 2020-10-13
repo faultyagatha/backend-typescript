@@ -81,11 +81,11 @@ userSchema.pre<UserDocument>('save', async function (next) {
 })
 
 //set passwordChangedAt
-userSchema.pre<UserDocument>('save', function (next) {
-  if (!this.isModified('password') || this.isNew) return next()
-  this.passwordChangedAt = ((Date.now() - 1000) as unknown) as Date //protect from issuing the token before
-  next()
-})
+// userSchema.pre<UserDocument>('save', function (next) {
+//   if (!this.isModified('password') || this.isNew) return next()
+//   this.passwordChangedAt = ((Date.now() - 1000) as unknown) as Date //protect from issuing the token before
+//   next()
+// })
 
 /** pre-query middleware will automatically run right before a query is executed */
 userSchema.pre<mongoose.Query<any>>(/^find/, function (next) {
@@ -116,13 +116,13 @@ userSchema.methods.isCorrectPassword = async function (
   return await bcrypt.compare(candidatePassword, this.password)
 }
 
-userSchema.methods.isChangedPassAfterJwt = function (JwtTimeStamp: any) {
-  if (this.passwordChangedAt) {
-    const changedTimestamp = this.passwordChangedAt.getTime() / 1000
-    return JwtTimeStamp < changedTimestamp
-  }
-  return false
-}
+// userSchema.methods.isChangedPassAfterJwt = function (JwtTimeStamp: any) {
+//   if (this.passwordChangedAt) {
+//     const changedTimestamp = this.passwordChangedAt.getTime() / 1000
+//     return JwtTimeStamp < changedTimestamp
+//   }
+//   return false
+// }
 
 userSchema.methods.createPasswordResetToken = function (): string {
   const resetToken = crypto.randomBytes(32).toString('hex') //doesn't need to be strong as password

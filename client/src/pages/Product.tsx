@@ -9,19 +9,18 @@ import { fetchProduct, removeProduct } from "../redux/actions";
 const Product = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(id);
   const history = useHistory();
   const { allProducts, inCart } = useSelector(
     (state: AppState) => state.product
   );
-  const [product] = allProducts.filter((p) => console.log(p)); //p._id === id);
+  const [product] = allProducts.filter((p) => p.name.toLowerCase() === id);
   console.log(product);
 
   if (!product) return <div>Product not found</div>;
 
   const handleAddToCart = () => {
     history.push(`/cart/${id}`);
-    dispatch(fetchProduct(id));
+    // dispatch(fetchProduct(id));
   };
 
   return (
