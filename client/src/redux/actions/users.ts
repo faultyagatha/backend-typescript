@@ -84,7 +84,7 @@ export function signUpUser(
         config
       );
       console.log("axios req: ", data);
-      localStorage.setItem("user", JSON.stringify(data));
+      // localStorage.setItem("user", JSON.stringify(data));
       return dispatch(signUp(data));
     } catch (err) {
       console.log("error action: ", err);
@@ -107,7 +107,7 @@ export function loginUser(email: string, password: string): any {
         config
       );
       console.log(data);
-      localStorage.setItem("user", JSON.stringify(data));
+      // localStorage.setItem("user", JSON.stringify(data));
       return dispatch(login(data));
     } catch (err) {
       console.log("error action: ", err);
@@ -129,7 +129,7 @@ export function loginWithGoogle(res: any): any {
 
 export function logoutUser(): any {
   return async (dispatch: Dispatch) => {
-    localStorage.removeItem("user");
+    // localStorage.removeItem("user");
     dispatch(logout());
   };
 }

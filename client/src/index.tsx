@@ -5,11 +5,18 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import makeStore from "./redux/store";
+import makeStore, { saveState } from "./redux/store";
 import "./index.css";
 import "./bootstrap.min.css";
 
 const store = makeStore();
+
+store.subscribe(() => {
+  saveState({
+    user: store.getState().user,
+    product: store.getState().product,
+  });
+});
 
 const WithProvider = () => (
   <Provider store={store}>

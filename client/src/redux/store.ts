@@ -22,7 +22,7 @@ const initState: AppState = {
   },
 };
 
-export default function makeStore(initialState = initState) {
+export default function makeStore(initialState = loadState()) {
   const sagaMiddleware = createSagaMiddleware();
   const middlewares = [sagaMiddleware, thunk];
   let composeEnhancers = compose;
@@ -33,15 +33,18 @@ export default function makeStore(initialState = initState) {
     }
   }
 
+  const initialstate = loadState();
+  console.log(initialstate);
   //must be above the store!!
-  const productItemsFromStorage = localStorage.getItem("product") || "";
-  console.log(localStorage.store);
-  if (productItemsFromStorage) {
-    initialState = JSON.parse(productItemsFromStorage);
-  }
+  // const product = localStorage.getItem("product") || "";
+  // console.log(localStorage.store);
+  // if (product) {
+  //   initialState = JSON.parse(product);
+  // }
 
-  const usersFromStorage = localStorage.getItem("user") || "";
-  if (usersFromStorage) initialState = JSON.parse(usersFromStorage);
+  // const user = localStorage.getItem("user") || "";
+  // console.log(user)
+  // if (user) initialState = JSON.parse(user);
 
   // const cartItemsFromStorage = localStorage.getItem("inCart") || "";
   // if (cartItemsFromStorage) initialState = JSON.parse(cartItemsFromStorage);
@@ -67,3 +70,22 @@ export default function makeStore(initialState = initState) {
 
   return store;
 }
+
+export const loadState = () => {
+  try {
+    const serialisedState = localStorage.getItem("state");
+    if (serialisedState === null) return undefined;
+    return JSON.parse(serialisedState);
+  } catch (err) {
+    return undefined;
+  }
+};
+
+export const saveState = (state: any) => {
+  try {
+    const serialisedState = JSON.stringify(state);
+    localStorage.setItem("state", serialisedState);
+  } catch (err) {
+    console.log("Error saving state: ", err);
+  }
+};
