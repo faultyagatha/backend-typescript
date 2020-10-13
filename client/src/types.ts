@@ -147,3 +147,15 @@ export type AddToCartBtn = {
   handleClick: (event: any) => void;
   isDisabled: boolean;
 };
+
+export type MessageType = ({
+  variant,
+  children,
+}: {
+  variant: string;
+  children: any;
+}) => JSX.Element;
+
+export type WithChildren = ({ children }: { children?: any }) => JSX.Element;
+
+// export type GoBack = ({ children }: { children?: any }) => JSX.Element;

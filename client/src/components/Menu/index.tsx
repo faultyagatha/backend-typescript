@@ -10,10 +10,8 @@ const Menu = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { user } = useSelector((state: AppState) => state.user);
-  user ? console.log(user) : console.log("no user");
 
   const logoutHandler = () => {
-    console.log(user);
     dispatch(logoutUser());
     history.push("/signup");
   };
@@ -55,6 +53,16 @@ const Menu = () => {
                     Signup
                   </Nav.Link>
                 </>
+              )}
+              {user && user.isAdmin && (
+                <NavDropdown title="Admin" id="admin">
+                  <NavDropdown.Item as={Link} to="admin/users">
+                    Users
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="admin/products">
+                    Products
+                  </NavDropdown.Item>
+                </NavDropdown>
               )}
             </Nav>
           </Navbar.Collapse>

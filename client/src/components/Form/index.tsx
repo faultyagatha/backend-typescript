@@ -1,9 +1,9 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
 
-type Form = ({ children }: { children?: any }) => JSX.Element;
+import { WithChildren } from "../../types";
 
-const FormContainer: Form = ({ children }) => {
+const FormContainer: WithChildren = ({ children }) => {
   return (
     <Container>
       <Row className="justify-content-md-center">
