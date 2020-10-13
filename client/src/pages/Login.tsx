@@ -12,7 +12,8 @@ import FormContainer from "../components/Form";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { user, error } = useSelector((state: AppState) => state.user);
+  const { user } = useSelector((state: AppState) => state.user);
+  const error = useSelector((state: AppState) => state.error);
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPasword] = useState("");
@@ -21,7 +22,7 @@ const Login = () => {
     if (user.email) {
       history.push("/");
     }
-  }, [history, user]);
+  }, [history, user, error]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

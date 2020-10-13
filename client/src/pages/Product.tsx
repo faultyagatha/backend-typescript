@@ -1,26 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Card, Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 
 import { AppState } from "../types";
-import { fetchProduct, removeProduct } from "../redux/actions";
+import { addProductToCart } from "../redux/actions";
 
 const Product = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const history = useHistory();
-  const { allProducts, inCart } = useSelector(
-    (state: AppState) => state.product
-  );
+  const { allProducts } = useSelector((state: AppState) => state.product);
   const [product] = allProducts.filter((p) => p.name.toLowerCase() === id);
-  console.log(product);
 
   if (!product) return <div>Product not found</div>;
 
   const handleAddToCart = () => {
     history.push(`/cart/${id}`);
-    // dispatch(fetchProduct(id));
+    dispatch(addProductToCart(product));
   };
 
   return (
@@ -28,7 +25,7 @@ const Product = () => {
       <Link className="btn btn-light my-3" to="/">
         Go Back
       </Link>
-      <h1>Product page</h1>
+      <h1>Product</h1>
       <Row>
         <Col md={6}>
           <Image src={product.imageCover} alt={product.name} fluid />

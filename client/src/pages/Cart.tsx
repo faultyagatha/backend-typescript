@@ -1,50 +1,99 @@
 import React from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  Row,
+  Col,
+  ListGroup,
+  Image,
+  Form,
+  Button,
+  Card,
+} from "react-bootstrap";
 
-import { AppState } from "../types";
-import { removeProduct } from "../redux/actions";
+import { AppState, Product } from "../types";
+import { removeProductFromCart } from "../redux/actions";
 
 const Cart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const productsInCart = useSelector((state: AppState) => state.product.inCart);
+  const { inCart } = useSelector((state: AppState) => state.product);
+
+  const handleRemoveFromCart = (product: Product) => {
+    dispatch(removeProductFromCart(product));
+  };
+
+  const handleCheckout = () => {
+    console.log("checkout");
+  };
 
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
-        Go Back
+        Continue Shopping
       </Link>
-      <h3 className="text-center">
-        {`You have ${productsInCart.length} items in your cart`}
-        <span> {`Total: ${productsInCart.length}€`}</span>
-      </h3>
-      <div className="cart">
-        {productsInCart.map((product) => {
-          return (
-            <div className="card rounded" key={product.name}>
-              <p className="card-img-top">{product.imageCover}</p>
-              <div className="card-body text-center">
-                <h5 className="card-title">{product.name}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">
-                  {product.description}
-                </h6>
-                <p className="card-text">{`Duration: ${product.duration} hours`}</p>
-                <p>{`Difficulty: ${product.difficulty}`}</p>
-                <p>{`Price: ${product.price}€`}</p>
-                <p>
-                  <button
-                    className="ui teal basic button"
-                    onClick={() => dispatch(removeProduct(product))}
-                  >
-                    Cancel
-                  </button>
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <Row className="py-3">
+        <Col md={8}>
+          <h3 className="text-center">
+            {`You have ${inCart.length} items in your cart`}
+          </h3>
+          <ListGroup variant="flush">
+            {inCart.map((product) => {
+              return (
+                <ListGroup.Item key={product.name}>
+                  <Row>
+                    <Col md={2}>
+                      <Image
+                        src={product.imageCover}
+                        alt={product.name}
+                        fluid
+                        rounded
+                      />
+                    </Col>
+                    <Col md={3}>
+                      <Link to={`/products/${product.name.toLowerCase()}`}>
+                        {product.name}
+                      </Link>
+                    </Col>
+                    <Col md={3}>{product.description}</Col>
+                    <Col md={2}>{`Duration: ${product.duration} hours`}</Col>
+                    <Col md={2}>{`Difficulty: ${product.difficulty}`}</Col>
+                    <Col md={2}>{`Price: ${product.price}€`}</Col>
+                    <Col md={2}>
+                      <Button
+                        type="button"
+                        variant="light"
+                        onClick={() => handleRemoveFromCart(product)}
+                      >
+                        <i className="fas fa-trash"></i>
+                      </Button>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+              );
+            })}
+          </ListGroup>
+        </Col>
+        <Col md={4}>
+          <Card>
+            <ListGroup variant="flush">
+              <ListGroup.Item>
+                <h2>{`Your total: ${inCart.length} items`}</h2>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button
+                  type="button"
+                  className="btn-block"
+                  disabled={inCart.length === 0}
+                  onClick={handleCheckout}
+                >
+                  Checkout
+                </Button>
+              </ListGroup.Item>
+            </ListGroup>
+          </Card>
+        </Col>
+      </Row>
     </>
   );
 };

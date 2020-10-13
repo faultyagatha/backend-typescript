@@ -8,7 +8,6 @@ export default function Home() {
     <>
       <Menu />
       <Products />
-      {/* <h1 className="text-center">Welcome to our shop</h1> */}
     </>
   );
 }

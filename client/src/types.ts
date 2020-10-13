@@ -30,6 +30,8 @@ export const GET_USERS_ADMIN_FAIL = "GET_USERS_ADMIN_FAIL";
 export const UPDATE_USER_ADMIN = "UPDATE_USER_ADMIN";
 export const UPDATE_USER_ADMIN_FAIL = "UPDATE_USER_ADMIN_FAIL";
 
+export const ACTION_FAIL = "ACTION_FAIL";
+
 export type Product = {
   _id: string;
   name: string;
@@ -67,6 +69,7 @@ export type UserState = {
 export type AppState = {
   product: ProductState;
   user: UserState;
+  error: any;
 };
 
 export type GetProductsAction = {
@@ -205,6 +208,11 @@ export type UserActions =
   | GetUsersAdminFailAction
   | UpdateUserAdminAction
   | UpdateUserAdminFailAction;
+
+export type ErrorAction = {
+  type: typeof ACTION_FAIL;
+  payload: { error: any };
+};
 
 export type GoBackBtn = {
   handleGoBackClick: (event: any) => void;

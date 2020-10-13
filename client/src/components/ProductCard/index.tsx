@@ -1,11 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Row, Col, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
-import { fetchProduct } from "../../redux/actions";
-import { Product, AppState } from "../../types";
-import AddToCartButton from "../AddToCartButton";
+import { Product } from "../../types";
 
 const ProductCard = ({
   _id,

@@ -19,6 +19,9 @@ const initState: AppState = {
     error: "",
     success: true,
   },
+  error: {
+    error: "",
+  },
 };
 
 export default function makeStore(initialState = initState) {
@@ -33,17 +36,21 @@ export default function makeStore(initialState = initState) {
   }
 
   //must be above the store!!
-  const productItemsFromStorage = localStorage.getItem("product") || "";
-  if (productItemsFromStorage) {
-    console.log(productItemsFromStorage);
-    initialState = JSON.parse(productItemsFromStorage);
-  }
+  // const productItemsFromStorage = localStorage.getItem("product") || "";
+  // console.log(localStorage.store);
+  // if (productItemsFromStorage) {
+  //   initialState = JSON.parse(productItemsFromStorage);
+  // }
 
-  const usersFromStorage = localStorage.getItem("user") || "";
-  if (usersFromStorage) initialState = JSON.parse(usersFromStorage);
+  // const usersFromStorage = localStorage.getItem("user") || "";
+  // if (usersFromStorage) initialState = JSON.parse(usersFromStorage);
 
-  // const savedStore = localStorage.getItem("store") || "";
-  // if (savedStore) initialState = JSON.parse(savedStore);
+  // const cartItemsFromStorage = localStorage.getItem("inCart") || "";
+  // if (cartItemsFromStorage) initialState = JSON.parse(cartItemsFromStorage);
+
+  const savedStore = localStorage.getItem("store") || "";
+  if (savedStore) initialState = JSON.parse(savedStore);
+  console.log(localStorage);
 
   const store = createStore(
     createRootReducer(),

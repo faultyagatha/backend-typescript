@@ -3,26 +3,24 @@ import axios from "axios";
 
 import {
   GET_PRODUCTS,
-  // GET_PRODUCT,
+  GET_PRODUCTS_FAIL,
+  GET_PRODUCTS_SUCCESS,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
   ProductActions,
   Product,
-  GET_PRODUCTS_FAIL,
-  GET_PRODUCTS_SUCCESS,
 } from "../../types";
 
 const baseURL = "http://localhost:5000/api/v1/products";
 
 function addProduct(product: Product): ProductActions {
-  console.log(product);
   return {
     type: ADD_PRODUCT,
     payload: { product },
   };
 }
 
-export function removeProduct(product: Product): ProductActions {
+function removeProduct(product: Product): ProductActions {
   return {
     type: REMOVE_PRODUCT,
     payload: { product },
@@ -67,38 +65,36 @@ export function fetchProducts(): any {
   };
 }
 
-export function fetchProduct(productId: string) {
+export function addProductToCart(product: Product): any {
   return async (dispatch: Dispatch, getState: any) => {
     try {
-      const { data } = await axios.get(`${baseURL}/${productId}`);
-      dispatch(addProduct(data));
       localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
+      dispatch(addProduct(product));
     } catch (err) {
-      console.log(err);
+      //TODO
     }
   };
 }
 
-// function getProduct(product: Product): ProductActions {
-//   return {
-//     type: GET_PRODUCT,
-//     payload: { product }
-//   }
-// }
-
-/** Async actions processed by redux-thunk middleware */
-// export function fetchProducts(): any {
-//   return async (dispatch: Dispatch) => {
-//     const { data } = await getAllProducts();
-//     console.log(data);
-//     return dispatch(getProducts(data));
-//   };
-// }
+export function removeProductFromCart(product: Product): any {
+  return async (dispatch: Dispatch, getState: any) => {
+    try {
+      localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
+      dispatch(removeProduct(product));
+    } catch (err) {
+      //TODO
+    }
+  };
+}
 
 // export function fetchProduct(productId: string) {
-//   return async (dispatch: Dispatch) => {
-//     const { data } = await getProductById(productId)
-//     console.log(data)
-//     dispatch(getProduct(data));
-//   }
+//   return async (dispatch: Dispatch, getState: any) => {
+//     try {
+//       const { data } = await axios.get(`${baseURL}/${productId}`);
+//       dispatch(addProduct(data));
+//       localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
 // }

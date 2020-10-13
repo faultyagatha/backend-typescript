@@ -28,16 +28,16 @@ export default function user(
   switch (action.type) {
     case LOGIN_REQ: {
       const { user } = action.payload;
-      return { ...state, user, success: true };
+      return { ...state, user, success: true, error: null };
     }
     case LOGIN_FAIL: {
       const error = action.payload;
-      return { ...state, error };
+      return { ...state };
     }
     case SIGNUP_REQ: {
       const { user } = action.payload;
       console.log(user);
-      return { ...state, user, success: true };
+      return { ...state, user, success: true, error: null };
     }
     case SIGNUP_FAIL: {
       const error = action.payload;
@@ -45,11 +45,11 @@ export default function user(
     }
     case LOGOUT_REQ: {
       const { user } = action.payload;
-      return { ...state, user, success: true };
+      return { ...state, user, success: true, error: null };
     }
     case GET_USER_REQ: {
       const { user } = action.payload;
-      return { ...state, user, success: true };
+      return { ...state, user, success: true, error: null };
     }
     case GET_USER_FAIL: {
       const error = action.payload;
@@ -57,7 +57,7 @@ export default function user(
     }
     case UPDATE_USER_REQ: {
       const { user } = action.payload;
-      return { ...state, user, success: true };
+      return { ...state, user, success: true, error: null };
     }
     case UPDATE_USER_FAIL: {
       const error = action.payload;
@@ -65,7 +65,7 @@ export default function user(
     }
     case GET_USERS_ADMIN: {
       const { allUsers } = action.payload;
-      return { ...state, allUsers, success: true };
+      return { ...state, allUsers, success: true, error: null };
     }
     case GET_USERS_ADMIN_FAIL: {
       const error = action.payload;

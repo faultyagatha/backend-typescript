@@ -17,6 +17,8 @@ import {
   GET_USERS_ADMIN_FAIL,
   UPDATE_USER_ADMIN,
   UPDATE_USER_ADMIN_FAIL,
+  ACTION_FAIL,
+  ErrorAction,
   UserActions,
   User,
 } from "../../types";
@@ -24,7 +26,6 @@ import { loginGoogleReq } from "../../api";
 
 const rootURL = "http://localhost:5000/api/v1/users";
 
-//////// ACTIONS TO DISPATCH INSIDE
 function login(data: User): UserActions {
   return {
     type: LOGIN_REQ,
@@ -53,9 +54,9 @@ function signUp(data: User): UserActions {
   };
 }
 
-function loginFail(error: any): UserActions {
+function loginFail(error: any): ErrorAction {
   return {
-    type: LOGIN_FAIL,
+    type: ACTION_FAIL,
     payload:
       error.response && error.response.data.message
         ? error.response.data.message
@@ -134,7 +135,6 @@ function getUsersAdminFail(error: any): UserActions {
   };
 }
 
-//////// ACTIONS TO DISPATCH OUTSIDE
 export function signUpUser(
   email: string,
   password: string,
@@ -198,7 +198,7 @@ export function loginWithGoogle(res: any): any {
 
 export function logoutUser(): any {
   return async (dispatch: Dispatch) => {
-    localStorage.removeItem("user");
+    // localStorage.removeItem("user");
     dispatch(logout());
   };
 }
@@ -209,7 +209,6 @@ export function getUserData(id: string): any {
       const { user } = getState();
       const config = {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
       };
