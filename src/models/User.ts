@@ -1,7 +1,6 @@
 import mongoose, { Document } from 'mongoose'
-import validator from 'validator'
 import bcrypt from 'bcrypt'
-import crypto from 'crypto'
+// import crypto from 'crypto'
 
 export type UserDocument = Document & {
   googleId: string;
@@ -11,9 +10,9 @@ export type UserDocument = Document & {
   firstName: string;
   lastName: string;
   isAdmin: boolean;
-  passwordChangedAt: Date;
-  passwordResetToken: string | undefined;
-  passwordResetExpires: number | undefined;
+  // passwordChangedAt: Date;
+  // passwordResetToken: string | undefined;
+  // passwordResetExpires: number | undefined;
   products: mongoose.Schema.Types.ObjectId[];
   isCorrectPassword(
     candidatePassword: string
@@ -123,15 +122,15 @@ userSchema.methods.isCorrectPassword = async function (
 //   return false
 // }
 
-userSchema.methods.createPasswordResetToken = function (): string {
-  const resetToken = crypto.randomBytes(32).toString('hex') //doesn't need to be strong as password
-  this.passwordResetToken = crypto
-    .createHash('sha256')
-    .update(resetToken)
-    .digest('hex')
-  console.log(resetToken, this.passwordResetToken)
-  this.passwordResetExpires = Date.now() + 10 * 60 * 1000 //10 mins
-  return resetToken //will be sent via email
-}
+// userSchema.methods.createPasswordResetToken = function (): string {
+//   const resetToken = crypto.randomBytes(32).toString('hex') //doesn't need to be strong as password
+//   this.passwordResetToken = crypto
+//     .createHash('sha256')
+//     .update(resetToken)
+//     .digest('hex')
+//   console.log(resetToken, this.passwordResetToken)
+//   this.passwordResetExpires = Date.now() + 10 * 60 * 1000 //10 mins
+//   return resetToken //will be sent via email
+// }
 
 export default mongoose.model<UserDocument>('User', userSchema)

@@ -61,7 +61,7 @@ const GOOGLE_CLIENT_ID = '66461290434-jd6st0fq3gulg1rpi1dchp9ll42hnsl5.apps.goog
 //   clientID: GOOGLE_CLIENT_ID
 // },
 //   async function (parsedToken: any, googleId: string, done: any) {
-//     const { userName, email, firstName, lastName, role, id } = parsedToken
+//     const { email, firstName, lastName, role, id } = parsedToken
 //     if (!parsedToken) { new BadRequestError('parsedToken is not supplied in pass config') }
 //     try {
 //       console.log(parsedToken)
@@ -71,7 +71,6 @@ const GOOGLE_CLIENT_ID = '66461290434-jd6st0fq3gulg1rpi1dchp9ll42hnsl5.apps.goog
 //       }
 //       const user = new User({
 //         googleId,
-//         // userName,
 //         // email,
 //         // firstName,
 //         // lastName,

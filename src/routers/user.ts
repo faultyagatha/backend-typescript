@@ -13,8 +13,8 @@ import {
   signup,
   login,
   googleLogin,
-  forgotPassword,
-  resetPassword,
+  // forgotPassword,
+  // resetPassword,
 } from '../controllers/auth'
 import {
   protect, admin
@@ -50,8 +50,8 @@ router.post('/login', login)
 
 
 //KEEP THESE ROUTES ON TOP!!
-router.post('/forgotPassword', forgotPassword)
-router.patch('/resetPassword/:token', resetPassword)
+// router.post('/forgotPassword', forgotPassword)
+// router.patch('/resetPassword/:token', resetPassword)
 
 router.use(protect) //remove for testing
 router.get('/profile', getProfile)

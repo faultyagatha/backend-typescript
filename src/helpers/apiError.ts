@@ -55,7 +55,7 @@ export class JWTError extends ApiError {
 
 export class AppError extends ApiError {
   constructor(
-    readonly message: string = 'Something went wrong. Please try again later',
+    readonly message: string = 'Something went wrong. Please reload the page and try again.',
     source?: Error
   ) {
     super(400, message, source)

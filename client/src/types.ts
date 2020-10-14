@@ -59,7 +59,6 @@ export type AppState = {
 
 export type GetProductsAction = {
   type: typeof GET_PRODUCTS;
-  // payload: { allProducts: Product[] };
 };
 
 export type GetProductsSuccessAction = {
@@ -157,5 +156,3 @@ export type MessageType = ({
 }) => JSX.Element;
 
 export type WithChildren = ({ children }: { children?: any }) => JSX.Element;
-
-// export type GoBack = ({ children }: { children?: any }) => JSX.Element;
