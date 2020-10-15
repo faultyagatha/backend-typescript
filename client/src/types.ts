@@ -16,6 +16,7 @@ export const UPDATE_USER_REQ = "UPDATE_USER_REQ";
 
 export const GET_USERS_ADMIN = "GET_USERS_ADMIN";
 export const UPDATE_USER_ADMIN = "UPDATE_USER_ADMIN";
+export const DELETE_USER_ADMIN = "DELETE_USER_ADMIN";
 
 export const ACTION_FAIL = "ACTION_FAIL";
 
@@ -123,6 +124,11 @@ export type UpdateUserAdminAction = {
   payload: { user: User };
 };
 
+export type DeleteUserAdminAction = {
+  type: typeof DELETE_USER_ADMIN;
+  // payload: { user: User }
+};
+
 export type UserActions =
   | LoginAction
   | LogoutAction
@@ -131,7 +137,8 @@ export type UserActions =
   | GetUserAction
   | UpdateUserAction
   | GetUsersAdminAction
-  | UpdateUserAdminAction;
+  | UpdateUserAdminAction
+  | DeleteUserAdminAction;
 
 export type ErrorAction = {
   type: typeof ACTION_FAIL;

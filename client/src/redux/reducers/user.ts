@@ -8,6 +8,7 @@ import {
   UPDATE_USER_REQ,
   GET_USERS_ADMIN,
   UPDATE_USER_ADMIN,
+  DELETE_USER_ADMIN,
 } from "../../types";
 
 export default function user(
@@ -45,6 +46,11 @@ export default function user(
       return { ...state, allUsers, success: true };
     }
     case UPDATE_USER_ADMIN: {
+    }
+    case DELETE_USER_ADMIN: {
+      // const { user } = action.payload;
+      // console.log(user)
+      return { ...state, success: true };
     }
     default:
       return state;

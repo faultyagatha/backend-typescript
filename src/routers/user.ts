@@ -44,7 +44,7 @@ router.use(protect) //remove for testing
 router.get('/profile', getProfile)
 router.patch('/profile', updateProfile)
 
-// router.use(admin) //remove for testing
+router.use(admin) //remove for testing
 router.get('/', findAll)
 router.get('/:userId', findById)
 router.patch('/:userId', updateUser)

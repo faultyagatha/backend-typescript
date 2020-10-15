@@ -5,7 +5,6 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 import { AppState } from "../types";
 import { getUserData, updateUserData } from "../redux/actions";
-import Loader from "../components/Loader";
 import Message from "../components/Message";
 
 const User = () => {
@@ -20,8 +19,6 @@ const User = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
-
-  console.log(error);
 
   useEffect(() => {
     if (!user) {

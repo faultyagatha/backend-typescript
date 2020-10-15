@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
-import { getAllUsers } from "../redux/actions";
+import { getAllUsers, deleteUser } from "../redux/actions";
 import { AppState } from "../types";
 
 const AllUsers = () => {
@@ -12,22 +12,27 @@ const AllUsers = () => {
   const history = useHistory();
   const { allUsers, user } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.error);
-  console.log(user);
 
   useEffect(() => {
-    // if (!user) {
-    //   console.log('no user')
-    //   history.push('/login')
-    // } else if (user.isAdmin) {
-    //   dispatch(getAllUsers());
-    // }
-    // else {
-    //   history.push('/')
-    // }
+    if (!user) {
+      console.log("no user");
+      history.push("/login");
+    } else if (user.isAdmin) {
+      dispatch(getAllUsers());
+    } else {
+      history.push("/");
+    }
     dispatch(getAllUsers());
-  }, [dispatch, history]);
+  }, [dispatch, history, user]);
 
-  const handleDeleteUser = (id: string | undefined) => {};
+  const handleDeleteUser = (id: string | undefined) => {
+    if (!id) {
+      console.log("no id passed");
+      return;
+    }
+    console.log(id);
+    dispatch(deleteUser(id));
+  };
 
   return (
     <>

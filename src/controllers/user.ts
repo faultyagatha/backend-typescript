@@ -70,6 +70,7 @@ export const deleteUser = async (
       .status(204)
       .json({
         status: 'success',
+        message: 'user deleted',
         data: null,
       })
       .end()
