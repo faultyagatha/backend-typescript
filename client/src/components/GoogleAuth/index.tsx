@@ -19,7 +19,7 @@ const GoogleAuth = () => {
         id_token: response.tokenId,
       });
       console.log("trying to login");
-      dispatch(googleLogin(res.data));
+      // dispatch(googleLogin(res.data));
       //localStorage.setItem("token", res.data.token);
     } catch (err) {
       console.log("client axios error: ", err);

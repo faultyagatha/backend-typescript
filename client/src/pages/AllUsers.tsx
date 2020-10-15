@@ -1,20 +1,31 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
-import Loader from "../components/Loader";
 import { getAllUsers } from "../redux/actions";
 import { AppState } from "../types";
 
 const AllUsers = () => {
   const dispatch = useDispatch();
-  const { allUsers } = useSelector((state: AppState) => state.user);
+  const history = useHistory();
+  const { allUsers, user } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.error);
+  console.log(user);
+
   useEffect(() => {
+    // if (!user) {
+    //   console.log('no user')
+    //   history.push('/login')
+    // } else if (user.isAdmin) {
+    //   dispatch(getAllUsers());
+    // }
+    // else {
+    //   history.push('/')
+    // }
     dispatch(getAllUsers());
-  }, [dispatch]);
+  }, [dispatch, history]);
 
   const handleDeleteUser = (id: string | undefined) => {};
 

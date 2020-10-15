@@ -2,8 +2,12 @@ import { takeLatest } from "redux-saga/effects";
 
 import { ADD_PRODUCT, REMOVE_PRODUCT, AddProductAction } from "../../types";
 
-function* doSomethingWhenAddingProduct(action: AddProductAction) {
+function* saveStateAddProduct(action: AddProductAction) {
   yield console.log(action);
 }
 
-export default [takeLatest(ADD_PRODUCT, doSomethingWhenAddingProduct)];
+function* saveStateRemoveProduct(action: AddProductAction) {
+  yield console.log(action);
+}
+
+export default [takeLatest(ADD_PRODUCT, saveStateRemoveProduct)];

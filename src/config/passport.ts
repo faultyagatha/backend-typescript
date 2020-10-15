@@ -57,41 +57,41 @@ const GOOGLE_CLIENT_ID = '66461290434-jd6st0fq3gulg1rpi1dchp9ll42hnsl5.apps.goog
 //   })
 // })
 
-// passport.use(new GoogleTokenStrategy({
-//   clientID: GOOGLE_CLIENT_ID
-// },
-//   async function (parsedToken: any, googleId: string, done: any) {
-//     const { email, firstName, lastName, role, id } = parsedToken
-//     if (!parsedToken) { new BadRequestError('parsedToken is not supplied in pass config') }
-//     try {
-//       console.log(parsedToken)
-//       const currentUser = User.findOne({ googleId })
-//       if (currentUser) {
-//         done(null, currentUser)
-//       }
-//       const user = new User({
-//         googleId,
-//         // email,
-//         // firstName,
-//         // lastName,
-//         // role
-//       }).save()
-//       // await UserService.create(user)
-//       console.log(user)
-//       done(null, user) //req.user
-//     } catch (err) {
-//       new BadRequestError('Bad passport config')
-//       done(err)
-//     }
-//   }
-// ))
-
 passport.use(new GoogleTokenStrategy({
   clientID: GOOGLE_CLIENT_ID
 },
-  function (parsedToken: any, googleId: string, done: any) {
-    User.findById({ id: googleId }, function (err, user) {
-      return done(err, user)
-    })
+  async function (parsedToken: any, googleId: string, done: any) {
+    if (!parsedToken) { new BadRequestError('parsedToken is not supplied in pass config') }
+    try {
+      console.log(parsedToken)
+      //const { email, firstName, lastName, role, id } = parsedToken
+      const currentUser = User.findOne({ googleId })
+      if (currentUser) {
+        done(null, currentUser)
+      }
+      const user = new User({
+        googleId,
+        // email,
+        // firstName,
+        // lastName,
+        // role
+      }).save()
+      // await UserService.create(user)
+      console.log(user)
+      done(null, user) //req.user
+    } catch (err) {
+      new BadRequestError('Bad passport config')
+      done(err)
+    }
   }
 ))
+
+// passport.use(new GoogleTokenStrategy({
+//   clientID: GOOGLE_CLIENT_ID
+// },
+//   function (parsedToken: any, googleId: string, done: any) {
+//     User.findById({ id: googleId }, function (err, user) {
+//       return done(err, user)
+//     })
+//   }
+// ))
