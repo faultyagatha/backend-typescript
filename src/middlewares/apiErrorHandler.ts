@@ -13,9 +13,16 @@ export default function (
     logger.error(error.source)
   }
 
-  res.status(error.statusCode).json({
+  // res.status(error.statusCode).json({
+  //   status: 'error',
+  //   statusCode: error.statusCode,
+  //   message: error.message,
+  // })
+  const statusCode = error.statusCode || 500
+
+  res.status(statusCode).json({
     status: 'error',
-    statusCode: error.statusCode,
+    statusCode: statusCode,
     message: error.message,
   })
 }

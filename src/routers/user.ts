@@ -1,5 +1,6 @@
 import express from 'express'
 import passport from 'passport'
+import '../config/passport'
 
 import {
   findById,

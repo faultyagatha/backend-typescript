@@ -1,10 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 
 import {
-  NotFoundError,
-  BadRequestError,
-  InternalServerError,
-  UnauthorizedError,
+  NotFoundError
 } from '../helpers/apiError'
 
 import UserService from '../services/user'
@@ -46,10 +43,11 @@ export const updateUser = async (
     const update = req.body
     const { userId } = req.params
 
-    const updatedUser = await UserService.updateUser(userId, update)
+    const user = await UserService.updateUser(userId, update)
+    console.log(user)
     res.status(200).json({
       status: 'success',
-      updatedUser
+      user
     })
   } catch (err) {
     next(new NotFoundError('User not found', err))
@@ -122,12 +120,12 @@ export const updateProfile = async (
   }
   try {
     const userReq = req.user as Payload
-    const updatedUser = await UserService.updateProfile(
+    const user = await UserService.updateProfile(
       userReq.id,
       allowedToUpdate
     )
     res.status(200).json({
-      updatedUser
+      user
     })
   } catch (err) {
     next(new NotFoundError('User not found', err))

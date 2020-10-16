@@ -221,6 +221,7 @@ export function updateUserByAdmin(userData: User) {
     try {
       const { user } = getState();
       const id = user._id;
+      console.log(user, id);
       const { data } = await axios.patch(`${rootURL}/${id}`, userData);
       dispatch(updateUserAdmin(data));
     } catch (err) {

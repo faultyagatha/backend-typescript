@@ -8,10 +8,9 @@ import {
   JWTError
 } from '../helpers/apiError'
 
-import { sendEmail } from '../util/email'
+// import { sendEmail } from '../util/email'
 import User, { UserDocument } from '../models/User'
 import UserService from '../services/user'
-import { TokenPayload } from '../types/fbgraph'
 
 /** JWT handlers */
 const signToken = (id: string): string => {
@@ -35,17 +34,17 @@ const createSendToken = (
 ): void => {
   const token = signToken(user._id)
   console.log('token: ', token)
-  // const JWT_COOKIE_EXPIRES_IN = process.env['JWT_COOKIE_EXPIRES_IN'] as unknown
-  // const cookieOptions = {
-  //   expires: new Date(
-  //     Date.now() + (JWT_COOKIE_EXPIRES_IN as number) * 24 * 60 * 60 * 1000 //convert to milsec
-  //   ),
-  //   secure: false,
-  //   httpOnly: true,
-  // }
-  // if (process.env.NODE_ENV === 'production') cookieOptions.secure = true
+  const JWT_COOKIE_EXPIRES_IN = process.env['JWT_COOKIE_EXPIRES_IN'] as unknown
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + (JWT_COOKIE_EXPIRES_IN as number) * 24 * 60 * 60 * 1000 //convert to milsec
+    ),
+    secure: false,
+    httpOnly: true,
+  }
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true
 
-  // res.cookie('jwt', token, cookieOptions)
+  res.cookie('jwt', token, cookieOptions)
 
   // Remove password from output
   const { email, products, firstName, lastName, isAdmin } = user
@@ -126,12 +125,11 @@ export const googleLogin = async (
 ) => {
   try {
     const user = req.body
-    console.log(user)
+    console.log('user.request from googleLogin: ', user)
     if (!user) {
       return next(new BadRequestError('You are not autorised with google'))
     }
-    res.status(200).send({ token: (req.user as TokenPayload).token })
-    //createSendToken(user, 200, res)
+    createSendToken(user, 200, res)
   } catch (err) {
     new BadRequestError('User is not found')
   }

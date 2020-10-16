@@ -15,10 +15,15 @@ const GoogleAuth = () => {
     console.log("from google: ", response);
     //dispatch(loginWithGoogle(response))
     try {
-      const res = await axios.post(`${rootURL}/login/google`, {
-        id_token: response.tokenId,
-      });
-      console.log("trying to login");
+      console.log(response.tokenObj.id_token);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${response.tokenObj.id_token}`,
+        },
+      };
+
+      const res = await axios.post(`${rootURL}/login/google`, config);
+      console.log("trying to login", res);
       // dispatch(googleLogin(res.data));
       //localStorage.setItem("token", res.data.token);
     } catch (err) {

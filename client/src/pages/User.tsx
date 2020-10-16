@@ -13,6 +13,7 @@ const User = () => {
   const { error } = useSelector((state: AppState) => state.error);
   const history = useHistory();
   const { id } = useParams();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -25,14 +26,14 @@ const User = () => {
       history.push("/login");
     } else {
       if (!user.email) {
-        dispatch(getUserData("profile"));
+        dispatch(getUserData(id));
       } else {
         setEmail(user.email);
         if (user.firstName) setFirstName(user.firstName);
         if (user.lastName) setLastName(user.lastName);
       }
     }
-  }, [dispatch, history, user, error]);
+  }, [dispatch, history, user, error, id]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -71,7 +72,7 @@ const User = () => {
           <h2>My Profile</h2>
           {message && <Message variant="danger">{message}</Message>}
           {error && <Message variant="danger">{error}</Message>}
-          {success && <Message variant="success">Profile Updated</Message>}
+          {/* {success && <Message variant="success">Profile Updated</Message>} */}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
