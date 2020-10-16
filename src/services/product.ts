@@ -29,7 +29,6 @@ function update(
   return Product.findById(productId)
     .exec()
     .then((product) => {
-      console.log(product)
       if (!product) throw new Error(`Product ${productId} not found`)
       if (update.name) product.name = update.name
       if (update.imageCover) product.imageCover = update.imageCover

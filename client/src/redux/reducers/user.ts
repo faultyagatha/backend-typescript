@@ -46,10 +46,10 @@ export default function user(
       return { ...state, allUsers, success: true };
     }
     case UPDATE_USER_ADMIN: {
+      const { user } = action.payload;
+      return { ...state, user, success: true };
     }
     case DELETE_USER_ADMIN: {
-      // const { user } = action.payload;
-      // console.log(user)
       return { ...state, success: true };
     }
     default:

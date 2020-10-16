@@ -4,13 +4,19 @@ import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
-import { getAllUsers, deleteUser } from "../redux/actions";
+import {
+  getAllUsersByAdmin,
+  deleteUserByAdmin,
+  updateUserByAdmin,
+} from "../redux/actions";
 import { AppState } from "../types";
 
-const AllUsers = () => {
+const ListUsersAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { allUsers, user } = useSelector((state: AppState) => state.user);
+  const { allUsers, user, success } = useSelector(
+    (state: AppState) => state.user
+  );
   const { error } = useSelector((state: AppState) => state.error);
 
   useEffect(() => {
@@ -18,11 +24,10 @@ const AllUsers = () => {
       console.log("no user");
       history.push("/login");
     } else if (user.isAdmin) {
-      dispatch(getAllUsers());
+      dispatch(getAllUsersByAdmin());
     } else {
       history.push("/");
     }
-    dispatch(getAllUsers());
   }, [dispatch, history, user]);
 
   const handleDeleteUser = (id: string | undefined) => {
@@ -30,8 +35,9 @@ const AllUsers = () => {
       console.log("no id passed");
       return;
     }
-    console.log(id);
-    dispatch(deleteUser(id));
+    if (window.confirm("Are you sure?")) {
+      dispatch(deleteUserByAdmin(id));
+    }
   };
 
   return (
@@ -69,7 +75,7 @@ const AllUsers = () => {
                   )}
                 </td>
                 <td>
-                  <Link to={`/admin/user/${user._id}/edit`}>
+                  <Link to={`/admin/users/${user._id}`}>
                     <Button variant="light" className="btn-sm">
                       <i className="fas fa-edit"></i>
                     </Button>
@@ -91,4 +97,4 @@ const AllUsers = () => {
   );
 };
 
-export default AllUsers;
+export default ListUsersAdmin;

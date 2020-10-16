@@ -49,9 +49,7 @@ export const updateUser = async (
     const updatedUser = await UserService.updateUser(userId, update)
     res.status(200).json({
       status: 'success',
-      data: {
-        user: updatedUser,
-      },
+      updatedUser
     })
   } catch (err) {
     next(new NotFoundError('User not found', err))
@@ -69,9 +67,8 @@ export const deleteUser = async (
     res
       .status(204)
       .json({
-        status: 'success',
         message: 'user deleted',
-        data: null,
+        data: null
       })
       .end()
   } catch (err) {

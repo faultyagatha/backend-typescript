@@ -9,7 +9,8 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
 import User from "./pages/User";
-import AllUsers from "./pages/AllUsers";
+import ListUsersAdmin from "./pages/ListUsersAdmin";
+import UpdateUserAdmin from "./pages/UpdateUserAdmin";
 
 const Routes = () => (
   <Switch>
@@ -21,8 +22,9 @@ const Routes = () => (
     <Route exact path="/login" component={Login} />
     <Route exact path="/cart/:id?" component={Cart} />
     <Route exact path="/profile" component={User} />
-    <Route exact path="/admin/users" component={AllUsers} />
-    <Route exact path="/admin/products" component={AllUsers} />
+    <Route exact path="/admin/users" component={ListUsersAdmin} />
+    <Route exact path="/admin/products" component={ListUsersAdmin} />
+    <Route exact path="/admin/users/:id" component={UpdateUserAdmin} />
   </Switch>
 );
 

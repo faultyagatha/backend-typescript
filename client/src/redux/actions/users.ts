@@ -9,6 +9,7 @@ import {
   GET_USER_REQ,
   UPDATE_USER_REQ,
   GET_USERS_ADMIN,
+  UPDATE_USER_ADMIN,
   DELETE_USER_ADMIN,
   UserActions,
   User,
@@ -63,6 +64,13 @@ function getUsersAdmin(data: User[]): UserActions {
   return {
     type: GET_USERS_ADMIN,
     payload: { allUsers: data },
+  };
+}
+
+function updateUserAdmin(data: User): UserActions {
+  return {
+    type: UPDATE_USER_ADMIN,
+    payload: { user: data },
   };
 }
 
@@ -190,7 +198,7 @@ export function updateUserData(userData: User): any {
   };
 }
 
-export function getAllUsers() {
+export function getAllUsersByAdmin() {
   return async (dispatch: Dispatch, getState: any) => {
     try {
       const { user } = getState();
@@ -208,7 +216,20 @@ export function getAllUsers() {
   };
 }
 
-export function deleteUser(id: string) {
+export function updateUserByAdmin(userData: User) {
+  return async (dispatch: Dispatch, getState: any) => {
+    try {
+      const { user } = getState();
+      const id = user._id;
+      const { data } = await axios.patch(`${rootURL}/${id}`, userData);
+      dispatch(updateUserAdmin(data));
+    } catch (err) {
+      dispatch(actionFail(err));
+    }
+  };
+}
+
+export function deleteUserByAdmin(id: string) {
   return async (dispatch: Dispatch, getState: any) => {
     try {
       const { user } = getState();
