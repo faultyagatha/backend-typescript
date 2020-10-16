@@ -44,7 +44,7 @@ export const updateUser = async (
     const { userId } = req.params
 
     const user = await UserService.updateUser(userId, update)
-    console.log(user)
+    console.log('UPDATED USER: ', user)
     res.status(200).json({
       status: 'success',
       user

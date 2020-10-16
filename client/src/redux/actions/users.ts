@@ -119,7 +119,7 @@ export function loginUser(email: string, password: string): any {
         { email, password },
         config
       );
-      // console.log(data);
+      console.log("front end login axios", data);
       // localStorage.setItem("user", JSON.stringify(data));
       return dispatch(login(data));
     } catch (err) {

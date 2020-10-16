@@ -26,8 +26,11 @@ const router = express.Router()
 
 router.post(
   '/login/google',
-  passport.authenticate('google-id-token', { session: false }),
-  googleLogin)
+  passport.authenticate('google-id-token'),
+  (req, res) => {
+    console.log('req.body: ', req.body, 'res: ', res)
+  })
+// googleLogin)
 
 router.post('/signup', signup)
 router.post('/login', login)

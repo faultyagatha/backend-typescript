@@ -25,8 +25,8 @@ passport.use(new GoogleTokenStrategy({
   async function (parsedToken: any, googleId: string, done: any) {
     if (!parsedToken) { new BadRequestError('parsedToken is not supplied in pass config') }
     try {
-      // console.log('parsedToken: ', parsedToken)
-      const { email, given_name, family_name } = parsedToken
+      console.log('parsedToken: ', parsedToken)
+      const { email, given_name, family_name } = parsedToken.payload
       const googleUser = User.findOne({ email })
       if (googleUser) {
         console.log('from pass config: GOOGLE USER EXISTS', googleUser)
@@ -37,8 +37,11 @@ passport.use(new GoogleTokenStrategy({
         email: email,
         firstName: given_name,
         lastName: family_name,
+        password: 'xxxxx',
+        passwordConfirm: 'xxxxx',
         isAdmin: false
       })
+      console.log('from pass config: USER IS ABOUT TO BE CREATED', user)
       await UserService.create(user)
       console.log('from pass config: NEW GOOGLE USER IS CREATED', user)
       done(null, user) //req.user

@@ -22,8 +22,10 @@ const GoogleAuth = () => {
         },
       };
 
-      const res = await axios.post(`${rootURL}/login/google`, config);
-      console.log("trying to login", res);
+      const res = await axios.post(`${rootURL}/login/google`, {
+        id_token: response.tokenObj.id_token,
+      });
+      console.log("trying to login from client", res.data);
       // dispatch(googleLogin(res.data));
       //localStorage.setItem("token", res.data.token);
     } catch (err) {
