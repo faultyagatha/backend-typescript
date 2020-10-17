@@ -38,7 +38,6 @@ const Login = () => {
     setPasword(e.target.value);
   };
 
-  console.log(error);
   return (
     <>
       <Link className="btn btn-light my-3" to="/">

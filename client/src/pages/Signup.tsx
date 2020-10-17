@@ -5,11 +5,8 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 import { AppState } from "../types";
 import { signUpUser } from "../redux/actions";
-import Loader from "../components/Loader";
 import Message from "../components/Message";
-import GoogleAuth from "../components/GoogleAuth";
 import FormContainer from "../components/Form";
-import SignUpForm from "../components/SignUp";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -97,7 +94,6 @@ const SignUp = () => {
       </FormContainer>
     </>
   );
-  // return <><SignUpForm /></>
 };
 
 export default SignUp;

@@ -97,8 +97,8 @@ export const login = async (
   next: NextFunction
 ) => {
   try {
-    console.log('login req: ', req.body)
-    console.log('login res: ', res)
+    // console.log('login req: ', req.body)
+    // console.log('login res: ', res)
     const { email, password } = req.body
     //1). Check if email & password exist
     if (!email || !password) {
@@ -126,7 +126,7 @@ export const googleLogin = async (
   next: NextFunction
 ) => {
   try {
-    console.log(req)
+    // console.log(req)
     const user = req.body
     console.log('user.request from googleLogin: ', user)
     if (!user) {

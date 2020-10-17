@@ -46,7 +46,6 @@ export const updateUser = async (
     const user = await UserService.updateUser(userId, update)
     console.log('UPDATED USER: ', user)
     res.status(200).json({
-      status: 'success',
       user
     })
   } catch (err) {
@@ -102,27 +101,29 @@ export const updateProfile = async (
   res: Response,
   next: NextFunction
 ) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    password,
-    passwordConfirm,
-    products } = req.body
+  // const {
+  //   firstName,
+  //   lastName,
+  //   email,
+  //   password,
+  //   passwordConfirm,
+  //   products } = req.body
 
-  const allowedToUpdate = {
-    firstName,
-    lastName,
-    email,
-    password,
-    passwordConfirm,
-    products,
-  }
+  // const allowedToUpdate = {
+  //   firstName,
+  //   lastName,
+  //   email,
+  //   password,
+  //   passwordConfirm,
+  //   products,
+  // }
+  const update = req.body
+  const userReq = req.user as Payload
   try {
-    const userReq = req.user as Payload
     const user = await UserService.updateProfile(
       userReq.id,
-      allowedToUpdate
+      update
+      // allowedToUpdate
     )
     res.status(200).json({
       user

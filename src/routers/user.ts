@@ -28,7 +28,7 @@ router.post(
   '/login/google',
   passport.authenticate('google-id-token'),
   (req, res) => {
-    console.log('req.body: ', req.body, 'res: ', res)
+    // console.log('req.body: ', req.body, 'res: ', res)
   })
 // googleLogin)
 
