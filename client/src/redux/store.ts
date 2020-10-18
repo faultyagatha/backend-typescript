@@ -15,7 +15,6 @@ const initState: AppState = {
   user: {
     user: {},
     allUsers: [],
-    success: true,
   },
   error: {
     error: "",

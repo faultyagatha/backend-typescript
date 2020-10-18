@@ -57,7 +57,7 @@ export function fetchProducts(): any {
 export function addProductToCart(product: Product): any {
   return async (dispatch: Dispatch, getState: any) => {
     try {
-      // localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
+      localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
       dispatch(addProduct(product));
     } catch (err) {
       return dispatch(actionFail(err));
@@ -68,7 +68,7 @@ export function addProductToCart(product: Product): any {
 export function removeProductFromCart(product: Product): any {
   return async (dispatch: Dispatch, getState: any) => {
     try {
-      // localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
+      localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
       dispatch(removeProduct(product));
     } catch (err) {
       return dispatch(actionFail(err));

@@ -6,10 +6,11 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { AppState } from "../types";
 import { getUserData, updateUserData } from "../redux/actions";
 import Message from "../components/Message";
+import GoBack from "../components/BackButton";
 
 const User = () => {
   const dispatch = useDispatch();
-  const { user, success } = useSelector((state: AppState) => state.user);
+  const { user } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.error);
   const history = useHistory();
   const { id } = useParams();
@@ -50,12 +51,12 @@ const User = () => {
 
   return (
     <>
+      <GoBack>Go Back</GoBack>
       <Row>
         <Col md={3}>
           <h2>My Profile</h2>
           {message && <Message variant="success">{message}</Message>}
           {error && <Message variant="danger">{error}</Message>}
-          {/* {success && <Message variant="success">Profile Updated</Message>} */}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>

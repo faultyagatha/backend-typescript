@@ -5,7 +5,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 
 import { AppState } from "../types";
 import { loginUser } from "../redux/actions";
-import Loader from "../components/Loader";
+import GoBack from "../components/BackButton";
 import Message from "../components/Message";
 import GoogleAuth from "../components/GoogleAuth";
 import FormContainer from "../components/Form";
@@ -27,7 +27,6 @@ const Login = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(loginUser(email, password));
-    // console.log(dispatch(loginUser(email, password)));
   };
 
   const handleEmailChange = (e: any) => {
@@ -40,9 +39,7 @@ const Login = () => {
 
   return (
     <>
-      <Link className="btn btn-light my-3" to="/">
-        Go Back
-      </Link>
+      <GoBack>Go Back</GoBack>
       <FormContainer>
         <h1>Login</h1>
         {error && <Message variant="danger">{error}</Message>}

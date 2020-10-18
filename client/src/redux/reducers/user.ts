@@ -15,42 +15,41 @@ export default function user(
   state: UserState = {
     user: {},
     allUsers: [],
-    success: false,
   },
   action: UserActions
 ): UserState {
   switch (action.type) {
     case LOGIN_REQ: {
       const { user } = action.payload;
-      return { ...state, user, success: true };
+      return { ...state, user };
     }
     case SIGNUP_REQ: {
       const { user } = action.payload;
       console.log(user);
-      return { ...state, user, success: true };
+      return { ...state, user };
     }
     case LOGOUT_REQ: {
       const { user } = action.payload;
-      return { ...state, user, success: true };
+      return { ...state, user };
     }
     case GET_USER_REQ: {
       const { user } = action.payload;
-      return { ...state, user, success: true };
+      return { ...state, user };
     }
     case UPDATE_USER_REQ: {
       const { user } = action.payload;
-      return { ...state, user, success: true };
+      return { ...state, user };
     }
     case GET_USERS_ADMIN: {
       const { allUsers } = action.payload;
-      return { ...state, allUsers, success: true };
+      return { ...state, allUsers };
     }
     case UPDATE_USER_ADMIN: {
       const { user } = action.payload;
-      return { ...state, user, success: true };
+      return { ...state, user };
     }
     case DELETE_USER_ADMIN: {
-      return { ...state, success: true };
+      return { ...state };
     }
     default:
       return state;

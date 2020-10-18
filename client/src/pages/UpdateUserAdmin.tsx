@@ -13,31 +13,38 @@ const UpdateUserAdmin = () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const { user, allUsers, success } = useSelector(
-    (state: AppState) => state.user
-  );
+  const { user, allUsers } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.error);
 
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [message, setMessage] = useState("");
 
   const [userToUpdate] = allUsers.filter((user) => user._id === id);
   console.log(userToUpdate);
-
-  //if (!userToUpdate) return <div>User not found</div>
+  const _id = userToUpdate._id;
 
   useEffect(() => {
-    if (user.firstName) setFirstName(user.firstName);
-    if (user.lastName) setLastName(user.lastName);
-    if (user.email) setEmail(user.email);
-    if (user.isAdmin) setIsAdmin(user.isAdmin);
-  }, [dispatch, id, userToUpdate, success, user.firstName, user.lastName, user.email, user.isAdmin]);
+    if (userToUpdate.firstName) setFirstName(userToUpdate.firstName);
+    if (userToUpdate.lastName) setLastName(userToUpdate.lastName);
+    if (userToUpdate.email) setEmail(userToUpdate.email);
+    if (userToUpdate.isAdmin) setIsAdmin(userToUpdate.isAdmin);
+  }, [
+    dispatch,
+    id,
+    userToUpdate,
+    user.firstName,
+    user.lastName,
+    user.email,
+    user.isAdmin,
+  ]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(updateUserByAdmin({ email, isAdmin, firstName, lastName }));
+    setMessage("User profile is updated");
+    dispatch(updateUserByAdmin({ _id, email, firstName, lastName }));
   };
 
   return (
@@ -47,6 +54,7 @@ const UpdateUserAdmin = () => {
       </Link>
       <FormContainer>
         <h1>Edit User</h1>
+        {message && <Message variant="success">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="firstName">

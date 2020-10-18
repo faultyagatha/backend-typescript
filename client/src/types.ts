@@ -49,7 +49,6 @@ export type ProductState = {
 export type UserState = {
   user: User;
   allUsers: User[];
-  success: boolean;
 };
 
 export type AppState = {

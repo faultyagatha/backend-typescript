@@ -1,27 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
-import {
-  getAllUsersByAdmin,
-  deleteUserByAdmin,
-  updateUserByAdmin,
-} from "../redux/actions";
+import { getAllUsersByAdmin, deleteUserByAdmin } from "../redux/actions";
 import { AppState } from "../types";
 
 const ListUsersAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { allUsers, user, success } = useSelector(
-    (state: AppState) => state.user
-  );
+  const { allUsers, user } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.error);
+  const [message, setMessage] = useState("");
 
+  //TODO: re-render on delete user
   useEffect(() => {
     if (!user) {
-      console.log("no user");
       history.push("/login");
     } else if (user.isAdmin) {
       dispatch(getAllUsersByAdmin());
@@ -36,7 +31,9 @@ const ListUsersAdmin = () => {
       return;
     }
     if (window.confirm("Are you sure?")) {
+      setMessage("User is deleted.");
       dispatch(deleteUserByAdmin(id));
+      // history.push("/admin/users");
     }
   };
 
@@ -46,6 +43,7 @@ const ListUsersAdmin = () => {
         Go Back
       </Link>
       <h1>Users</h1>
+      {message && <Message variant="success">{message}</Message>}
       {error ? (
         <Message variant="danger">{error}</Message>
       ) : (

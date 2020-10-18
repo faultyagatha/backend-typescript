@@ -123,6 +123,7 @@ export function signUpUser(
     //   const config = {
     //     headers: {
     //       "Content-Type": "application/json",
+    //       token: localStorage.getItem("token")
     //     },
     //   };
     //   const { data } = await axios.post(
@@ -130,8 +131,11 @@ export function signUpUser(
     //     { email, password, passwordConfirm },
     //     config
     //   );
-    //   // localStorage.setItem("user", JSON.stringify(data));
-    //   console.log('token: ', localStorage.getItem("token"));
+    //   if (data.token) {
+    //     localStorage.setItem("token", JSON.stringify(data.token));
+    //   } else {
+    //     console.log('no token in');
+    //   }
     //   return dispatch(signUp(data));
     // } catch (err) {
     //   console.log("error action: ", err);
@@ -269,12 +273,16 @@ export function getAllUsersByAdmin() {
 }
 
 export function updateUserByAdmin(userData: User) {
-  return async (dispatch: Dispatch, getState: any) => {
+  return async (dispatch: Dispatch) => {
     try {
-      const { user } = getState();
-      const id = user._id;
-      console.log(user, id);
-      const { data } = await axios.patch(`${rootURL}/${id}`, userData);
+      let token = localStorage.getItem("token");
+      const id = userData._id;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.patch(`${rootURL}/${id}`, userData, config);
       dispatch(updateUserAdmin(data));
     } catch (err) {
       dispatch(actionFail(err));
@@ -283,12 +291,12 @@ export function updateUserByAdmin(userData: User) {
 }
 
 export function deleteUserByAdmin(id: string) {
-  return async (dispatch: Dispatch, getState: any) => {
+  return async (dispatch: Dispatch) => {
     try {
-      const { user } = getState();
+      let token = localStorage.getItem("token");
       const config = {
         headers: {
-          Authorization: `Bearer ${user.user.token}`,
+          Authorization: `Bearer ${token}`,
         },
       };
       await axios.delete(`${rootURL}/${id}`, config);
