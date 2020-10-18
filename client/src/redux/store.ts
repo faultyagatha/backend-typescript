@@ -1,25 +1,27 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import thunk from "redux-thunk";
+import Product from "../pages/Product";
 
 import { AppState } from "../types";
 import createRootReducer from "./reducers";
 // import rootSaga from "./sagas";
 
-const initState: AppState = {
-  product: {
-    allProducts: [],
-    loading: true,
-    inCart: [],
-  },
-  user: {
-    user: {},
-    allUsers: [],
-  },
-  error: {
-    error: "",
-  },
-};
+// const initState: AppState = {
+//   product: {
+//     product: {},
+//     allProducts: [],
+//     loading: true,
+//     inCart: [],
+//   },
+//   user: {
+//     user: {},
+//     allUsers: [],
+//   },
+//   error: {
+//     error: "",
+//   },
+// };
 
 export default function makeStore(initialState = loadState()) {
   const sagaMiddleware = createSagaMiddleware();

@@ -15,7 +15,6 @@ import {
   User,
 } from "../../types";
 import { actionFail } from "./errors";
-import user from "../reducers/user";
 
 const rootURL = "http://localhost:5000/api/v1/users";
 

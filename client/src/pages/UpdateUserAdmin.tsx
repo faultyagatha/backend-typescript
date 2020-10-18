@@ -31,19 +31,12 @@ const UpdateUserAdmin = () => {
     if (userToUpdate.lastName) setLastName(userToUpdate.lastName);
     if (userToUpdate.email) setEmail(userToUpdate.email);
     if (userToUpdate.isAdmin) setIsAdmin(userToUpdate.isAdmin);
-  }, [
-    dispatch,
-    id,
-    userToUpdate,
-    user.firstName,
-    user.lastName,
-    user.email,
-    user.isAdmin,
-  ]);
+  }, [dispatch, id, userToUpdate]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setMessage("User profile is updated");
+    // history.push('/');
     dispatch(updateUserByAdmin({ _id, email, firstName, lastName }));
   };
 
@@ -53,7 +46,7 @@ const UpdateUserAdmin = () => {
         Go Back
       </Link>
       <FormContainer>
-        <h1>Edit User</h1>
+        <h1>Update User</h1>
         {message && <Message variant="success">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
         <Form onSubmit={handleSubmit}>
@@ -61,16 +54,16 @@ const UpdateUserAdmin = () => {
             <Form.Label>First Name</Form.Label>
             <Form.Control
               type="firstName"
-              placeholder="Enter first name"
+              placeholder="Enter first name to update"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="lastName">
-            <Form.Label>First Name</Form.Label>
+            <Form.Label>Last Name</Form.Label>
             <Form.Control
               type="lastName"
-              placeholder="Enter last name"
+              placeholder="Enter last name to update"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             ></Form.Control>
@@ -79,12 +72,11 @@ const UpdateUserAdmin = () => {
             <Form.Label>Email Address</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder="Enter email to update"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></Form.Control>
           </Form.Group>
-
           <Form.Group controlId="isadmin">
             <Form.Check
               type="checkbox"

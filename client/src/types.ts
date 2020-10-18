@@ -5,6 +5,9 @@ export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
+export const CREATE_PRODUCT_ADMIN = "CREATE_PRODUCT_ADMIN";
+export const UPDATE_PRODUCT_ADMIN = "UPDATE_PRODUCT_ADMIN";
+export const DELETE_PRODUCT_ADMIN = "DELETE_PRODUCT_ADMIN";
 
 export const SIGNUP_REQ = "SIGNUP_REQ";
 export const LOGIN_REQ = "LOGIN_REQ";
@@ -21,7 +24,7 @@ export const DELETE_USER_ADMIN = "DELETE_USER_ADMIN";
 export const ACTION_FAIL = "ACTION_FAIL";
 
 export type Product = {
-  _id: string;
+  _id?: string;
   name: string;
   imageCover: string;
   description: string;
@@ -41,6 +44,7 @@ export type User = {
 };
 
 export type ProductState = {
+  product: Product;
   allProducts: Product[];
   loading: boolean;
   inCart: Product[];
@@ -76,12 +80,29 @@ export type RemoveProductAction = {
   payload: { product: Product };
 };
 
+export type CreateProductAdminAction = {
+  type: typeof CREATE_PRODUCT_ADMIN;
+  payload: { product: Product };
+};
+
+export type UpdateProductAdminAction = {
+  type: typeof UPDATE_PRODUCT_ADMIN;
+  payload: { product: Product };
+};
+
+export type DeleteProductAdminAction = {
+  type: typeof DELETE_PRODUCT_ADMIN;
+};
+
 // Use this union in reducer
 export type ProductActions =
   | GetProductsAction
   | GetProductsSuccessAction
   | AddProductAction
-  | RemoveProductAction;
+  | RemoveProductAction
+  | CreateProductAdminAction
+  | UpdateProductAdminAction
+  | DeleteProductAdminAction;
 
 export type LoginAction = {
   type: typeof LOGIN_REQ;
@@ -125,7 +146,6 @@ export type UpdateUserAdminAction = {
 
 export type DeleteUserAdminAction = {
   type: typeof DELETE_USER_ADMIN;
-  // payload: { user: User }
 };
 
 export type UserActions =

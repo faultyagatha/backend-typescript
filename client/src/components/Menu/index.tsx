@@ -56,10 +56,10 @@ const Menu = () => {
               )}
               {user && user.isAdmin && (
                 <NavDropdown title="Admin" id="admin">
-                  <NavDropdown.Item as={Link} to="admin/users">
+                  <NavDropdown.Item as={Link} to="/admin/users">
                     Users
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="admin/products">
+                  <NavDropdown.Item as={Link} to="/admin/products">
                     Products
                   </NavDropdown.Item>
                 </NavDropdown>

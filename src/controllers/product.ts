@@ -35,7 +35,7 @@ export const findById = async (
   }
 }
 
-//PUT / products/:productId
+//PATCH / products/:productId
 export const updateProduct = async (
   req: Request,
   res: Response,

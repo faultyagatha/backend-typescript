@@ -5,10 +5,21 @@ import {
   ADD_PRODUCT,
   REMOVE_PRODUCT,
   GET_PRODUCTS_SUCCESS,
+  CREATE_PRODUCT_ADMIN,
+  UPDATE_PRODUCT_ADMIN,
+  DELETE_PRODUCT_ADMIN,
 } from "../../types";
 
 export default function product(
   state: ProductState = {
+    product: {
+      name: "Sample Name",
+      imageCover: "Sample Image",
+      description: "Sample Description",
+      difficulty: "easy",
+      duration: 0,
+      price: 1,
+    },
     allProducts: [],
     loading: true,
     inCart: [],
@@ -30,7 +41,6 @@ export default function product(
       }
       return { ...state, inCart: [...state.inCart, product] };
     }
-
     case REMOVE_PRODUCT: {
       const { product } = action.payload;
       const index = state.inCart.findIndex((p) => p.name === product.name);
@@ -39,6 +49,18 @@ export default function product(
         return { ...state, inCart: [...state.inCart] };
       }
       return state;
+    }
+    case CREATE_PRODUCT_ADMIN: {
+      const { product } = action.payload;
+      console.log(product);
+      return { ...state, product };
+    }
+    case UPDATE_PRODUCT_ADMIN: {
+      const { product } = action.payload;
+      return { ...state, product };
+    }
+    case DELETE_PRODUCT_ADMIN: {
+      return { ...state };
     }
 
     default:

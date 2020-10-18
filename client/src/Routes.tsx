@@ -11,6 +11,9 @@ import Cart from "./pages/Cart";
 import User from "./pages/User";
 import ListUsersAdmin from "./pages/ListUsersAdmin";
 import UpdateUserAdmin from "./pages/UpdateUserAdmin";
+import ListProductsAdmin from "./pages/ListProductsAdmin";
+import UpdateProductAdmin from "./pages/UpdateProductAdmin";
+import CreateProductAdmin from "./pages/CreateProductAdmin";
 
 const Routes = () => (
   <Switch>
@@ -23,8 +26,10 @@ const Routes = () => (
     <Route exact path="/cart/:id?" component={Cart} />
     <Route exact path="/profile" component={User} />
     <Route exact path="/admin/users" component={ListUsersAdmin} />
-    <Route exact path="/admin/products" component={ListUsersAdmin} />
     <Route exact path="/admin/users/:id" component={UpdateUserAdmin} />
+    <Route exact path="/admin/products" component={ListProductsAdmin} />
+    <Route exact path="/admin/products/:id" component={UpdateProductAdmin} />
+    <Route exact path="/admin/products/create" component={CreateProductAdmin} />
   </Switch>
 );
 
