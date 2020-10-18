@@ -183,15 +183,13 @@ export function loginUser(email: string, password: string): any {
   };
 }
 
-export function loginWithGoogle(res: any): any {
+export function loginWithGoogle(): any {
   return async (dispatch: Dispatch, getState: any) => {
     try {
-      const { user } = getState();
-      console.log(user);
+      const token = localStorage.getItem("token");
       const config = {
-        headers: user.user.token,
+        headers: token,
       };
-      console.log("googleLogin token: ", user.user.token, "config: ", config);
       const { data } = await axios.post(`${rootURL}/login/google`, config);
       return dispatch(googleLogin(data));
     } catch (err) {
@@ -202,7 +200,7 @@ export function loginWithGoogle(res: any): any {
 
 export function logoutUser(): any {
   return async (dispatch: Dispatch) => {
-    // localStorage.removeItem("user");
+    localStorage.removeItem("token");
     dispatch(logout());
   };
 }
