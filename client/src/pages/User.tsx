@@ -14,9 +14,7 @@ const User = () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  // const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [email, setEmail] = useState<string | undefined>("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
@@ -25,35 +23,22 @@ const User = () => {
     if (!user) {
       history.push("/login");
     } else {
-      if (!user.email) {
-        dispatch(getUserData(id));
-      } else {
-        setEmail(user.email);
-        if (user.firstName) setFirstName(user.firstName);
-        if (user.lastName) setLastName(user.lastName);
-      }
+      setEmail(user.email);
+      if (user.firstName) setFirstName(user.firstName);
+      if (user.lastName) setLastName(user.lastName);
     }
   }, [dispatch, history, user, error, id]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    // if (password !== passwordConfirm) {
-    //   setMessage("Passwords do not match");
-    // }
-    dispatch(updateUserData({ email, password, firstName, lastName }));
+    setMessage("Your profile is updated");
+    history.push("/profile");
+    dispatch(updateUserData({ email, firstName, lastName }));
   };
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
   };
-
-  const handlePasswordChange = (e: any) => {
-    setPassword(e.target.value);
-  };
-
-  // const handlePasswordConfirmChange = (e: any) => {
-  //   setPasswordConfirm(e.target.value);
-  // };
 
   const handleFirstNameChange = (e: any) => {
     setFirstName(e.target.value);
@@ -68,7 +53,7 @@ const User = () => {
       <Row>
         <Col md={3}>
           <h2>My Profile</h2>
-          {message && <Message variant="danger">{message}</Message>}
+          {message && <Message variant="success">{message}</Message>}
           {error && <Message variant="danger">{error}</Message>}
           {/* {success && <Message variant="success">Profile Updated</Message>} */}
           <Form onSubmit={handleSubmit}>
@@ -81,24 +66,6 @@ const User = () => {
                 onChange={handleEmailChange}
               ></Form.Control>
             </Form.Group>
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="enter password"
-                value={password}
-                onChange={handlePasswordChange}
-              ></Form.Control>
-            </Form.Group>
-            {/* <Form.Group controlId="passwordConfirm">
-              <Form.Label>Cofirm Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="confirm password"
-                value={passwordConfirm}
-                onChange={handlePasswordConfirmChange}
-              ></Form.Control>
-              </Form.Group> */}
             <Form.Group controlId="firstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control

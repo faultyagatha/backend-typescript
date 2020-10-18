@@ -27,7 +27,7 @@ const Login = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     dispatch(loginUser(email, password));
-    console.log(dispatch(loginUser(email, password)));
+    // console.log(dispatch(loginUser(email, password)));
   };
 
   const handleEmailChange = (e: any) => {

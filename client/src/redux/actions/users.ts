@@ -15,8 +15,41 @@ import {
   User,
 } from "../../types";
 import { actionFail } from "./errors";
+import user from "../reducers/user";
 
 const rootURL = "http://localhost:5000/api/v1/users";
+
+const fetches = {
+  loginFetch: (email: string, password: string) => {
+    return fetch(`${rootURL}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accepts: "application/json",
+        token: localStorage.getItem("token") as string,
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }).then((res) => res.json());
+  },
+  signUpFetch: (email: string, password: string, passwordConfirm: string) => {
+    return fetch(`${rootURL}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accepts: "application/json",
+        token: localStorage.getItem("token") as string,
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        passwordConfirm,
+      }),
+    }).then((res) => res.json());
+  },
+};
 
 function login(data: User): UserActions {
   return {
@@ -86,46 +119,64 @@ export function signUpUser(
   passwordConfirm: string
 ): any {
   return async (dispatch: Dispatch) => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const { data } = await axios.post(
-        `${rootURL}/signup`,
-        { email, password, passwordConfirm },
-        config
-      );
-      // localStorage.setItem("user", JSON.stringify(data));
-      return dispatch(signUp(data));
-    } catch (err) {
-      console.log("error action: ", err);
-      return dispatch(actionFail(err));
-    }
+    // try {
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   };
+    //   const { data } = await axios.post(
+    //     `${rootURL}/signup`,
+    //     { email, password, passwordConfirm },
+    //     config
+    //   );
+    //   // localStorage.setItem("user", JSON.stringify(data));
+    //   console.log('token: ', localStorage.getItem("token"));
+    //   return dispatch(signUp(data));
+    // } catch (err) {
+    //   console.log("error action: ", err);
+    //   return dispatch(actionFail(err));
+    // }
+    fetches.signUpFetch(email, password, passwordConfirm).then((json) => {
+      if (json.token) {
+        localStorage.setItem("token", json.token);
+        dispatch(signUp(json));
+      } else {
+        console.log(json.error);
+      }
+    });
   };
 }
 
 export function loginUser(email: string, password: string): any {
   return async (dispatch: Dispatch) => {
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const { data } = await axios.post(
-        `${rootURL}/login`,
-        { email, password },
-        config
-      );
-      console.log("front end login axios", data);
-      // localStorage.setItem("user", JSON.stringify(data));
-      return dispatch(login(data));
-    } catch (err) {
-      // console.log("error action: ", err);
-      return dispatch(actionFail(err));
-    }
+    // try {
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       token: localStorage.getItem("token")
+    //     },
+    //   };
+    //   const { data } = await axios.post(
+    //     `${rootURL}/login`,
+    //     { email, password },
+    //     config
+    //   );
+    //   console.log("front end login axios", data);
+    //   // localStorage.setItem("user", JSON.stringify(data));
+    //   return dispatch(login(data));
+    // } catch (err) {
+    //   // console.log("error action: ", err);
+    //   return dispatch(actionFail(err));
+    // }
+    fetches.loginFetch(email, password).then((json) => {
+      if (json.token) {
+        localStorage.setItem("token", json.token);
+        dispatch(login(json));
+      } else {
+        console.log(json.error);
+      }
+    });
   };
 }
 
@@ -176,11 +227,12 @@ export function updateUserData(userData: User): any {
       const { user } = getState();
       let token = localStorage.getItem("token");
       console.log("user: ", user);
-      console.log("token: ", token);
+      console.log("token from local storage: ", token);
+      console.log("token from user.user: ", user.user.token);
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${user.user.token}`,
+          Authorization: `Bearer ${token}`,
         },
       };
       console.log(userData);

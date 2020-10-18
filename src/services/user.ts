@@ -23,23 +23,12 @@ function updateUser(
   userId: string,
   update: Partial<UserDocument>
 ): Promise<UserDocument | null> {
-  return User.findById(userId)
-    .exec()
-    .then((user) => {
-      if (!user) throw new Error(`User ${userId} not found`)
-      user.email = update.email || user.email
-      user.password = update.password || user.password
-      user.firstName = update.firstName || user.firstName
-      user.lastName = update.lastName || user.lastName
-      return user.save()
-    })
-
-  // const user = User.findById(userId)
-  // if (!user) throw new Error(`User ${userId} not found`)
-  // return User.findByIdAndUpdate(userId, update, {
-  //   new: true,
-  //   runValidators: true,
-  // }).exec()
+  const user = User.findById(userId)
+  if (!user) throw new Error(`User ${userId} not found`)
+  return User.findByIdAndUpdate(userId, update, {
+    new: true,
+    runValidators: true,
+  }).exec()
 }
 
 function deleteUser(userId: string): Promise<UserDocument | null> {
@@ -54,7 +43,6 @@ function updateProfile(
     new: true,
     runValidators: true,
   }).exec()
-
 }
 
 export default {

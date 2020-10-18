@@ -34,7 +34,7 @@ export default function makeStore(initialState = loadState()) {
   }
 
   const initialstate = loadState();
-  console.log(initialstate);
+  console.log("initialstate: ", initialstate);
   //must be above the store!!
   // const product = localStorage.getItem("product") || "";
   // console.log(localStorage.store);
@@ -58,6 +58,8 @@ export default function makeStore(initialState = loadState()) {
     initialState,
     composeEnhancers(applyMiddleware(...middlewares))
   );
+
+  console.log("localStorage: ", localStorage);
 
   // sagaMiddleware.run(rootSaga);
 

@@ -43,9 +43,7 @@ const createSendToken = (
     httpOnly: true,
   }
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true
-
   res.cookie('jwt', token, cookieOptions)
-
   // Remove password from output
   const { email, products, firstName, lastName, isAdmin } = user
   res.status(statusCode).json({
@@ -67,18 +65,15 @@ export const signup = async (
 ) => {
   try {
     const { email, password, passwordConfirm } = req.body
+    const userExists = await User.findOne({ email })
+    if (userExists) {
+      return res.status(409).json({ message: 'Email already in use' })
+    }
     const user: UserDocument = new User({
       email,
       password,
       passwordConfirm,
     })
-
-    // console.log(user)
-    const userExists = await User.findOne({ email })
-    if (userExists) {
-      return res.status(409).json({ message: 'Email already in use' })
-    }
-
     await UserService.create(user)
     createSendToken(user, 201, res)
 
@@ -97,23 +92,15 @@ export const login = async (
   next: NextFunction
 ) => {
   try {
-    // console.log('login req: ', req.body)
-    // console.log('login res: ', res)
     const { email, password } = req.body
-    //1). Check if email & password exist
     if (!email || !password) {
       return next(new BadRequestError('Please provide email and password'))
     }
-
-    //2). Check if user exists & the password is correct
     const user = await User.findOne({ email }).select('+password')
     if (!user || !user.isCorrectPassword(password)) {
       return next(new BadRequestError('Invalid login data'))
     }
-
-    //3). If successful send token to a client
     createSendToken(user, 200, res)
-
   } catch (err) {
     new BadRequestError('User is not found')
   }
