@@ -6,6 +6,7 @@ import {
   deleteProduct,
   findAll,
   updateProduct,
+  placeOrder
 } from '../controllers/product'
 import {
   protect,
@@ -19,6 +20,8 @@ router.get('/:productId', findById)
 
 //remove for testing
 router.use(protect)
+router.patch('/order', placeOrder)
+
 router.use(admin)
 router.post('/', createProduct)
 router.patch('/:productId', updateProduct)

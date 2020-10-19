@@ -101,3 +101,20 @@ export const createProduct = async (
     }
   }
 }
+
+//POST / products/order
+export const placeOrder = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { productId, userId } = req.body
+    console.log('PLACE ORDER REQ BODY: ', req.body)
+    const order = await ProductService.placeOrder(productId, userId)
+    console.log('ORDER: ', order)
+    res.json(order)
+  } catch (err) {
+    next(new NotFoundError('Product or user is not found', err))
+  }
+}

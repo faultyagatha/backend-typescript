@@ -4,28 +4,25 @@ function create(user: UserDocument): Promise<UserDocument> {
   return user.save()
 }
 
-function findById(userId: string): Promise<UserDocument> {
-  return User.findById(userId)
-    .exec() // .exec() will return a true Promise
-    .then((user) => {
-      if (!user) {
-        throw new Error(`User ${userId} not found`)
-      }
-      return user
-    })
+async function findById(userId: string): Promise<UserDocument | null> {
+  const user = await User.findById(userId).exec() // .exec() will return a true Promise
+  if (!user) {
+    throw new Error(`User ${userId} not found`)
+  }
+  return user
 }
 
-function findAll(): Promise<UserDocument[]> {
-  return User.find().sort({ email: 1 }).exec() // Return a Promise
+async function findAll(): Promise<UserDocument[]> {
+  return await User.find().sort({ email: 1 }).exec() // Return a Promise
 }
 
-function updateUser(
+async function updateUser(
   userId: string,
   update: Partial<UserDocument>
 ): Promise<UserDocument | null> {
-  const user = User.findById(userId)
+  const user = await User.findById(userId)
   if (!user) throw new Error(`User ${userId} not found`)
-  return User.findByIdAndUpdate(userId, update, {
+  return await User.findByIdAndUpdate(userId, update, {
     new: true,
     runValidators: true,
   }).exec()
@@ -35,11 +32,11 @@ function deleteUser(userId: string): Promise<UserDocument | null> {
   return User.findByIdAndDelete(userId).exec()
 }
 
-function updateProfile(
+async function updateProfile(
   userId: string,
   update: Partial<UserDocument>
 ): Promise<UserDocument | null> {
-  return User.findByIdAndUpdate(userId, update, {
+  return await User.findByIdAndUpdate(userId, update, {
     new: true,
     runValidators: true,
   }).exec()

@@ -52,8 +52,7 @@ export default function product(
     }
     case CREATE_PRODUCT_ADMIN: {
       const { product } = action.payload;
-      console.log(product);
-      return { ...state, product };
+      return { ...state, allProducts: state.allProducts.concat(product) };
     }
     case UPDATE_PRODUCT_ADMIN: {
       const { product } = action.payload;
