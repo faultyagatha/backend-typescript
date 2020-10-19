@@ -12,7 +12,7 @@ const products = [
     imageCover: '/images/saturn.png',
     description: 'the sixth planet from the Sun, with the largest planetary rings in the Solar System and the most numerous satellites.',
     duration: 3,
-    difficulty: 'medium',
+    distance: '1.4885 billion km',
     price: 200
   },
   {

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import { PayPalButton } from 'react-paypal-button-v2'
+import { PayPalButton } from "react-paypal-button-v2";
 import { Link, useHistory } from "react-router-dom";
 import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
+import GoBack from "../components/BackButton";
 import { AppState } from "../types";
 
 const Checkout = () => {
@@ -23,6 +24,7 @@ const Checkout = () => {
 
   return (
     <>
+      <GoBack>Continue Shopping</GoBack>
       {error && <Message variant="danger">{error}</Message>}
       <h1>Place Your Order</h1>
       <Row>
@@ -31,7 +33,10 @@ const Checkout = () => {
             <ListGroup.Item>
               <h2>Send To</h2>
               <p>
-                <strong>Name: </strong> {user.firstName}
+                <strong>First Name: </strong> {user.firstName}
+              </p>
+              <p>
+                <strong>Last Name: </strong> {user.lastName}
               </p>
               <p>
                 <strong>Email: </strong>{" "}
@@ -41,7 +46,7 @@ const Checkout = () => {
             <ListGroup.Item>
               <h2>Pay With</h2>
               <p>
-                <strong>Method: </strong>
+                <strong>Method: </strong> Choose from the avaiable methods
               </p>
             </ListGroup.Item>
             <ListGroup.Item>
@@ -53,7 +58,7 @@ const Checkout = () => {
                   {inCart.map((item) => (
                     <ListGroup.Item key={item.name}>
                       <Row>
-                        <Col md={3}>
+                        <Col md={2}>
                           <Image
                             src={item.imageCover}
                             alt={item.name}
@@ -62,7 +67,9 @@ const Checkout = () => {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.name}`}>{item.name}</Link>
+                          <Link to={`/products/${item.name.toLowerCase()}`}>
+                            {item.name}
+                          </Link>
                         </Col>
                         <Col md={4}>€{item.price}</Col>
                       </Row>
@@ -81,29 +88,26 @@ const Checkout = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Items</Col>
-                  {/* <Col>${order.itemsPrice}</Col> */}
+                  <Col>
+                    <strong>ITEMS: </strong>
+                  </Col>
+                  <Col>{inCart.length}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Total</Col>
+                  <Col>
+                    <strong>TOTAL: </strong>
+                  </Col>
                   {/* <Col>${order.totalPrice}</Col> */}
                 </Row>
               </ListGroup.Item>
-              {/* {!order.isPaid && (
-                <ListGroup.Item>
-                  {loadingPay && <Loader />}
-                  {!sdkReady ? (
-                    <Loader />
-                  ) : (
-                      <PayPalButton
-                        amount={order.totalPrice}
-                        onSuccess={successPaymentHandler}
-                      />
-                    )}
-                </ListGroup.Item>
-              )} */}
+              <ListGroup.Item>
+                <PayPalButton
+                  amount={inCart.length}
+                  onSuccess={() => console.log("payment was successful")}
+                />
+              </ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>

@@ -16,7 +16,7 @@ export default function product(
       name: "Sample Name",
       imageCover: "Sample Image",
       description: "Sample Description",
-      difficulty: "easy",
+      distance: "0",
       duration: 0,
       price: 1,
     },

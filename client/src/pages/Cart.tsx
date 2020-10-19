@@ -18,13 +18,15 @@ const Cart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { inCart } = useSelector((state: AppState) => state.product);
+  const { user } = useSelector((state: AppState) => state.user);
 
   const handleRemoveFromCart = (product: Product) => {
     dispatch(removeProductFromCart(product));
   };
 
   const handleCheckout = () => {
-    history.push("/login?redirect=checkout");
+    if (!user) history.push("/login");
+    history.push("/checkout");
   };
 
   return (
@@ -50,16 +52,15 @@ const Cart = () => {
                         rounded
                       />
                     </Col>
-                    <Col md={3}>
+                    <Col md={2}>
                       <Link to={`/products/${product.name.toLowerCase()}`}>
                         {product.name}
                       </Link>
                     </Col>
-                    <Col md={3}>{product.description}</Col>
-                    <Col md={2}>{`Duration: ${product.duration} hours`}</Col>
-                    <Col md={2}>{`Difficulty: ${product.difficulty}`}</Col>
-                    <Col md={2}>{`Price: ${product.price}€`}</Col>
-                    <Col md={2}>
+                    <Col md={4}>{product.description}</Col>
+                    <Col md={2}>{`${product.duration} hours`}</Col>
+                    <Col md={1}>{`${product.price}€`}</Col>
+                    <Col md={1}>
                       <Button
                         type="button"
                         variant="light"

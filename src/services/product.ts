@@ -27,7 +27,7 @@ async function update(
   if (update.imageCover) product.imageCover = update.imageCover
   if (update.description) product.description = update.description
   if (update.duration) product.duration = update.duration
-  if (update.difficulty) product.difficulty = update.difficulty
+  if (update.distance) product.distance = update.distance
   if (update.price) product.price = update.price
   return product.save()
 

@@ -34,7 +34,7 @@ export default function Products() {
             imageCover={product.imageCover}
             description={product.description}
             duration={product.duration}
-            difficulty={product.difficulty}
+            distance={product.distance}
             price={product.price}
           />
         </Col>
@@ -43,13 +43,12 @@ export default function Products() {
   };
   return (
     <>
-      <h1 className="text-center">In Store</h1>
+      <h1 className="text-center">head away from Earth</h1>
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        // {error && <Message variant="danger">{error}</Message>}
         <Row>{renderProducts()}</Row>
       )}
     </>

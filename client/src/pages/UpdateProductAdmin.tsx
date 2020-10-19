@@ -19,7 +19,7 @@ const UpdateProductAdmin = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [duration, setDuration] = useState(0);
-  const [difficulty, setDifficulty] = useState("");
+  const [distance, setDistance] = useState("");
   const [price, setPrice] = useState(0);
   const [imageCover, setImageCover] = useState("");
   const [message, setMessage] = useState("");
@@ -32,22 +32,21 @@ const UpdateProductAdmin = () => {
     if (productToUpdate.description)
       setDescription(productToUpdate.description);
     if (productToUpdate.duration) setDuration(productToUpdate.duration);
-    if (productToUpdate.difficulty) setDifficulty(productToUpdate.difficulty);
+    if (productToUpdate.distance) setDistance(productToUpdate.distance);
     if (productToUpdate.price) setPrice(productToUpdate.price);
     if (productToUpdate.imageCover) setImageCover(productToUpdate.imageCover);
-  }, [dispatch, id, productToUpdate]);
+  }, [dispatch, id, productToUpdate, history]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setMessage("Product is updated");
-    // history.push('/');
     dispatch(
       updateProductByAdmin({
         _id,
         name,
         description,
         duration,
-        difficulty,
+        distance,
         price,
         imageCover,
       })
@@ -97,16 +96,18 @@ const UpdateProductAdmin = () => {
               type="duration"
               placeholder="Enter product duration to update"
               value={duration}
-              // onChange={(e) => setDuration(e.target.value)}
+              onChange={(e) =>
+                setDuration((e.target.value as unknown) as number)
+              }
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="duration">
-            <Form.Label>Difficulty</Form.Label>
+            <Form.Label>Distance from Earth</Form.Label>
             <Form.Control
-              type="difficulty"
-              placeholder="Enter product difficulty to update"
-              value={difficulty}
-              onChange={(e) => setDifficulty(e.target.value)}
+              type="distance"
+              placeholder="Enter product distance to update"
+              value={distance}
+              onChange={(e) => setDistance(e.target.value)}
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="price">
@@ -115,7 +116,7 @@ const UpdateProductAdmin = () => {
               type="price"
               placeholder="Enter product price to update"
               value={price}
-              // onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => setPrice((e.target.value as unknown) as number)}
             ></Form.Control>
           </Form.Group>
 

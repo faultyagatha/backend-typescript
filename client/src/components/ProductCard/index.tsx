@@ -11,7 +11,7 @@ const ProductCard = ({
   imageCover,
   duration,
   description,
-  difficulty,
+  distance,
   price,
 }: Product) => {
   return (
@@ -27,10 +27,10 @@ const ProductCard = ({
           <div className="my-3">{description}</div>
         </Card.Text>
         <Card.Text as="div">
-          <div className="my-3">{`Duration: ${duration} hours`}</div>
+          <div className="my-3">{`Experience last: ${duration} hours`}</div>
         </Card.Text>
         <Card.Text as="div">
-          <div className="my-3">{`Difficulty: ${difficulty}`}</div>
+          <div className="my-3">{`From Earth: ${distance}`}</div>
         </Card.Text>
         <Card.Text as="h5">{`Price: ${price}€`}</Card.Text>
       </Card.Body>

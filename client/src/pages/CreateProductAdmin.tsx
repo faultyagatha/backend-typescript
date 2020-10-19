@@ -18,7 +18,7 @@ const CreateProductsAdmin = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [duration, setDuration] = useState(0);
-  const [difficulty, setDifficulty] = useState("");
+  const [distance, setDistance] = useState("");
   const [price, setPrice] = useState(0);
   const [imageCover, setImageCover] = useState("");
   const [message, setMessage] = useState("");
@@ -36,7 +36,7 @@ const CreateProductsAdmin = () => {
         name,
         description,
         duration,
-        difficulty,
+        distance,
         price,
         imageCover,
       })
@@ -81,12 +81,12 @@ const CreateProductsAdmin = () => {
             ></Form.Control>
           </Form.Group>
           <Form.Group controlId="duration">
-            <Form.Label>Difficulty</Form.Label>
+            <Form.Label>Distance from Earth</Form.Label>
             <Form.Control
-              type="difficulty"
-              placeholder="Enter product difficulty to update"
-              value={difficulty}
-              onChange={(e) => setDifficulty(e.target.value)}
+              type="distance"
+              placeholder="Enter product distance to update"
+              value={distance}
+              onChange={(e) => setDistance(e.target.value)}
             ></Form.Control>
           </Form.Group>
 

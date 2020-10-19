@@ -5,7 +5,7 @@ export type ProductDocument = Document & {
   imageCover: string;
   description: string;
   duration: number;
-  difficulty: string;
+  distance: string;
   price: number;
   users: mongoose.Schema.Types.ObjectId[];
 };
@@ -30,13 +30,9 @@ const productSchema = new mongoose.Schema({
     required: [true, 'A product must have a duration'],
     min: 1,
   },
-  difficulty: {
+  distance: {
     type: String,
-    required: [true, 'A product must have a difficulty'],
-    enum: {
-      values: ['easy', 'medium', 'high'],
-      message: 'Difficulty is either: easy, medium, high',
-    },
+    required: [true, 'A product must have a distance']
   },
   price: {
     type: Number,

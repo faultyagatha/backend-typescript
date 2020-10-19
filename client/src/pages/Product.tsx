@@ -39,7 +39,7 @@ const Product = () => {
               <strong>{`Duration: ${product.duration} hours`}</strong>
             </ListGroup.Item>
             <ListGroup.Item>
-              <strong>{`Difficulty: ${product.difficulty}`}</strong>
+              <strong>{`Distance from Earth: ${product.distance}`}</strong>
             </ListGroup.Item>
             <ListGroup.Item>{product.description}</ListGroup.Item>
           </ListGroup>

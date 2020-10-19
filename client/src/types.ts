@@ -28,7 +28,7 @@ export type Product = {
   name: string;
   imageCover: string;
   description: string;
-  difficulty: string;
+  distance: string;
   duration: number;
   price: number;
 };

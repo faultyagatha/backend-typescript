@@ -90,7 +90,7 @@ const ListProductsAdmin = () => {
                 <td>{product.imageCover}</td>
                 <td>{product.description}</td>
                 <td>{product.duration}</td>
-                <td>{product.difficulty}</td>
+                <td>{product.distance}</td>
                 <td>{product.price}</td>
                 <td>
                   <Link to={`/admin/products/${product._id}`}>
