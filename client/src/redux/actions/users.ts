@@ -18,35 +18,49 @@ import { actionFail } from "./errors";
 
 const rootURL = "http://localhost:5000/api/v1/users";
 
-const fetches = {
-  loginFetch: (email: string, password: string) => {
-    return fetch(`${rootURL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accepts: "application/json",
-        token: localStorage.getItem("token") as string,
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    }).then((res) => res.json());
+const authFetches = {
+  loginFetch: async (email: string, password: string) => {
+    try {
+      const res = await fetch(`${rootURL}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accepts: "application/json",
+          token: localStorage.getItem("token") as string,
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      return res.json();
+    } catch (err) {
+      console.log("login fetch failed", err);
+    }
   },
-  signUpFetch: (email: string, password: string, passwordConfirm: string) => {
-    return fetch(`${rootURL}/signup`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accepts: "application/json",
-        token: localStorage.getItem("token") as string,
-      },
-      body: JSON.stringify({
-        email,
-        password,
-        passwordConfirm,
-      }),
-    }).then((res) => res.json());
+  signUpFetch: async (
+    email: string,
+    password: string,
+    passwordConfirm: string
+  ) => {
+    try {
+      const res = await fetch(`${rootURL}/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accepts: "application/json",
+          token: localStorage.getItem("token") as string,
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          passwordConfirm,
+        }),
+      });
+      return res.json();
+    } catch (err) {
+      console.log("signup fetch failed", err);
+    }
   },
 };
 
@@ -107,9 +121,7 @@ function updateUserAdmin(data: User): UserActions {
 }
 
 function deleteUserAdmin(): UserActions {
-  return {
-    type: DELETE_USER_ADMIN,
-  };
+  return { type: DELETE_USER_ADMIN };
 }
 
 export function signUpUser(
@@ -118,73 +130,42 @@ export function signUpUser(
   passwordConfirm: string
 ): any {
   return async (dispatch: Dispatch) => {
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       token: localStorage.getItem("token")
-    //     },
-    //   };
-    //   const { data } = await axios.post(
-    //     `${rootURL}/signup`,
-    //     { email, password, passwordConfirm },
-    //     config
-    //   );
-    //   if (data.token) {
-    //     localStorage.setItem("token", JSON.stringify(data.token));
-    //   } else {
-    //     console.log('no token in');
-    //   }
-    //   return dispatch(signUp(data));
-    // } catch (err) {
-    //   console.log("error action: ", err);
-    //   return dispatch(actionFail(err));
-    // }
-    fetches.signUpFetch(email, password, passwordConfirm).then((json) => {
-      if (json.token) {
-        localStorage.setItem("token", json.token);
-        dispatch(signUp(json));
+    try {
+      const data = await authFetches.signUpFetch(
+        email,
+        password,
+        passwordConfirm
+      );
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        dispatch(signUp(data));
       } else {
-        console.log(json.error);
+        console.log(data.error);
       }
-    });
+    } catch (err) {
+      return dispatch(actionFail(err));
+    }
   };
 }
 
 export function loginUser(email: string, password: string): any {
   return async (dispatch: Dispatch) => {
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       token: localStorage.getItem("token")
-    //     },
-    //   };
-    //   const { data } = await axios.post(
-    //     `${rootURL}/login`,
-    //     { email, password },
-    //     config
-    //   );
-    //   console.log("front end login axios", data);
-    //   // localStorage.setItem("user", JSON.stringify(data));
-    //   return dispatch(login(data));
-    // } catch (err) {
-    //   // console.log("error action: ", err);
-    //   return dispatch(actionFail(err));
-    // }
-    fetches.loginFetch(email, password).then((json) => {
-      if (json.token) {
-        localStorage.setItem("token", json.token);
-        dispatch(login(json));
+    try {
+      const data = await authFetches.loginFetch(email, password);
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        dispatch(login(data));
       } else {
-        console.log(json.error);
+        console.log(data.error);
       }
-    });
+    } catch (err) {
+      return dispatch(actionFail(err));
+    }
   };
 }
 
 export function loginWithGoogle(): any {
-  return async (dispatch: Dispatch, getState: any) => {
+  return async (dispatch: Dispatch) => {
     try {
       const token = localStorage.getItem("token");
       const config = {
@@ -206,12 +187,12 @@ export function logoutUser(): any {
 }
 
 export function getUserData(id: string): any {
-  return async (dispatch: Dispatch, getState: any) => {
+  return async (dispatch: Dispatch) => {
     try {
-      const { user } = getState();
+      const token = localStorage.getItem("token");
       const config = {
         headers: {
-          Authorization: `Bearer ${user.user.token}`,
+          Authorization: `Bearer ${token}`,
         },
       };
       const { data } = await axios.get(`${rootURL}/${id}`, config);
@@ -223,13 +204,10 @@ export function getUserData(id: string): any {
 }
 
 export function updateUserData(userData: User): any {
-  return async (dispatch: Dispatch, getState: any) => {
+  return async (dispatch: Dispatch) => {
     try {
-      const { user } = getState();
       let token = localStorage.getItem("token");
-      console.log("user: ", user);
       console.log("token from local storage: ", token);
-      console.log("token from user.user: ", user.user.token);
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -252,16 +230,16 @@ export function updateUserData(userData: User): any {
 }
 
 export function getAllUsersByAdmin() {
-  return async (dispatch: Dispatch, getState: any) => {
+  return async (dispatch: Dispatch) => {
     try {
-      const { user } = getState();
-      // console.log(user.user.token)
+      let token = localStorage.getItem("token");
       const config = {
         headers: {
-          Authorization: `Bearer ${user.user.token}`,
+          Authorization: `Bearer ${token}`,
         },
       };
       const { data } = await axios.get(`${rootURL}`, config);
+
       dispatch(getUsersAdmin(data));
     } catch (err) {
       dispatch(actionFail(err));
@@ -304,3 +282,63 @@ export function deleteUserByAdmin(id: string) {
     }
   };
 }
+
+/*
+export function signUpUser(
+  email: string,
+  password: string,
+  passwordConfirm: string
+): any {
+  return async (dispatch: Dispatch) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token")
+        },
+      };
+      const { data } = await axios.post(
+        `${rootURL}/signup`,
+        { email, password, passwordConfirm },
+        config
+      );
+      if (data.token) {
+        localStorage.setItem("token", JSON.stringify(data.token));
+      } else {
+        console.log('no token');
+      }
+      return dispatch(signUp(data));
+
+    } catch (err) {
+      return dispatch(actionFail(err));
+    }
+  };
+}
+
+export function loginUser(email: string, password: string): any {
+  return async (dispatch: Dispatch) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          token: localStorage.getItem("token")
+        },
+      };
+      const { data } = await axios.post(
+        `${rootURL}/login`,
+        { email, password },
+        config
+      );
+      if (data.token) {
+        localStorage.setItem("token", JSON.stringify(data.token));
+      } else {
+        console.log('no token');
+      }
+      console.log("front end login axios", data);
+      return dispatch(login(data));
+    } catch (err) {
+      return dispatch(actionFail(err));
+    }
+  };
+}
+*/

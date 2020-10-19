@@ -24,7 +24,7 @@ const Cart = () => {
   };
 
   const handleCheckout = () => {
-    history.push("/login?redirect=shipping");
+    history.push("/login?redirect=checkout");
   };
 
   return (

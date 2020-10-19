@@ -8,6 +8,7 @@ import SignUp from "./pages/Signup";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import User from "./pages/User";
 import ListUsersAdmin from "./pages/ListUsersAdmin";
 import UpdateUserAdmin from "./pages/UpdateUserAdmin";
@@ -24,6 +25,7 @@ const Routes = () => (
     <Route exact path="/signup" component={SignUp} />
     <Route exact path="/login" component={Login} />
     <Route exact path="/cart/:id?" component={Cart} />
+    <Route exact path="/checkout" component={Checkout} />
     <Route exact path="/profile" component={User} />
     <Route exact path="/admin/users" component={ListUsersAdmin} />
     <Route exact path="/admin/users/:id" component={UpdateUserAdmin} />
