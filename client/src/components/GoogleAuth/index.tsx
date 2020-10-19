@@ -13,7 +13,6 @@ const GoogleAuth = () => {
   const dispatch = useDispatch();
   const handleResponse = async (response: any) => {
     console.log("from google: ", response);
-    //dispatch(loginWithGoogle(response))
     try {
       console.log(response.tokenObj.id_token);
       const config = {

@@ -73,6 +73,15 @@ const UpdateProductAdmin = () => {
               onChange={(e) => setName(e.target.value)}
             ></Form.Control>
           </Form.Group>
+          <Form.Group controlId="imageCover">
+            <Form.Label>Cover Image</Form.Label>
+            <Form.Control
+              type="imageCover"
+              placeholder="Enter product Image to update"
+              value={imageCover}
+              onChange={(e) => setImageCover(e.target.value)}
+            ></Form.Control>
+          </Form.Group>
           <Form.Group controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
