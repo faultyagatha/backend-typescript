@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Card, Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 
 import { AppState } from "../types";
-import { addProductToCart } from "../redux/actions";
+import { addProductToCart, addProductUser } from "../redux/actions";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -12,12 +12,17 @@ const Product = () => {
   const history = useHistory();
   const { allProducts } = useSelector((state: AppState) => state.product);
   const [product] = allProducts.filter((p) => p.name.toLowerCase() === id);
+  const { user } = useSelector((state: AppState) => state.user);
+  console.log(user);
 
   if (!product) return <div>Product not found</div>;
 
   const handleAddToCart = () => {
     history.push(`/cart/${id}`);
     dispatch(addProductToCart(product));
+    if (user) {
+      dispatch(addProductUser(product));
+    }
   };
 
   return (

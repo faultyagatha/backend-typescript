@@ -13,6 +13,7 @@ export const SIGNUP_REQ = "SIGNUP_REQ";
 export const LOGIN_REQ = "LOGIN_REQ";
 export const LOGOUT_REQ = "LOGOUT_REQ";
 export const GOOGLE_LOGIN_REQ = "GOOGLE_LOGIN_REQ";
+export const ADD_PRODUCT_TO_USER = "ADD_PRODUCT_TO_USER";
 
 export const GET_USER_REQ = "GET_USER_REQ";
 export const UPDATE_USER_REQ = "UPDATE_USER_REQ";
@@ -35,12 +36,13 @@ export type Product = {
 
 export type User = {
   _id?: string;
-  email?: string;
-  password?: string;
-  passwordConfirm?: string;
-  firstName?: string;
-  lastName?: string;
-  isAdmin?: boolean;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  firstName: string;
+  lastName: string;
+  isAdmin: boolean;
+  products: Product[];
 };
 
 export type ProductState = {
@@ -148,6 +150,11 @@ export type DeleteUserAdminAction = {
   type: typeof DELETE_USER_ADMIN;
 };
 
+export type AddProductUserAction = {
+  type: typeof ADD_PRODUCT_TO_USER;
+  payload: Product;
+};
+
 export type UserActions =
   | LoginAction
   | LogoutAction
@@ -157,7 +164,8 @@ export type UserActions =
   | UpdateUserAction
   | GetUsersAdminAction
   | UpdateUserAdminAction
-  | DeleteUserAdminAction;
+  | DeleteUserAdminAction
+  | AddProductUserAction;
 
 export type ErrorAction = {
   type: typeof ACTION_FAIL;

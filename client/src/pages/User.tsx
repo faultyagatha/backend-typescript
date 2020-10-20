@@ -7,6 +7,7 @@ import { AppState } from "../types";
 import { getUserData, updateUserData } from "../redux/actions";
 import Message from "../components/Message";
 import GoBack from "../components/BackButton";
+import { first } from "lodash";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const User = () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const [email, setEmail] = useState<string | undefined>("");
+  const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
@@ -34,7 +35,7 @@ const User = () => {
     e.preventDefault();
     setMessage("Your profile is updated");
     history.push("/profile");
-    dispatch(updateUserData({ email, firstName, lastName }));
+    dispatch(updateUserData(email, firstName, lastName));
   };
 
   const handleEmailChange = (e: any) => {

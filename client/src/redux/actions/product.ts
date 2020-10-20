@@ -69,7 +69,7 @@ export function fetchProducts(): any {
     try {
       dispatch(getProducts());
       const { data } = await axios.get(rootURL);
-      console.log(data);
+      // console.log(data);
       return dispatch(getProductsSuccess(data));
     } catch (err) {
       return dispatch(actionFail(err));
@@ -78,9 +78,8 @@ export function fetchProducts(): any {
 }
 
 export function addProductToCart(product: Product): any {
-  return async (dispatch: Dispatch, getState: any) => {
+  return async (dispatch: Dispatch) => {
     try {
-      //localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
       dispatch(addProduct(product));
     } catch (err) {
       return dispatch(actionFail(err));
@@ -89,9 +88,8 @@ export function addProductToCart(product: Product): any {
 }
 
 export function removeProductFromCart(product: Product): any {
-  return async (dispatch: Dispatch, getState: any) => {
+  return async (dispatch: Dispatch) => {
     try {
-      //localStorage.setItem("inCart", JSON.stringify(getState().product.inCart));
       dispatch(removeProduct(product));
     } catch (err) {
       return dispatch(actionFail(err));

@@ -38,13 +38,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'A tour must have a price'],
     min: 0,
-  },
-  users: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
+  }
 })
 
 export default mongoose.model<ProductDocument>('Product', productSchema)

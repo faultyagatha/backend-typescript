@@ -11,8 +11,10 @@ import {
   GET_USERS_ADMIN,
   UPDATE_USER_ADMIN,
   DELETE_USER_ADMIN,
+  ADD_PRODUCT_TO_USER,
   UserActions,
   User,
+  Product,
 } from "../../types";
 import { actionFail } from "./errors";
 
@@ -81,7 +83,17 @@ export function googleLogin(data: User): UserActions {
 function logout(): UserActions {
   return {
     type: LOGOUT_REQ,
-    payload: { user: {} },
+    payload: {
+      user: {
+        email: "",
+        password: "",
+        passwordConfirm: "",
+        firstName: "",
+        lastName: "",
+        isAdmin: false,
+        products: [],
+      },
+    },
   };
 }
 
@@ -122,6 +134,13 @@ function updateUserAdmin(data: User): UserActions {
 
 function deleteUserAdmin(): UserActions {
   return { type: DELETE_USER_ADMIN };
+}
+
+export function addProductUser(data: Product): UserActions {
+  return {
+    type: ADD_PRODUCT_TO_USER,
+    payload: data, //{ product: data }
+  };
 }
 
 export function signUpUser(
@@ -180,8 +199,9 @@ export function loginWithGoogle(): any {
 }
 
 export function logoutUser(): any {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: any) => {
     localStorage.removeItem("token");
+    localStorage.removeItem(getState().product.inCart);
     dispatch(logout());
   };
 }
@@ -203,7 +223,11 @@ export function getUserData(id: string): any {
   };
 }
 
-export function updateUserData(userData: User): any {
+export function updateUserData(
+  email: string,
+  firstName: string,
+  lastName: string
+): any {
   return async (dispatch: Dispatch) => {
     try {
       let token = localStorage.getItem("token");
@@ -214,10 +238,9 @@ export function updateUserData(userData: User): any {
           Authorization: `Bearer ${token}`,
         },
       };
-      console.log(userData);
       const { data } = await axios.patch(
         `${rootURL}/profile`,
-        userData,
+        { email, firstName, lastName },
         config
       );
       console.log(data);
@@ -247,17 +270,26 @@ export function getAllUsersByAdmin() {
   };
 }
 
-export function updateUserByAdmin(userData: User) {
+export function updateUserByAdmin(
+  _id: string,
+  email: string,
+  firstName: string,
+  lastName: string
+) {
   return async (dispatch: Dispatch) => {
     try {
       let token = localStorage.getItem("token");
-      const id = userData._id;
+      // const id = userData._id;
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await axios.patch(`${rootURL}/${id}`, userData, config);
+      const { data } = await axios.patch(
+        `${rootURL}/${_id}`,
+        { _id, email, firstName, lastName },
+        config
+      );
       dispatch(updateUserAdmin(data));
     } catch (err) {
       dispatch(actionFail(err));
@@ -283,6 +315,7 @@ export function deleteUserByAdmin(id: string) {
   };
 }
 
+//TODO: create alert actions: https://jasonwatmore.com/post/2020/03/02/react-hooks-redux-user-registration-and-login-tutorial-example
 /*
 export function signUpUser(
   email: string,

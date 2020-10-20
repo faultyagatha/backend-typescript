@@ -9,11 +9,20 @@ import {
   GET_USERS_ADMIN,
   UPDATE_USER_ADMIN,
   DELETE_USER_ADMIN,
+  ADD_PRODUCT_TO_USER,
 } from "../../types";
 
 export default function user(
   state: UserState = {
-    user: {},
+    user: {
+      email: "",
+      password: "",
+      passwordConfirm: "",
+      firstName: "",
+      lastName: "",
+      isAdmin: false,
+      products: [],
+    },
     allUsers: [],
   },
   action: UserActions
@@ -50,6 +59,14 @@ export default function user(
     }
     case DELETE_USER_ADMIN: {
       return { ...state };
+    }
+    case ADD_PRODUCT_TO_USER: {
+      const { user } = state;
+      const { products } = user;
+      return {
+        ...state,
+        user: { ...user, products: [...products, action.payload] },
+      };
     }
     default:
       return state;

@@ -1,27 +1,8 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import thunk from "redux-thunk";
-import Product from "../pages/Product";
 
-import { AppState } from "../types";
 import createRootReducer from "./reducers";
-// import rootSaga from "./sagas";
-
-// const initState: AppState = {
-//   product: {
-//     product: {},
-//     allProducts: [],
-//     loading: true,
-//     inCart: [],
-//   },
-//   user: {
-//     user: {},
-//     allUsers: [],
-//   },
-//   error: {
-//     error: "",
-//   },
-// };
 
 export default function makeStore(initialState = loadState()) {
   const sagaMiddleware = createSagaMiddleware();
@@ -36,23 +17,6 @@ export default function makeStore(initialState = loadState()) {
 
   const initialstate = loadState();
   console.log("initialstate: ", initialstate);
-  //must be above the store!!
-  // const product = localStorage.getItem("product") || "";
-  // console.log(localStorage.store);
-  // if (product) {
-  //   initialState = JSON.parse(product);
-  // }
-
-  // const user = localStorage.getItem("user") || "";
-  // console.log(user)
-  // if (user) initialState = JSON.parse(user);
-
-  // const cartItemsFromStorage = localStorage.getItem("inCart") || "";
-  // if (cartItemsFromStorage) initialState = JSON.parse(cartItemsFromStorage);
-
-  // const savedStore = localStorage.getItem("store") || "";
-  // if (savedStore) initialState = JSON.parse(savedStore);
-  // console.log(localStorage);
 
   const store = createStore(
     createRootReducer(),

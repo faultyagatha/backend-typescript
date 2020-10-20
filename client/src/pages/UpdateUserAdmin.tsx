@@ -36,8 +36,8 @@ const UpdateUserAdmin = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setMessage("User profile is updated");
-    // history.push('/');
-    dispatch(updateUserByAdmin({ _id, email, firstName, lastName }));
+    if (!_id) return;
+    dispatch(updateUserByAdmin(_id, email, firstName, lastName));
   };
 
   return (
