@@ -61,9 +61,7 @@ function updateProductAdmin(data: Product): ProductActions {
 }
 
 function deleteProductAdmin(): ProductActions {
-  return {
-    type: DELETE_PRODUCT_ADMIN,
-  };
+  return { type: DELETE_PRODUCT_ADMIN };
 }
 
 export function addProductToCart(product: Product): any {
@@ -102,7 +100,6 @@ export function fetchProducts(): any {
     try {
       dispatch(getProducts());
       const { data } = await axios.get(rootURL);
-      // console.log(data);
       return dispatch(getProductsSuccess(data));
     } catch (err) {
       return dispatch(actionFail(err));

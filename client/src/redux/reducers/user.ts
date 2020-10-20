@@ -63,7 +63,15 @@ export default function user(
     }
     case ADD_PRODUCT_TO_USER: {
       const { user } = state;
-      const { products } = user;
+      const products = user.products;
+      const productsArr = [...products, action.payload];
+      console.log("products: ", products);
+      console.log("action.payload: ", action.payload);
+      console.log("user: ", { ...user, products: productsArr });
+      console.log("state: ", {
+        ...state,
+        user: { ...user, products: [...products, action.payload] },
+      });
       return {
         ...state,
         user: { ...user, products: [...products, action.payload] },

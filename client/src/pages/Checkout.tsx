@@ -99,7 +99,12 @@ const Checkout = () => {
                   <Col>
                     <strong>TOTAL: </strong>
                   </Col>
-                  {/* <Col>${order.totalPrice}</Col> */}
+                  <Col>
+                    €
+                    {inCart
+                      .map((item) => item.price)
+                      .reduce((sum: number, price) => sum + price)}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

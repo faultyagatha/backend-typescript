@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
 import { AppState } from "../types";
-import { getUserData, updateUserData } from "../redux/actions";
+import { updateUserData } from "../redux/actions";
 import Message from "../components/Message";
 import GoBack from "../components/BackButton";
 

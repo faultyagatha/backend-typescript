@@ -12,17 +12,16 @@ const Product = () => {
   const history = useHistory();
   const { allProducts } = useSelector((state: AppState) => state.product);
   const [product] = allProducts.filter((p) => p.name.toLowerCase() === id);
-  const { user } = useSelector((state: AppState) => state.user);
-  console.log(user);
+  const { isLoggedIn } = useSelector((state: AppState) => state.user);
 
   if (!product) return <div>Product not found</div>;
 
   const handleAddToCart = () => {
     history.push(`/cart/${id}`);
     dispatch(addProductToCart(product));
-    if (user) {
-      dispatch(addProductUser(product));
-    }
+    // if (isLoggedIn) {
+    //dispatch(addProductUser(product));
+    // }
   };
 
   return (
