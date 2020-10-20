@@ -6,11 +6,12 @@ import {
   GET_PRODUCTS_SUCCESS,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
+  REMOVE_ALL_PRODUCTS,
   UPDATE_PRODUCT_ADMIN,
   DELETE_PRODUCT_ADMIN,
+  CREATE_PRODUCT_ADMIN,
   ProductActions,
   Product,
-  CREATE_PRODUCT_ADMIN,
 } from "../../types";
 import { actionFail } from "./errors";
 
@@ -30,10 +31,12 @@ function removeProduct(product: Product): ProductActions {
   };
 }
 
+function removeAll(): ProductActions {
+  return { type: REMOVE_ALL_PRODUCTS };
+}
+
 function getProducts(): ProductActions {
-  return {
-    type: GET_PRODUCTS,
-  };
+  return { type: GET_PRODUCTS };
 }
 
 function getProductsSuccess(data: Product[]): ProductActions {
@@ -63,20 +66,6 @@ function deleteProductAdmin(): ProductActions {
   };
 }
 
-/** Async actions processed by redux-thunk middleware */
-export function fetchProducts(): any {
-  return async (dispatch: Dispatch) => {
-    try {
-      dispatch(getProducts());
-      const { data } = await axios.get(rootURL);
-      // console.log(data);
-      return dispatch(getProductsSuccess(data));
-    } catch (err) {
-      return dispatch(actionFail(err));
-    }
-  };
-}
-
 export function addProductToCart(product: Product): any {
   return async (dispatch: Dispatch) => {
     try {
@@ -91,6 +80,30 @@ export function removeProductFromCart(product: Product): any {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(removeProduct(product));
+    } catch (err) {
+      return dispatch(actionFail(err));
+    }
+  };
+}
+
+export function removeAllFromCart(): any {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(removeAll());
+    } catch (err) {
+      return dispatch(actionFail(err));
+    }
+  };
+}
+
+/** Async actions processed by redux-thunk middleware */
+export function fetchProducts(): any {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(getProducts());
+      const { data } = await axios.get(rootURL);
+      // console.log(data);
+      return dispatch(getProductsSuccess(data));
     } catch (err) {
       return dispatch(actionFail(err));
     }

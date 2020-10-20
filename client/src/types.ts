@@ -5,6 +5,7 @@ export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
+export const REMOVE_ALL_PRODUCTS = "REMOVE_ALL_PRODUCTS";
 export const CREATE_PRODUCT_ADMIN = "CREATE_PRODUCT_ADMIN";
 export const UPDATE_PRODUCT_ADMIN = "UPDATE_PRODUCT_ADMIN";
 export const DELETE_PRODUCT_ADMIN = "DELETE_PRODUCT_ADMIN";
@@ -54,6 +55,7 @@ export type ProductState = {
 
 export type UserState = {
   user: User;
+  isLoggedIn: boolean;
   allUsers: User[];
 };
 
@@ -82,6 +84,10 @@ export type RemoveProductAction = {
   payload: { product: Product };
 };
 
+export type RemoveAllProductsAction = {
+  type: typeof REMOVE_ALL_PRODUCTS;
+};
+
 export type CreateProductAdminAction = {
   type: typeof CREATE_PRODUCT_ADMIN;
   payload: { product: Product };
@@ -102,6 +108,7 @@ export type ProductActions =
   | GetProductsSuccessAction
   | AddProductAction
   | RemoveProductAction
+  | RemoveAllProductsAction
   | CreateProductAdminAction
   | UpdateProductAdminAction
   | DeleteProductAdminAction;

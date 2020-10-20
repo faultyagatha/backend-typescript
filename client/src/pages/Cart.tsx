@@ -18,15 +18,15 @@ const Cart = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { inCart } = useSelector((state: AppState) => state.product);
-  const { user } = useSelector((state: AppState) => state.user);
+  const { isLoggedIn } = useSelector((state: AppState) => state.user);
 
   const handleRemoveFromCart = (product: Product) => {
     dispatch(removeProductFromCart(product));
   };
 
   const handleCheckout = () => {
-    if (!user) history.push("/login");
-    history.push("/checkout");
+    if (!isLoggedIn) history.push("/login");
+    else history.push("/checkout");
   };
 
   return (

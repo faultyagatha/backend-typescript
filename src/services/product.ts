@@ -45,8 +45,6 @@ async function placeOrder(productId: string, userId: string): Promise<UserDocume
   const user = await User.findById(userId).exec()
   console.log('USER ID: ', userId)
   if (!user) throw new Error(`User ${userId} not found`)
-
-  //user.populate('products').execPopulate()
   user.products.push(product._id)
   return user.save()
 }

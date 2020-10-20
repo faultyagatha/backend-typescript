@@ -13,7 +13,7 @@ const UpdateUserAdmin = () => {
   const history = useHistory();
   const { id } = useParams();
 
-  const { user, allUsers } = useSelector((state: AppState) => state.user);
+  const { allUsers } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.error);
 
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ const UpdateUserAdmin = () => {
   const [message, setMessage] = useState("");
 
   const [userToUpdate] = allUsers.filter((user) => user._id === id);
-  console.log(userToUpdate);
+  // console.log(userToUpdate);
   const _id = userToUpdate._id;
 
   useEffect(() => {

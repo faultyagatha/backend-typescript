@@ -4,6 +4,7 @@ import {
   GET_PRODUCTS,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
+  REMOVE_ALL_PRODUCTS,
   GET_PRODUCTS_SUCCESS,
   CREATE_PRODUCT_ADMIN,
   UPDATE_PRODUCT_ADMIN,
@@ -46,6 +47,13 @@ export default function product(
       const index = state.inCart.findIndex((p) => p.name === product.name);
       if (index >= 0) {
         state.inCart.splice(index, 1);
+        return { ...state, inCart: [...state.inCart] };
+      }
+      return state;
+    }
+    case REMOVE_ALL_PRODUCTS: {
+      if (state.inCart.length > 0) {
+        state.inCart.splice(0, state.inCart.length);
         return { ...state, inCart: [...state.inCart] };
       }
       return state;

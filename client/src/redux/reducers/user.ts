@@ -24,22 +24,23 @@ export default function user(
       products: [],
     },
     allUsers: [],
+    isLoggedIn: false,
   },
   action: UserActions
 ): UserState {
   switch (action.type) {
     case LOGIN_REQ: {
       const { user } = action.payload;
-      return { ...state, user };
+      return { ...state, user, isLoggedIn: true };
     }
     case SIGNUP_REQ: {
       const { user } = action.payload;
       console.log(user);
-      return { ...state, user };
+      return { ...state, user, isLoggedIn: true };
     }
     case LOGOUT_REQ: {
       const { user } = action.payload;
-      return { ...state, user };
+      return { ...state, user, isLoggedIn: false };
     }
     case GET_USER_REQ: {
       const { user } = action.payload;

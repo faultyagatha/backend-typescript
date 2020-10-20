@@ -4,15 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 import { AppState } from "../../types";
-import { logoutUser } from "../../redux/actions";
+import { logoutUser, removeAllFromCart } from "../../redux/actions";
 
 const Menu = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { user } = useSelector((state: AppState) => state.user);
+  const { user, isLoggedIn } = useSelector((state: AppState) => state.user);
+  const { inCart } = useSelector((state: AppState) => state.product);
 
   const logoutHandler = () => {
     dispatch(logoutUser());
+    if (inCart.length > 0) {
+      console.log("inCart: ", inCart.length);
+      dispatch(removeAllFromCart());
+    }
     history.push("/signup");
   };
 
@@ -34,7 +39,7 @@ const Menu = () => {
               <Nav.Link as={Link} to="/cart">
                 <i className="fa fa-shopping-cart"></i>Cart
               </Nav.Link>
-              {user.email ? (
+              {isLoggedIn ? (
                 <NavDropdown title="Hello" id="name">
                   <NavDropdown.Item as={Link} to="/profile">
                     Profile
@@ -54,7 +59,7 @@ const Menu = () => {
                   </Nav.Link>
                 </>
               )}
-              {user && user.isAdmin && (
+              {isLoggedIn && user.isAdmin && (
                 <NavDropdown title="Admin" id="admin">
                   <NavDropdown.Item as={Link} to="/admin/users">
                     Users

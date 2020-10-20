@@ -7,12 +7,12 @@ import { AppState } from "../types";
 import { getUserData, updateUserData } from "../redux/actions";
 import Message from "../components/Message";
 import GoBack from "../components/BackButton";
-import { first } from "lodash";
 
 const User = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state: AppState) => state.user);
+  const { user, isLoggedIn } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.error);
+
   const history = useHistory();
   const { id } = useParams();
 
@@ -22,14 +22,14 @@ const User = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (!user) {
+    if (!isLoggedIn) {
       history.push("/login");
     } else {
-      setEmail(user.email);
+      if (user.email) setEmail(user.email);
       if (user.firstName) setFirstName(user.firstName);
       if (user.lastName) setLastName(user.lastName);
     }
-  }, [dispatch, history, user, error, id]);
+  }, [dispatch, history, user, error, id, isLoggedIn]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
