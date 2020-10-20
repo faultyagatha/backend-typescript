@@ -31,7 +31,7 @@ const Routes = () => (
     <Route exact path="/admin/users/:id" component={UpdateUserAdmin} />
     <Route exact path="/admin/products" component={ListProductsAdmin} />
     <Route exact path="/admin/products/:id" component={UpdateProductAdmin} />
-    <Route exact path="/admin/products/create" component={CreateProductAdmin} />
+    <Route exact path="/admin/create" component={CreateProductAdmin} />
   </Switch>
 );
 

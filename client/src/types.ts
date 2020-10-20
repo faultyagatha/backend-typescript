@@ -15,6 +15,7 @@ export const LOGIN_REQ = "LOGIN_REQ";
 export const LOGOUT_REQ = "LOGOUT_REQ";
 export const GOOGLE_LOGIN_REQ = "GOOGLE_LOGIN_REQ";
 export const ADD_PRODUCT_TO_USER = "ADD_PRODUCT_TO_USER";
+export const REMOVE_PRODUCT_FROM_USER = "REMOVE_PRODUCT_FROM_USER";
 
 export const GET_USER_REQ = "GET_USER_REQ";
 export const UPDATE_USER_REQ = "UPDATE_USER_REQ";
@@ -162,6 +163,11 @@ export type AddProductUserAction = {
   payload: Product;
 };
 
+export type RemoveProductUserAction = {
+  type: typeof REMOVE_PRODUCT_FROM_USER;
+  payload: Product;
+};
+
 export type UserActions =
   | LoginAction
   | LogoutAction
@@ -172,7 +178,8 @@ export type UserActions =
   | GetUsersAdminAction
   | UpdateUserAdminAction
   | DeleteUserAdminAction
-  | AddProductUserAction;
+  | AddProductUserAction
+  | RemoveProductUserAction;
 
 export type ErrorAction = {
   type: typeof ACTION_FAIL;

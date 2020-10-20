@@ -79,13 +79,12 @@ const Cart = () => {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                {/* <h2>{`Your total: ${inCart.length} items`}</h2> */}
                 <h2>
                   {`Your total: €${inCart
                     .map((item) => item.price)
                     .reduce((sum: number, price) => {
                       return sum + price;
-                    })}`}
+                    }, 0)}`}
                 </h2>
               </ListGroup.Item>
               <ListGroup.Item>

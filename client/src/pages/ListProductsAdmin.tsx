@@ -4,13 +4,8 @@ import { Table, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
-import {
-  fetchProducts,
-  deleteProductByAdmin,
-  createProductByAdmin,
-} from "../redux/actions/product";
-import { AppState, Product } from "../types";
-import Products from "./Products";
+import { fetchProducts, deleteProductByAdmin } from "../redux/actions/product";
+import { AppState } from "../types";
 
 const ListProductsAdmin = () => {
   const dispatch = useDispatch();
@@ -40,11 +35,6 @@ const ListProductsAdmin = () => {
     }
   };
 
-  const handleCreateProduct = () => {
-    //dispatch(createProductByAdmin());
-    console.log("creating product");
-  };
-
   return (
     <>
       <Link className="btn btn-light my-3" to="/">
@@ -55,13 +45,8 @@ const ListProductsAdmin = () => {
           <h1>Products</h1>
         </Col>
         <Col className="text-right">
-          <Link to={`/admin/products/create`}>
-            <Button
-              className="my-3"
-              // onClick={handleCreateProduct}
-            >
-              Create Product
-            </Button>
+          <Link to={`/admin/create`}>
+            <Button className="my-3">Create Product</Button>
           </Link>
         </Col>
       </Row>

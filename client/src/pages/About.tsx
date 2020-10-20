@@ -14,8 +14,7 @@ const About = () => {
       <Row className="py-3 justify-content-md-center">
         <Col md={6}>
           <h3 className="text-center">
-            We are selling you experience that you've never seen before unless
-            you are an astronaut.
+            We are offering to you experience that you've never seen before.
           </h3>
         </Col>
       </Row>

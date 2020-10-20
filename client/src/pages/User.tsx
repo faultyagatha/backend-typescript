@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { useHistory, useParams, Link } from "react-router-dom";
+import { Form, Button, Row, Col, ListGroup, Image } from "react-bootstrap";
 
-import { AppState, ParamsType } from "../types";
-import { updateUserData } from "../redux/actions";
+import { AppState, ParamsType, Product } from "../types";
+import { updateUserData, removeProductFromUser } from "../redux/actions";
 import Message from "../components/Message";
 import GoBack from "../components/BackButton";
 
 const User = () => {
   const dispatch = useDispatch();
   const { user, isLoggedIn } = useSelector((state: AppState) => state.user);
+  const { products } = user;
   const { error } = useSelector((state: AppState) => state.error);
 
   const history = useHistory();
@@ -50,11 +51,15 @@ const User = () => {
     setLastName(e.target.value);
   };
 
+  const handleRemoveWishList = (product: Product) => {
+    dispatch(removeProductFromUser(product));
+  };
+
   return (
     <>
       <GoBack>Go Back</GoBack>
       <Row>
-        <Col md={3}>
+        <Col md={4}>
           <h2>My Profile</h2>
           {message && <Message variant="success">{message}</Message>}
           {error && <Message variant="danger">{error}</Message>}
@@ -91,8 +96,41 @@ const User = () => {
             </Button>
           </Form>
         </Col>
-        <Col md={9}>
-          <h2>My Orders</h2>
+        <Col md={6}>
+          <h2>My Wishlist</h2>
+          <ListGroup variant="flush">
+            {products &&
+              products.map((product) => {
+                return (
+                  <ListGroup.Item key={product.name}>
+                    <Row>
+                      <Col md={3}>
+                        <Image
+                          src={product.imageCover}
+                          alt={product.name}
+                          fluid
+                          rounded
+                        />
+                      </Col>
+                      <Col md={2}>
+                        <Link to={`/products/${product.name.toLowerCase()}`}>
+                          {product.name}
+                        </Link>
+                      </Col>
+                      <Col md={1}>
+                        <Button
+                          type="button"
+                          variant="light"
+                          onClick={() => handleRemoveWishList(product)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </Button>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                );
+              })}
+          </ListGroup>
         </Col>
       </Row>
     </>

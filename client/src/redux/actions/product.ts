@@ -94,7 +94,6 @@ export function removeAllFromCart(): any {
   };
 }
 
-/** Async actions processed by redux-thunk middleware */
 export function fetchProducts(): any {
   return async (dispatch: Dispatch) => {
     try {

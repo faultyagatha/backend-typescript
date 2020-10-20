@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Card, Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 
 import { AppState, ParamsType } from "../types";
-import { addProductToCart, addProductUser } from "../redux/actions";
+import { addProductToCart, addProductToUser } from "../redux/actions";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -19,9 +19,10 @@ const Product = () => {
   const handleAddToCart = () => {
     history.push(`/cart/${id}`);
     dispatch(addProductToCart(product));
-    // if (isLoggedIn) {
-    //dispatch(addProductUser(product));
-    // }
+  };
+
+  const handleAddToWishlist = () => {
+    dispatch(addProductToUser(product));
   };
 
   return (
@@ -66,6 +67,17 @@ const Product = () => {
                   onClick={handleAddToCart}
                 >
                   Add to Cart
+                </Button>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button
+                  className="btn-block"
+                  variant="info"
+                  type="button"
+                  disabled={!isLoggedIn}
+                  onClick={handleAddToWishlist}
+                >
+                  Save to Wishlist
                 </Button>
               </ListGroup.Item>
             </ListGroup>

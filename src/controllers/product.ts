@@ -78,7 +78,7 @@ export const createProduct = async (
       imageCover,
       description,
       duration,
-      difficulty,
+      distance,
       price,
     } = req.body
 
@@ -87,7 +87,7 @@ export const createProduct = async (
       imageCover,
       description,
       duration,
-      difficulty,
+      distance,
       price,
     })
 

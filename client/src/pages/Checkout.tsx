@@ -103,7 +103,7 @@ const Checkout = () => {
                     €
                     {inCart
                       .map((item) => item.price)
-                      .reduce((sum: number, price) => sum + price)}
+                      .reduce((sum: number, price) => sum + price, 0)}
                   </Col>
                 </Row>
               </ListGroup.Item>

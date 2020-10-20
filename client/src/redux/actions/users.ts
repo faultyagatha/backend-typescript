@@ -12,6 +12,7 @@ import {
   UPDATE_USER_ADMIN,
   DELETE_USER_ADMIN,
   ADD_PRODUCT_TO_USER,
+  REMOVE_PRODUCT_FROM_USER,
   UserActions,
   User,
   Product,
@@ -136,10 +137,17 @@ function deleteUserAdmin(): UserActions {
   return { type: DELETE_USER_ADMIN };
 }
 
-export function addProductUser(data: Product): UserActions {
+function addProductUser(data: Product): UserActions {
   return {
     type: ADD_PRODUCT_TO_USER,
-    payload: data, //{ product: data }
+    payload: data,
+  };
+}
+
+function removeProductUser(data: Product): UserActions {
+  return {
+    type: REMOVE_PRODUCT_FROM_USER,
+    payload: data,
   };
 }
 
@@ -311,6 +319,26 @@ export function deleteUserByAdmin(id: string) {
     } catch (err) {
       console.log("Action failed");
       dispatch(actionFail(err));
+    }
+  };
+}
+
+export function addProductToUser(product: Product): any {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(addProductUser(product));
+    } catch (err) {
+      return dispatch(actionFail(err));
+    }
+  };
+}
+
+export function removeProductFromUser(product: Product): any {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(removeProductUser(product));
+    } catch (err) {
+      return dispatch(actionFail(err));
     }
   };
 }
