@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import FormContainer from "../components/Form";
 import { updateUserByAdmin } from "../redux/actions/users";
-import { AppState } from "../types";
+import { AppState, ParamsType } from "../types";
 
 const UpdateUserAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { id } = useParams();
+  const { id } = useParams<ParamsType>();
 
   const { allUsers } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.error);
@@ -85,7 +85,6 @@ const UpdateUserAdmin = () => {
               onChange={(e: any) => setIsAdmin(e.target.checked)}
             ></Form.Check>
           </Form.Group>
-
           <Button type="submit" variant="primary">
             Update
           </Button>

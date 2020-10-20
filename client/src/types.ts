@@ -197,3 +197,8 @@ export type MessageType = ({
 }) => JSX.Element;
 
 export type WithChildren = ({ children }: { children?: any }) => JSX.Element;
+
+type Params = { id: string };
+type NoParams = {};
+
+export type ParamsType = { id: string };

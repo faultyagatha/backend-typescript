@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 
-import { AppState } from "../types";
+import { AppState, ParamsType } from "../types";
 import { updateUserData } from "../redux/actions";
 import Message from "../components/Message";
 import GoBack from "../components/BackButton";
@@ -14,7 +14,7 @@ const User = () => {
   const { error } = useSelector((state: AppState) => state.error);
 
   const history = useHistory();
-  const { id } = useParams();
+  const { id } = useParams<ParamsType>();
 
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");

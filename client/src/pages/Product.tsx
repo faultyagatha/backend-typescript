@@ -3,12 +3,12 @@ import { useParams, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Card, Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 
-import { AppState } from "../types";
+import { AppState, ParamsType } from "../types";
 import { addProductToCart, addProductUser } from "../redux/actions";
 
 const Product = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = useParams<ParamsType>();
   const history = useHistory();
   const { allProducts } = useSelector((state: AppState) => state.product);
   const [product] = allProducts.filter((p) => p.name.toLowerCase() === id);
@@ -29,7 +29,7 @@ const Product = () => {
       <Link className="btn btn-light my-3" to="/">
         Go Back
       </Link>
-      <h1>Product</h1>
+      <h1>Planet</h1>
       <Row>
         <Col md={6}>
           <Image src={product.imageCover} alt={product.name} fluid />

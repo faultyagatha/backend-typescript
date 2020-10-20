@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
 import FormContainer from "../components/Form";
 import { updateProductByAdmin } from "../redux/actions/product";
-import { AppState } from "../types";
+import { AppState, ParamsType } from "../types";
 
 const UpdateProductAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { id } = useParams();
+  const { id } = useParams<ParamsType>();
 
   const { allProducts } = useSelector((state: AppState) => state.product);
   const { error } = useSelector((state: AppState) => state.error);
