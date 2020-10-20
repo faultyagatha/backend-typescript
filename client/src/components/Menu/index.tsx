@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Nav, NavDropdown, Badge } from "react-bootstrap";
 
 import { AppState } from "../../types";
 import { logoutUser, removeAllFromCart } from "../../redux/actions";
@@ -37,7 +37,9 @@ const Menu = () => {
             </Nav>
             <Nav className="ml-auto">
               <Nav.Link as={Link} to="/cart">
-                <i className="fa fa-shopping-cart"></i>Cart
+                <i className="fa fa-shopping-cart">
+                  <Badge className="badge-light">{inCart.length}</Badge>
+                </i>
               </Nav.Link>
               {isLoggedIn ? (
                 <NavDropdown title="Hello" id="name">

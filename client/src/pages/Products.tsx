@@ -43,7 +43,7 @@ export default function Products() {
   };
   return (
     <>
-      <h1 className="text-center">head away from Earth</h1>
+      <h2 className="text-center">head away from Earth</h2>
       {loading ? (
         <Loader />
       ) : error ? (
