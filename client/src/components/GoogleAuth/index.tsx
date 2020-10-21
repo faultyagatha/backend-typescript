@@ -3,7 +3,7 @@ import GoogleLogin from "react-google-login";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-import { loginWithGoogle, googleLogin } from "../../redux/actions";
+import { loginWithGoogle } from "../../redux/actions";
 
 const rootURL = "http://localhost:5000/api/v1/users";
 const clientId =
@@ -14,20 +14,14 @@ const GoogleAuth = () => {
   const handleResponse = async (response: any) => {
     console.log("from google: ", response);
     try {
-      console.log(response.tokenObj.id_token);
-      const config = {
-        headers: {
-          Authorization: `Bearer ${response.tokenObj.id_token}`,
-        },
-      };
-
-      const res = await axios.post(`${rootURL}/login/google`, {
+      const { data } = await axios.post(`${rootURL}/login/google`, {
         id_token: response.tokenObj.id_token,
       });
-      console.log("trying to login from client", res.data);
-      // dispatch(googleLogin(res.data));
-      //localStorage.setItem("token", res.data.token);
+
+      console.log("trying to login from client", data);
+      dispatch(loginWithGoogle(data));
     } catch (err) {
+      console.log(err.response);
       console.log("client axios error: ", err);
     }
   };

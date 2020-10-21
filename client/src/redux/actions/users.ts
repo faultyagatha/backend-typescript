@@ -4,7 +4,6 @@ import axios from "axios";
 import {
   LOGIN_REQ,
   SIGNUP_REQ,
-  GOOGLE_LOGIN_REQ,
   LOGOUT_REQ,
   GET_USER_REQ,
   UPDATE_USER_REQ,
@@ -70,13 +69,6 @@ const authFetches = {
 function login(data: User): UserActions {
   return {
     type: LOGIN_REQ,
-    payload: { user: data },
-  };
-}
-
-export function googleLogin(data: User): UserActions {
-  return {
-    type: GOOGLE_LOGIN_REQ,
     payload: { user: data },
   };
 }
@@ -179,6 +171,7 @@ export function loginUser(email: string, password: string): any {
   return async (dispatch: Dispatch) => {
     try {
       const data = await authFetches.loginFetch(email, password);
+      console.log(data);
       if (data.token) {
         localStorage.setItem("token", data.token);
         dispatch(login(data));
@@ -191,15 +184,12 @@ export function loginUser(email: string, password: string): any {
   };
 }
 
-export function loginWithGoogle(): any {
+export function loginWithGoogle(data: any): any {
   return async (dispatch: Dispatch) => {
     try {
-      const token = localStorage.getItem("token");
-      const config = {
-        headers: token,
-      };
-      const { data } = await axios.post(`${rootURL}/login/google`, config);
-      return dispatch(googleLogin(data));
+      localStorage.setItem("token", data.token);
+      console.log(data);
+      return dispatch(loginUser(data.email, "XXXX")); //TODO: checl this one!!
     } catch (err) {
       return dispatch(actionFail(err));
     }
@@ -287,7 +277,6 @@ export function updateUserByAdmin(
   return async (dispatch: Dispatch) => {
     try {
       let token = localStorage.getItem("token");
-      // const id = userData._id;
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,

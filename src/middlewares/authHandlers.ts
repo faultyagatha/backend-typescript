@@ -33,7 +33,6 @@ export const protect = async (
       // Verification token
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const decoded: any = jwt.verify(token, process.env['JWT_SECRET'] as string)
-      console.log('decoded: ', decoded)
       // Check if a user still exists
       const currentUser = await User.findById(decoded.id).select('-password')
       console.log('currentUser with token: ', currentUser)

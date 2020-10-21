@@ -27,7 +27,7 @@ passport.use(new GoogleTokenStrategy({
     try {
       console.log('parsedToken: ', parsedToken)
       const { email, given_name, family_name } = parsedToken.payload
-      const googleUser = User.findOne({ email })
+      const googleUser = await User.findOne({ email })
       if (googleUser) {
         console.log('from pass config: GOOGLE USER EXISTS', googleUser)
         done(null, googleUser)
@@ -41,9 +41,10 @@ passport.use(new GoogleTokenStrategy({
         passwordConfirm: 'xxxxx',
         isAdmin: false
       })
-      console.log('from pass config: USER IS ABOUT TO BE CREATED', user)
+      // console.log('from pass config: USER IS ABOUT TO BE CREATED', user)
       await UserService.create(user)
-      console.log('from pass config: NEW GOOGLE USER CREATED', user)
+      // console.log('from pass config: NEW GOOGLE USER CREATED', user)
+
       done(null, user) //req.user
     } catch (err) {
       new BadRequestError('Bad passport config')

@@ -24,16 +24,20 @@ const router = express.Router()
 
 router.post(
   '/login/google',
-  passport.authenticate('google-id-token'),
+  passport.authenticate('google-id-token', { session: false }),
+  // (req, res) => {
+  //     try {
+  //       console.log('req.user:', typeof (req.user))
+  //       res.status(200).json(req.user)
+  //     } catch (err) {
+  //       console.log('ERROR OVER HERE:', Object.keys(err))
+  //     }
+  //   }
+  // )
   googleLogin)
 
 router.post('/signup', signup)
 router.post('/login', login)
-
-// router.get('/google/callback',
-//   passport.authenticate('google', { failureRedirect: '/' }),
-//   (req, res) => res.send(req.user))
-
 
 router.use(protect) //remove for testing
 router.get('/profile', getProfile)

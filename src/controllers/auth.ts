@@ -31,7 +31,6 @@ const createSendToken = (
   res: Response
 ): void => {
   const token = signToken(user._id)
-  // console.log('token: ', token)
   const JWT_COOKIE_EXPIRES_IN = process.env['JWT_COOKIE_EXPIRES_IN'] as unknown
   const cookieOptions = {
     expires: new Date(
@@ -111,16 +110,14 @@ export const googleLogin = async (
   next: NextFunction
 ) => {
   try {
-    // console.log(req)
-    const user = req.body
-    console.log('user.request from googleLogin: ', user)
+    const user = req.user as UserDocument
     if (!user) {
       return next(new BadRequestError('You are not autorised with google'))
     }
     createSendToken(user, 200, res)
-    res.send(req.body._id)
+    // res.send(user)
   } catch (err) {
-    new BadRequestError('User is not found')
+    next(new BadRequestError('User is not found'))
   }
 }
 /*

@@ -101,33 +101,23 @@ export const updateProfile = async (
   res: Response,
   next: NextFunction
 ) => {
-  // const {
-  //   firstName,
-  //   lastName,
-  //   email,
-  //   password,
-  //   passwordConfirm,
-  //   products } = req.body
-
-  // const allowedToUpdate = {
-  //   firstName,
-  //   lastName,
-  //   email,
-  //   password,
-  //   passwordConfirm,
-  //   products,
-  // }
   const update = req.body
   const userReq = req.user as Payload
   try {
     const user = await UserService.updateProfile(
       userReq.id,
       update
-      // allowedToUpdate
     )
-    res.status(200).json({
-      user
-    })
+    if (user) {
+      res.status(200).json({
+        user
+        // email: user.email,
+        // firstName: user.firstName,
+        // lastName: user.lastName,
+        // isAdmin: user.isAdmin,
+        // products: user.products
+      })
+    }
   } catch (err) {
     next(new NotFoundError('User not found', err))
   }
