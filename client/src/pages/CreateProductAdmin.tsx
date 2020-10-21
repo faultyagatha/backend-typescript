@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
 import FormContainer from "../components/Form";
-import { fetchProducts, createProductByAdmin } from "../redux/actions/product";
-import { AppState, Product } from "../types";
-import Products from "./Products";
+import { createProductByAdmin } from "../redux/actions/product";
+import { AppState } from "../types";
 
 const CreateProductsAdmin = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const { allProducts } = useSelector((state: AppState) => state.product);
   const { error } = useSelector((state: AppState) => state.error);
 
   const [name, setName] = useState("");
@@ -23,14 +20,9 @@ const CreateProductsAdmin = () => {
   const [imageCover, setImageCover] = useState("");
   const [message, setMessage] = useState("");
 
-  // useEffect(() => {
-
-  // }, [dispatch, allProducts]);
-
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setMessage("Product is created");
-    // history.push('/');
     dispatch(
       createProductByAdmin({
         name,

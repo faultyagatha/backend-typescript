@@ -17,24 +17,24 @@ export const protect = async (
   res: Response,
   next: NextFunction
 ) => {
-  // 1) Get a token and check of it's in the DB
+  // Get a token and check of it's in the DB
   let token
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
     try {
-      //take only 'Bearer'
+      // only 'Bearer'
       token = req.headers.authorization.split(' ')[1]
       console.log('token in headers from backend: ', token)
       if (!token) {
         return next(new UnauthorizedError('You are not logged in'))
       }
-      // 2) Verification token
+      // Verification token
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const decoded: any = jwt.verify(token, process.env['JWT_SECRET'] as string)
       console.log('decoded: ', decoded)
-      // 3) Check if a user still exists
+      // Check if a user still exists
       const currentUser = await User.findById(decoded.id).select('-password')
       console.log('currentUser with token: ', currentUser)
       if (!currentUser) {
@@ -42,7 +42,7 @@ export const protect = async (
           new JWTError('The user with this token does no longer exist.')
         )
       }
-      // 4) Grant access to protected route and pass the role to the next middleware
+      // Grant access to protected route and pass the user to the next middleware
       req.user = currentUser
       next()
     } catch (err) {
@@ -63,10 +63,14 @@ export const admin = async (
   res: Response,
   next: NextFunction
 ) => {
-  const adminReq = await req.user as AdminPayload
-  if (req.user && adminReq.isAdmin) {
-    next()
-  } else {
-    return next(new UnauthorizedError('You do not have permissions'))
+  try {
+    const adminReq = await req.user as AdminPayload
+    if (req.user && adminReq.isAdmin) {
+      next()
+    } else {
+      return next(new UnauthorizedError('You do not have permissions'))
+    }
+  } catch (err) {
+    return next(new AppError())
   }
 }

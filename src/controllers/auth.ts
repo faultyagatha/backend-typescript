@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express'
-import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 
 import {
@@ -8,7 +7,6 @@ import {
   JWTError
 } from '../helpers/apiError'
 
-// import { sendEmail } from '../util/email'
 import User, { UserDocument } from '../models/User'
 import UserService from '../services/user'
 
@@ -19,9 +17,9 @@ const signToken = (id: string): string => {
       expiresIn: process.env['JWT_EXPIRES_IN'] as string,
     })
   } catch (err) {
-    if (err.name === 'JsonWebTokenError')
+    if (err.name === 'JsonWebTokenError') {
       throw new JWTError('Invalid Token. Please login again', err)
-    else {
+    } else {
       throw new AppError()
     }
   }
@@ -119,7 +117,7 @@ export const googleLogin = async (
     if (!user) {
       return next(new BadRequestError('You are not autorised with google'))
     }
-    //createSendToken(user, 200, res)
+    createSendToken(user, 200, res)
     res.send(req.body._id)
   } catch (err) {
     new BadRequestError('User is not found')
