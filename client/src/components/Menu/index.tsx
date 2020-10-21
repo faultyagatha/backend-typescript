@@ -38,7 +38,7 @@ const Menu = () => {
             <Nav className="ml-auto">
               <Nav.Link as={Link} to="/cart">
                 <i className="fa fa-shopping-cart">
-                  <Badge className="badge-light">{inCart.length}</Badge>
+                  <Badge className="badge-info">{inCart.length}</Badge>
                 </i>
               </Nav.Link>
               {isLoggedIn ? (
