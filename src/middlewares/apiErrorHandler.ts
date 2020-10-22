@@ -12,12 +12,6 @@ export default function (
   if (error.source) {
     logger.error(error.source)
   }
-
-  // res.status(error.statusCode).json({
-  //   status: 'error',
-  //   statusCode: error.statusCode,
-  //   message: error.message,
-  // })
   const statusCode = error.statusCode || 500
 
   res.status(statusCode).json({

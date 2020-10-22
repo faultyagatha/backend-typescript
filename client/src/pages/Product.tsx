@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Card, Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 
 import { AppState, ParamsType } from "../types";
 import { addProductToCart, addProductToUser } from "../redux/actions";
+import Message from "../components/Message";
 
 const Product = () => {
   const dispatch = useDispatch();
   const { id } = useParams<ParamsType>();
   const history = useHistory();
+  const { isLoggedIn } = useSelector((state: AppState) => state.user);
   const { allProducts } = useSelector((state: AppState) => state.product);
   const [product] = allProducts.filter((p) => p.name.toLowerCase() === id);
-  const { isLoggedIn } = useSelector((state: AppState) => state.user);
+  const [message, setMessage] = useState("");
 
   if (!product) return <div>Product not found</div>;
 
@@ -23,6 +25,7 @@ const Product = () => {
 
   const handleAddToWishlist = () => {
     dispatch(addProductToUser(product));
+    setMessage("The planet is added to your wishlist");
   };
 
   return (
@@ -31,6 +34,7 @@ const Product = () => {
         Go Back
       </Link>
       <h1>Planet</h1>
+      {message && <Message variant="info">{message}</Message>}
       <Row>
         <Col md={6}>
           <Image src={product.imageCover} alt={product.name} fluid />

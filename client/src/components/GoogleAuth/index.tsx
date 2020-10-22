@@ -12,13 +12,13 @@ const clientId =
 const GoogleAuth = () => {
   const dispatch = useDispatch();
   const handleResponse = async (response: any) => {
-    console.log("from google: ", response);
+    // console.log("from google: ", response);
     try {
       const { data } = await axios.post(`${rootURL}/login/google`, {
         id_token: response.tokenObj.id_token,
       });
 
-      console.log("trying to login from client", data);
+      // console.log("trying to login from client", data);
       dispatch(loginWithGoogle(data));
     } catch (err) {
       console.log(err.response);

@@ -30,7 +30,6 @@ async function update(
   if (update.distance) product.distance = update.distance
   if (update.price) product.price = update.price
   return product.save()
-
 }
 
 function deleteProduct(productId: string): Promise<ProductDocument | null> {
@@ -40,12 +39,12 @@ function deleteProduct(productId: string): Promise<ProductDocument | null> {
 async function placeOrder(productId: string, userId: string): Promise<UserDocument> {
   const product = await Product.findById(productId).exec()
   if (!product) throw new Error(`Product ${productId} not found`)
-  console.log('PRODUCT _ID: ', product._id)
+  // console.log('PRODUCT _ID: ', product._id)
 
   const user = await User.findById(userId).exec()
   console.log('USER ID: ', userId)
   if (!user) throw new Error(`User ${userId} not found`)
-  user.products.push(product._id)
+  // user.products.push(product._id)
   return user.save()
 }
 

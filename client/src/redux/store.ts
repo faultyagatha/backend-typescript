@@ -15,18 +15,11 @@ export default function makeStore(initialState = loadState()) {
     }
   }
 
-  const initialstate = loadState();
-  console.log("initialstate: ", initialstate);
-
   const store = createStore(
     createRootReducer(),
     initialState,
     composeEnhancers(applyMiddleware(...middlewares))
   );
-
-  console.log("localStorage: ", localStorage);
-
-  // sagaMiddleware.run(rootSaga);
 
   if ((module as any).hot) {
     (module as any).hot.accept("./reducers", () => {
@@ -34,7 +27,6 @@ export default function makeStore(initialState = loadState()) {
       store.replaceReducer(nextReducer);
     });
   }
-
   return store;
 }
 

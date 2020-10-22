@@ -15,7 +15,6 @@ const Menu = () => {
   const logoutHandler = () => {
     dispatch(logoutUser());
     if (inCart.length > 0) {
-      console.log("inCart: ", inCart.length);
       dispatch(removeAllFromCart());
     }
     history.push("/signup");

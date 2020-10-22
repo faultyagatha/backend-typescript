@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,7 +14,6 @@ const ListUsersAdmin = () => {
   const { error } = useSelector((state: AppState) => state.error);
   const [message, setMessage] = useState("");
 
-  //TODO: re-render on delete user
   useEffect(() => {
     if (!user) {
       history.push("/login");
@@ -33,7 +32,7 @@ const ListUsersAdmin = () => {
     if (window.confirm("Are you sure?")) {
       setMessage("User is deleted.");
       dispatch(deleteUserByAdmin(id));
-      // history.push("/admin/users");
+      dispatch(getAllUsersByAdmin());
     }
   };
 

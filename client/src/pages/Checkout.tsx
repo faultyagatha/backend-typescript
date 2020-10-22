@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { PayPalButton } from "react-paypal-button-v2";
 import { Link, useHistory } from "react-router-dom";
-import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 import Message from "../components/Message";
 import GoBack from "../components/BackButton";
 import { AppState } from "../types";
 
 const Checkout = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const { user } = useSelector((state: AppState) => state.user);
   const { error } = useSelector((state: AppState) => state.error);

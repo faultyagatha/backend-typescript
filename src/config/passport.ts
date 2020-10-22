@@ -44,7 +44,6 @@ passport.use(new GoogleTokenStrategy({
       // console.log('from pass config: USER IS ABOUT TO BE CREATED', user)
       await UserService.create(user)
       // console.log('from pass config: NEW GOOGLE USER CREATED', user)
-
       done(null, user) //req.user
     } catch (err) {
       new BadRequestError('Bad passport config')

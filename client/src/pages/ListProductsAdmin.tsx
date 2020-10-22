@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Table, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,7 +15,6 @@ const ListProductsAdmin = () => {
   const { error } = useSelector((state: AppState) => state.error);
   const [message, setMessage] = useState("");
 
-  //TODO: re-render on delete product --> fetchAllProducts again
   useEffect(() => {
     if (!user.isAdmin) {
       history.push("/login");
@@ -30,7 +29,6 @@ const ListProductsAdmin = () => {
     if (window.confirm("Are you sure?")) {
       setMessage("Product is deleted.");
       dispatch(deleteProductByAdmin(id));
-      //UPDATE THE PRODUCT LIST - RERENDER
       dispatch(fetchProducts());
     }
   };
