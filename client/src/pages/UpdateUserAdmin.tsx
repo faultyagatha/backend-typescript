@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
 import FormContainer from "../components/Form";
-import { updateUserByAdmin } from "../redux/actions/users";
+import { updateUserByAdmin, getAllUsersByAdmin } from "../redux/actions/users";
 import { AppState, ParamsType } from "../types";
 
 const UpdateUserAdmin = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { id } = useParams<ParamsType>();
 
   const { allUsers } = useSelector((state: AppState) => state.user);
@@ -23,7 +22,6 @@ const UpdateUserAdmin = () => {
   const [message, setMessage] = useState("");
 
   const [userToUpdate] = allUsers.filter((user) => user._id === id);
-  // console.log(userToUpdate);
   const _id = userToUpdate._id;
 
   useEffect(() => {
@@ -38,6 +36,7 @@ const UpdateUserAdmin = () => {
     setMessage("User profile is updated");
     if (!_id) return;
     dispatch(updateUserByAdmin(_id, email, firstName, lastName));
+    dispatch(getAllUsersByAdmin());
   };
 
   return (
