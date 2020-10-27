@@ -1,4 +1,4 @@
-import mongoose, { Document } from 'mongoose'
+import mongoose, { Document } from 'mongoose';
 
 export type ProductDocument = Document & {
   name: string;
@@ -7,7 +7,7 @@ export type ProductDocument = Document & {
   duration: number;
   distance: string;
   price: number;
-  users: mongoose.Schema.Types.ObjectId[];
+  users: mongoose.Types.ObjectId[];
 };
 
 const productSchema = new mongoose.Schema({
@@ -39,6 +39,6 @@ const productSchema = new mongoose.Schema({
     required: [true, 'A tour must have a price'],
     min: 0,
   }
-})
+});
 
-export default mongoose.model<ProductDocument>('Product', productSchema)
+export default mongoose.model<ProductDocument>('Product', productSchema);

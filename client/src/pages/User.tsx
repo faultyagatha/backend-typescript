@@ -10,12 +10,12 @@ import GoBack from "../components/BackButton";
 
 const User = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { user, isLoggedIn } = useSelector((state: AppState) => state.user);
   const { products } = user;
   const { error } = useSelector((state: AppState) => state.error);
 
-  const history = useHistory();
-  const { id } = useParams<ParamsType>();
+  console.log("USER FROM USER PAGE", user);
 
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -25,17 +25,19 @@ const User = () => {
   useEffect(() => {
     if (!isLoggedIn) {
       history.push("/login");
-    } else {
+    }
+    if (user) {
+      console.log(user.email);
       if (user.email) setEmail(user.email);
       if (user.firstName) setFirstName(user.firstName);
       if (user.lastName) setLastName(user.lastName);
     }
-  }, [dispatch, history, user, error, id, isLoggedIn]);
+  }, [dispatch, error, history, isLoggedIn, user]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setMessage("Your profile is updated");
-    history.push("/profile");
+    //history.push("/profile");
     dispatch(updateUserData(email, firstName, lastName));
   };
 

@@ -1,48 +1,48 @@
-import { Request, Response, NextFunction } from 'express'
-import jwt from 'jsonwebtoken'
+import { Request, Response, NextFunction } from 'express';
+import jwt from 'jsonwebtoken';
 
 import {
   BadRequestError,
   AppError,
   JWTError
-} from '../helpers/apiError'
+} from '../helpers/apiError';
 
-import User, { UserDocument } from '../models/User'
-import UserService from '../services/user'
+import User, { UserDocument } from '../models/User';
+import UserService from '../services/user';
 
 /** JWT handlers */
 const signToken = (id: string): string => {
   try {
     return jwt.sign({ id }, process.env['JWT_SECRET'] as string, {
       expiresIn: process.env['JWT_EXPIRES_IN'] as string,
-    })
+    });
   } catch (err) {
     if (err.name === 'JsonWebTokenError') {
-      throw new JWTError('Invalid Token. Please login again', err)
+      throw new JWTError('Invalid Token. Please login again', err);
     } else {
-      throw new AppError()
+      throw new AppError();
     }
   }
-}
+};
 
 const createSendToken = (
   user: UserDocument,
   statusCode: number,
   res: Response
 ): void => {
-  const token = signToken(user._id)
-  const JWT_COOKIE_EXPIRES_IN = process.env['JWT_COOKIE_EXPIRES_IN'] as unknown
+  const token = signToken(user._id);
+  const JWT_COOKIE_EXPIRES_IN = process.env['JWT_COOKIE_EXPIRES_IN'] as unknown;
   const cookieOptions = {
     expires: new Date(
       Date.now() + (JWT_COOKIE_EXPIRES_IN as number) * 24 * 60 * 60 * 1000 //convert to milsec
     ),
     secure: false,
     httpOnly: true,
-  }
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true
-  res.cookie('jwt', token, cookieOptions)
+  };
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  res.cookie('jwt', token, cookieOptions);
   // Remove password from output
-  const { email, products, firstName, lastName, isAdmin } = user
+  const { email, products, firstName, lastName, isAdmin } = user;
   res.status(statusCode).json({
     email,
     products,
@@ -50,8 +50,8 @@ const createSendToken = (
     lastName,
     isAdmin,
     token
-  })
-}
+  });
+};
 
 /** RESTful handlers */
 //POST / users/signup
@@ -61,26 +61,26 @@ export const signup = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password, passwordConfirm } = req.body
-    const userExists = await User.findOne({ email })
+    const { email, password, passwordConfirm } = req.body;
+    const userExists = await User.findOne({ email });
     if (userExists) {
-      return res.status(409).json({ message: 'Email already in use' })
+      return res.status(409).json({ message: 'Email already in use' });
     }
     const user: UserDocument = new User({
       email,
       password,
       passwordConfirm,
-    })
-    await UserService.create(user)
-    createSendToken(user, 201, res)
+    });
+    await UserService.create(user);
+    createSendToken(user, 201, res);
 
   } catch (err) {
     if (err.name === 'ValidationError') {
-      next(new BadRequestError('Passwords do not match', err))
+      next(new BadRequestError('Passwords do not match', err));
     }
-    else next(new AppError())
+    else next(new AppError());
   }
-}
+};
 
 //POST / users/login
 export const login = async (
@@ -89,19 +89,19 @@ export const login = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password } = req.body
+    const { email, password } = req.body;
     if (!email || !password) {
-      return next(new BadRequestError('Please provide email and password'))
+      return next(new BadRequestError('Please provide email and password'));
     }
-    const user = await User.findOne({ email }).select('+password')
+    const user = await User.findOne({ email }).select('+password');
     if (!user || !user.isCorrectPassword(password)) {
-      return next(new BadRequestError('Invalid login data'))
+      return next(new BadRequestError('Invalid login data'));
     }
-    createSendToken(user, 200, res)
+    createSendToken(user, 200, res);
   } catch (err) {
-    new BadRequestError('User is not found')
+    new BadRequestError('User is not found');
   }
-}
+};
 
 //POST/ users/login/google
 export const googleLogin = async (
@@ -110,16 +110,16 @@ export const googleLogin = async (
   next: NextFunction
 ) => {
   try {
-    const user = req.user as UserDocument
+    const user = req.user as UserDocument;
     if (!user) {
-      return next(new BadRequestError('You are not autorised with google'))
+      return next(new BadRequestError('You are not autorised with google'));
     }
-    createSendToken(user, 200, res)
+    createSendToken(user, 200, res);
     // res.send(user)
   } catch (err) {
-    next(new BadRequestError('User is not found'))
+    next(new BadRequestError('User is not found'));
   }
-}
+};
 /*
 PATCH/ users/forgotPassword
 export const forgotPassword = async (

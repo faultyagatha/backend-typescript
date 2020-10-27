@@ -1,11 +1,8 @@
-import { Request, Response, NextFunction } from 'express'
+import { Request, Response, NextFunction } from 'express';
 
-import {
-  NotFoundError
-} from '../helpers/apiError'
-
-import UserService from '../services/user'
-import { Payload } from '../types/fbgraph'
+import { NotFoundError } from '../helpers/apiError';
+import UserService from '../services/user';
+import { Payload } from '../types/fbgraph';
 
 //GET / users
 export const findAll = async (
@@ -14,11 +11,11 @@ export const findAll = async (
   next: NextFunction
 ) => {
   try {
-    res.json(await UserService.findAll())
+    res.json(await UserService.findAll());
   } catch (err) {
-    next(new NotFoundError('Not found', err))
+    next(new NotFoundError('Not found', err));
   }
-}
+};
 
 //GET / users/:userId
 export const findById = async (
@@ -27,11 +24,11 @@ export const findById = async (
   next: NextFunction
 ) => {
   try {
-    res.json(await UserService.findById(req.params.userId))
+    res.json(await UserService.findById(req.params.userId));
   } catch (err) {
-    next(new NotFoundError('User not found', err))
+    next(new NotFoundError('User not found', err));
   }
-}
+};
 
 //PATCH / users/:userId
 export const updateUser = async (
@@ -40,18 +37,18 @@ export const updateUser = async (
   next: NextFunction
 ) => {
   try {
-    const update = req.body
-    const { userId } = req.params
+    const update = req.body;
+    const { userId } = req.params;
 
-    const user = await UserService.updateUser(userId, update)
-    console.log('UPDATED USER: ', user)
+    const user = await UserService.updateUser(userId, update);
+    console.log('UPDATED USER: ', user);
     res.status(200).json({
       user
-    })
+    });
   } catch (err) {
-    next(new NotFoundError('User not found', err))
+    next(new NotFoundError('User not found', err));
   }
-}
+};
 
 //DELETE / users/:userId
 export const deleteUser = async (
@@ -60,18 +57,18 @@ export const deleteUser = async (
   next: NextFunction
 ) => {
   try {
-    await UserService.deleteUser(req.params.userId)
+    await UserService.deleteUser(req.params.userId);
     res
       .status(204)
       .json({
         message: 'user deleted',
         data: null
       })
-      .end()
+      .end();
   } catch (err) {
-    next(new NotFoundError('User not found', err))
+    next(new NotFoundError('User not found', err));
   }
-}
+};
 
 //GET / users/profile
 export const getProfile = async (
@@ -80,20 +77,20 @@ export const getProfile = async (
   next: NextFunction
 ) => {
   try {
-    const userReq = req.user as Payload
-    const user = await UserService.findById(userReq.id)
+    const userReq = req.user as Payload;
+    const user = await UserService.findById(userReq.id);
     if (user) {
       res.json({
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
         isAdmin: user.isAdmin,
-      })
+      });
     }
   } catch (err) {
-    next(new NotFoundError('User not found', err))
+    next(new NotFoundError('User not found', err));
   }
-}
+};
 
 //PATCH / users/profile
 export const updateProfile = async (
@@ -101,24 +98,20 @@ export const updateProfile = async (
   res: Response,
   next: NextFunction
 ) => {
-  const update = req.body
-  const userReq = req.user as Payload
+  const update = req.body;
+  const userReq = req.user as Payload;
   try {
     const user = await UserService.updateProfile(
       userReq.id,
       update
-    )
+    );
     if (user) {
+      console.log('UPDATED USER: ', user);
       res.status(200).json({
         user
-        // email: user.email,
-        // firstName: user.firstName,
-        // lastName: user.lastName,
-        // isAdmin: user.isAdmin,
-        // products: user.products
-      })
+      });
     }
   } catch (err) {
-    next(new NotFoundError('User not found', err))
+    next(new NotFoundError('User not found', err));
   }
-}
+};

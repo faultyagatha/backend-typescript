@@ -26,7 +26,7 @@ export const protect = async (
     try {
       // only 'Bearer'
       token = req.headers.authorization.split(' ')[1];
-      console.log('token in headers from backend: ', token);
+      // console.log('token in headers from backend: ', token);
       if (!token) {
         return next(new UnauthorizedError('You are not logged in'));
       }
@@ -53,7 +53,7 @@ export const protect = async (
     }
   }
   else {
-    return next(new UnauthorizedError('No token in the header'));
+    return next(new UnauthorizedError('You are not authorised'));
   }
 };
 

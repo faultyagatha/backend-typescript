@@ -106,6 +106,7 @@ function getUser(data: User): UserActions {
 }
 
 function updateUser(data: User): UserActions {
+  console.log("updateUser action", data);
   return {
     type: UPDATE_USER_REQ,
     payload: { user: data },
@@ -172,12 +173,11 @@ export function loginUser(email: string, password: string): any {
   return async (dispatch: Dispatch) => {
     try {
       const data = await authFetches.loginFetch(email, password);
-      console.log(data);
       if (data.token) {
         localStorage.setItem("token", data.token);
         dispatch(login(data));
-      } else {
-        console.log(data.error);
+      } else if (data.status === "error") {
+        dispatch(actionFail(data));
       }
     } catch (err) {
       return dispatch(actionFail(err));
@@ -231,7 +231,7 @@ export function updateUserData(
   return async (dispatch: Dispatch) => {
     try {
       let token = localStorage.getItem("token");
-      console.log("token from local storage: ", token);
+      // console.log("token from local storage: ", token);
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -243,7 +243,7 @@ export function updateUserData(
         { email, firstName, lastName },
         config
       );
-      console.log(data);
+      console.log("updateUserData action", data);
       dispatch(updateUser(data));
     } catch (err) {
       dispatch(actionFail(err));
