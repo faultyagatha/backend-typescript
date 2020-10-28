@@ -6,7 +6,7 @@ import Routes from "./Routes";
 export default function App() {
   return (
     <>
-      <Container className="py-3">
+      <Container className="py-3 px-5" fluid>
         <Routes />
       </Container>
     </>

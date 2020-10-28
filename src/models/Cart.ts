@@ -1,11 +1,11 @@
 import mongoose, { Document } from 'mongoose';
 
-export type OrderDocument = Document & {
+export type CartDocument = Document & {
   products: mongoose.Types.ObjectId[];
   user: mongoose.Types.ObjectId;
 };
 
-const orderSchema = new mongoose.Schema({
+const cartSchema = new mongoose.Schema({
   products: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -20,4 +20,4 @@ const orderSchema = new mongoose.Schema({
   }
 });
 
-export default mongoose.model<OrderDocument>('Order', orderSchema);
+export default mongoose.model<CartDocument>('Order', cartSchema);

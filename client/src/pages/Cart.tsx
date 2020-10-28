@@ -22,7 +22,7 @@ const Cart = () => {
   };
 
   return (
-    <>
+    <div className="m-5">
       <Link className="btn btn-light my-3" to="/">
         Continue Shopping
       </Link>
@@ -93,7 +93,7 @@ const Cart = () => {
           </Card>
         </Col>
       </Row>
-    </>
+    </div>
   );
 };
 
