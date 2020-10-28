@@ -21,7 +21,7 @@ const Checkout = () => {
   }, [history, user]);
 
   return (
-    <>
+    <div className="m-5">
       <GoBack>Continue Shopping</GoBack>
       {error && <Message variant="danger">{error}</Message>}
       <h1>Place Your Order</h1>
@@ -115,7 +115,7 @@ const Checkout = () => {
           </Card>
         </Col>
       </Row>
-    </>
+    </div>
   );
 };
 

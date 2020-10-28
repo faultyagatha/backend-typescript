@@ -37,7 +37,7 @@ const ListUsersAdmin = () => {
   };
 
   return (
-    <>
+    <div className="m-5">
       <Link className="btn btn-light my-3" to="/">
         Go Back
       </Link>
@@ -92,7 +92,7 @@ const ListUsersAdmin = () => {
           </tbody>
         </Table>
       )}
-    </>
+    </div>
   );
 };
 

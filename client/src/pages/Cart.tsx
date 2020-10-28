@@ -28,9 +28,7 @@ const Cart = () => {
       </Link>
       <Row className="py-3">
         <Col md={8}>
-          <h3 className="text-center">
-            {`You have ${inCart.length} items in your cart`}
-          </h3>
+          <h3>{`You have ${inCart.length} items in your cart`}</h3>
           <ListGroup variant="flush">
             {inCart.map((product) => {
               return (
@@ -67,17 +65,17 @@ const Cart = () => {
             })}
           </ListGroup>
         </Col>
-        <Col md={4}>
+        <Col md={3}>
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>
+                <h3>
                   {`Your total: €${inCart
                     .map((item) => item.price)
                     .reduce((sum: number, price) => {
                       return sum + price;
                     }, 0)}`}
-                </h2>
+                </h3>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button

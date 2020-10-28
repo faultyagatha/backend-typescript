@@ -36,7 +36,7 @@ const CreateProductsAdmin = () => {
   };
 
   return (
-    <>
+    <div className="m-5">
       <Link to="/admin/products" className="btn btn-light my-3">
         Go Back
       </Link>
@@ -106,7 +106,7 @@ const CreateProductsAdmin = () => {
           </Button>
         </Form>
       </FormContainer>
-    </>
+    </div>
   );
 };
 

@@ -35,7 +35,7 @@ const Product = () => {
       </Link>
       <h1>Planet</h1>
       {message && <Message variant="info">{message}</Message>}
-      <Row>
+      <Row className="py-3">
         <Col md={6}>
           <Image src={product.imageCover} alt={product.name} fluid />
         </Col>
