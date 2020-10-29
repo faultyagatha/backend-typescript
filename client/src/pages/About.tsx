@@ -2,12 +2,14 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 import GoBack from "../components/BackButton";
+import HowToSteps from "../components/HowToSteps";
 
 const About = () => {
   return (
     <Container className="py-5 d-flex align-items-stretch">
       <Row className="py-5">
         <Col md={8}>
+          <HowToSteps step1="step1" step2="step2" step3="step3" />
           <GoBack>
             <h3 className="text-center">
               I've known adventures, seen places you people will never see, I've

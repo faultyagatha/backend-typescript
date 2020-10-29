@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema<UserDocument>({
   password: {
     type: String,
     required: [true, 'Please provide your password'],
-    minlength: 3, // TODO: change for deployment (now it's for testing) 
+    minlength: 8,
     select: false, //never show a password in the output
   },
   passwordConfirm: {
@@ -99,6 +99,8 @@ userSchema.pre<UserDocument>('validate', function (next) {
 userSchema.methods.isCorrectPassword = async function (
   candidatePassword: string
 ) {
+  console.log('this.password: ', this.password);
+  console.log('candidatePassword: ', candidatePassword);
   return await bcrypt.compare(candidatePassword, this.password);
 };
 

@@ -7,6 +7,7 @@ import { fetchProducts } from "../redux/actions";
 import ProductCard from "../components/ProductCard";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import Menu from "../components/Menu";
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ export default function Products() {
   };
   return (
     <>
+      <Menu />
       <h2 className="text-center">head away from Earth</h2>
       {loading ? (
         <Loader />

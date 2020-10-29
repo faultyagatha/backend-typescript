@@ -61,3 +61,12 @@ export class AppError extends ApiError {
     super(400, message, source);
   }
 }
+
+export class RequestValidationError extends ApiError {
+  constructor(
+    readonly message: string = 'Invalid request params.',
+    source?: Error
+  ) {
+    super(400, message, source);
+  }
+}

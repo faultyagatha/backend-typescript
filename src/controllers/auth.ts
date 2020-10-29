@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { validationResult } from 'express-validator';
 
 import {
   BadRequestError,
   AppError,
-  JWTError
+  JWTError,
+  RequestValidationError
 } from '../helpers/apiError';
 
 import User, { UserDocument } from '../models/User';
@@ -60,8 +62,13 @@ export const signup = async (
   res: Response,
   next: NextFunction
 ) => {
+  const { email, password, passwordConfirm } = req.body;
+  //TODO: remove these errors later
+  const errors = validationResult(req);
   try {
-    const { email, password, passwordConfirm } = req.body;
+    if (!errors.isEmpty()) {
+      throw new RequestValidationError();
+    }
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(409).json({ message: 'Email already in use' });
@@ -90,14 +97,21 @@ export const login = async (
 ) => {
   try {
     const { email, password } = req.body;
+    console.log(email, password);
     if (!email || !password) {
       return next(new BadRequestError('Please provide email and password'));
     }
     const user = await User.findOne({ email }).select('+password');
-    if (!user || !user.isCorrectPassword(password)) {
-      return next(new BadRequestError('Invalid login data'));
+    if (!user) {
+      return next(new BadRequestError('Your login data are invalid'));
     }
-    createSendToken(user, 200, res);
+    const isCorrectPassword = await user.isCorrectPassword(password);
+    if (!isCorrectPassword) {
+      return next(new BadRequestError('Your login data are invalid'));
+    }
+    else {
+      createSendToken(user, 200, res);
+    }
   } catch (err) {
     new BadRequestError('User is not found');
   }

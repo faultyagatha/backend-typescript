@@ -209,3 +209,13 @@ type Params = { id: string };
 type NoParams = {};
 
 export type ParamsType = { id: string };
+
+export type StepsType = ({
+  step1,
+  step2,
+  step3,
+}: {
+  step1: string;
+  step2: string;
+  step3: string;
+}) => JSX.Element;
