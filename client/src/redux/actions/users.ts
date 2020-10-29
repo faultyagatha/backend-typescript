@@ -188,9 +188,11 @@ export function loginUser(email: string, password: string): any {
 export function loginWithGoogle(data: any): any {
   return async (dispatch: Dispatch) => {
     try {
+      console.log("data: ", data);
       localStorage.setItem("token", data.token);
-      const tempPassword = bcrypt.hashSync("123456", 10);
-      // console.log(data);
+      const salt = await bcrypt.genSalt(10);
+      const tempPassword = bcrypt.hashSync("12345678", salt);
+      console.log(tempPassword);
       return dispatch(loginUser(data.email, tempPassword));
     } catch (err) {
       return dispatch(actionFail(err));

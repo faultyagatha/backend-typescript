@@ -18,7 +18,7 @@ const GoogleAuth = () => {
         id_token: response.tokenObj.id_token,
       });
 
-      // console.log("trying to login from client", data);
+      console.log("trying to login from client", data);
       dispatch(loginWithGoogle(data));
     } catch (err) {
       console.log(err.response);

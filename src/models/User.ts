@@ -1,6 +1,5 @@
 import mongoose, { Document } from 'mongoose';
 import bcrypt from 'bcrypt';
-// import crypto from 'crypto'
 
 export type UserDocument = Document & {
   googleId: string;

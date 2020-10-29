@@ -1,12 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { validationResult } from 'express-validator';
 
 import {
   BadRequestError,
   AppError,
-  JWTError,
-  RequestValidationError
+  JWTError
 } from '../helpers/apiError';
 
 import User, { UserDocument } from '../models/User';
@@ -44,8 +42,9 @@ const createSendToken = (
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
   res.cookie('jwt', token, cookieOptions);
   // Remove password from output
-  const { email, products, firstName, lastName, isAdmin } = user;
+  const { _id, email, products, firstName, lastName, isAdmin } = user;
   res.status(statusCode).json({
+    _id,
     email,
     products,
     firstName,
@@ -63,12 +62,7 @@ export const signup = async (
   next: NextFunction
 ) => {
   const { email, password, passwordConfirm } = req.body;
-  //TODO: remove these errors later
-  const errors = validationResult(req);
   try {
-    if (!errors.isEmpty()) {
-      throw new RequestValidationError();
-    }
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(409).json({ message: 'Email already in use' });
@@ -128,6 +122,7 @@ export const googleLogin = async (
     if (!user) {
       return next(new BadRequestError('You are not autorised with google'));
     }
+    console.log(user);
     createSendToken(user, 200, res);
     // res.send(user)
   } catch (err) {
