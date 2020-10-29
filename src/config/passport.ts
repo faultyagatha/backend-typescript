@@ -37,6 +37,7 @@ passport.use(new GoogleTokenStrategy({
       const randomPassword = crypto.randomBytes(16).toString('hex');
       const salt = await bcrypt.genSalt();
       const hashedPassword = await bcrypt.hash(randomPassword, salt);
+
       const user = new User({
         googleId: googleId,
         email: email,

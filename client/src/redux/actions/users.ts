@@ -1,6 +1,5 @@
 import { Dispatch } from "redux";
 import axios from "axios";
-import bcrypt from "bcryptjs";
 
 import {
   LOGIN_REQ,
@@ -190,10 +189,7 @@ export function loginWithGoogle(data: any): any {
     try {
       console.log("data: ", data);
       localStorage.setItem("token", data.token);
-      const salt = await bcrypt.genSalt(10);
-      const tempPassword = bcrypt.hashSync("12345678", salt);
-      console.log(tempPassword);
-      return dispatch(loginUser(data.email, tempPassword));
+      return dispatch(login(data));
     } catch (err) {
       return dispatch(actionFail(err));
     }

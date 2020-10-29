@@ -42,9 +42,8 @@ const createSendToken = (
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
   res.cookie('jwt', token, cookieOptions);
   // Remove password from output
-  const { _id, email, products, firstName, lastName, isAdmin } = user;
+  const { email, products, firstName, lastName, isAdmin } = user;
   res.status(statusCode).json({
-    _id,
     email,
     products,
     firstName,
@@ -91,7 +90,7 @@ export const login = async (
 ) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
+    console.log('PASSWORD FROM LOGIN CONTROLLER: ', password);
     if (!email || !password) {
       return next(new BadRequestError('Please provide email and password'));
     }
@@ -122,9 +121,8 @@ export const googleLogin = async (
     if (!user) {
       return next(new BadRequestError('You are not autorised with google'));
     }
-    console.log(user);
+    // console.log('USER FROM GOOGLELOGIN CONTROLLER: ', user);
     createSendToken(user, 200, res);
-    // res.send(user)
   } catch (err) {
     next(new BadRequestError('User is not found'));
   }

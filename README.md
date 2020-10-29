@@ -1,10 +1,13 @@
 # TODO: 
-- google login (500 internal server error)
+- google login (cannot set headers after they have been sent)
+https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client
+
 - edit user data (clean up on save)
 - add cart model and cart functionality
 - add 3D landing page
 - add how it works page with steps
 - add screen shots and deploy the project
+- clean up ts any and warnings 
 
 # TypeScript MEN (MongoDB, ExpressJS, NodeJS) boilerplate
 This boilerplate is based on the [TypeScript Node Starter](https://github.com/microsoft/TypeScript-Node-Starter) whose documentation is below, with some modifications
