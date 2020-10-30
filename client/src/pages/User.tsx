@@ -15,6 +15,8 @@ const User = () => {
   const { products } = user;
   const { error } = useSelector((state: AppState) => state.error);
 
+  console.log(user);
+
   console.log("USER FROM USER PAGE", user);
 
   const [email, setEmail] = useState("");
@@ -27,7 +29,7 @@ const User = () => {
       history.push("/login");
     }
     if (user) {
-      console.log(user.email);
+      console.log("USER FROM EFFECTS", user);
       if (user.email) setEmail(user.email);
       if (user.firstName) setFirstName(user.firstName);
       if (user.lastName) setLastName(user.lastName);
@@ -37,7 +39,7 @@ const User = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setMessage("Your profile is updated");
-    //history.push("/profile");
+    history.push("/profile");
     dispatch(updateUserData(email, firstName, lastName));
   };
 

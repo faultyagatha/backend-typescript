@@ -1,4 +1,4 @@
-import express from 'express'
+import express from 'express';
 
 import {
   createProduct,
@@ -7,24 +7,24 @@ import {
   findAll,
   updateProduct,
   placeOrder
-} from '../controllers/product'
+} from '../controllers/product';
 import {
   protect,
   admin
-} from '../middlewares/authHandlers'
+} from '../middlewares/authHandlers';
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', findAll)
-router.get('/:productId', findById)
+router.get('/', findAll);
+router.get('/:productId', findById);
 
 //remove for testing
-router.use(protect)
-router.patch('/order', placeOrder)
+router.use(protect);
+router.patch('/order', placeOrder);
 
-router.use(admin)
-router.post('/', createProduct)
-router.patch('/:productId', updateProduct)
-router.delete('/:productId', deleteProduct)
+router.use(admin);
+router.post('/', createProduct);
+router.patch('/:productId', updateProduct);
+router.delete('/:productId', deleteProduct);
 
-export default router
+export default router;

@@ -223,13 +223,12 @@ export function getUserData(id: string): any {
 
 export function updateUserData(
   email: string,
-  firstName: string,
-  lastName: string
+  firstName?: string,
+  lastName?: string
 ): any {
   return async (dispatch: Dispatch) => {
     try {
       let token = localStorage.getItem("token");
-      // console.log("token from local storage: ", token);
       const config = {
         headers: {
           "Content-Type": "application/json",
