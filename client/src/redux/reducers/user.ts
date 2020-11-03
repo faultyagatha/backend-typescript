@@ -50,7 +50,7 @@ export default function user(
     case UPDATE_USER_REQ: {
       const { user } = action.payload;
       console.log(user);
-      return { ...state, user: user };
+      return { ...state, user };
     }
     case GET_USERS_ADMIN: {
       const { allUsers } = action.payload;

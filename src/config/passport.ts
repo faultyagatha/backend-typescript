@@ -26,7 +26,6 @@ passport.use(new GoogleTokenStrategy({
   async function (parsedToken: any, googleId: string, done: any) {
     if (!parsedToken) { new BadRequestError('parsedToken is not supplied in pass config'); }
     try {
-      console.log('parsedToken: ', parsedToken);
       const { email, given_name, family_name } = parsedToken.payload;
       const googleUser = await User.findOne({ email });
       if (googleUser) {

@@ -1,46 +1,57 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import { Button, Carousel, Row, Col } from "react-bootstrap";
 
 const Intro = () => {
+  const history = useHistory();
   return (
     <>
-      <Carousel className="my-5">
+      <Carousel className="my-3">
         <Carousel.Item>
           <img
-            className="rounded mx-auto d-block w-95"
-            src="/images/calisto.png"
+            className="rounded mx-auto d-block w-100"
+            src="/images/splash-short2.png"
             alt="First slide"
           />
           <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <p className="splash">Choose your planet and place your order</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
-            className="rounded mx-auto d-block w-95"
-            src="/images/calisto.png"
-            alt="Third slide"
+            className="rounded mx-auto d-block w-100"
+            src="/images/splash-short1.png"
+            alt="Second slide"
           />
           <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p className="splash">Follow the instructions sent to your email</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
-            className="rounded mx-auto d-block w-95"
-            src="/images/calisto.png"
+            className="rounded mx-auto d-block w-100"
+            src="/images/splash-short3.png"
             alt="Third slide"
           />
           <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+            <p className="splash">
+              Get ready for a breathtaking journey to the outer space
             </p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
+      <Row className="py-3 justify-content-md-center">
+        <Col md={2}>
+          <Button
+            className="btn-block"
+            type="button"
+            variant="info"
+            onClick={() => history.push("/products")}
+          >
+            EXPLORE
+          </Button>
+        </Col>
+      </Row>
     </>
   );
 };

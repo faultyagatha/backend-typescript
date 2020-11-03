@@ -18,7 +18,7 @@ const UpdateUserAdmin = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
+  // const [isAdmin, setIsAdmin] = useState(false);
   const [message, setMessage] = useState("");
 
   const [userToUpdate] = allUsers.filter((user) => user._id === id);
@@ -28,7 +28,7 @@ const UpdateUserAdmin = () => {
     if (userToUpdate.firstName) setFirstName(userToUpdate.firstName);
     if (userToUpdate.lastName) setLastName(userToUpdate.lastName);
     if (userToUpdate.email) setEmail(userToUpdate.email);
-    if (userToUpdate.isAdmin) setIsAdmin(userToUpdate.isAdmin);
+    // if (userToUpdate.isAdmin) setIsAdmin(userToUpdate.isAdmin);
   }, [dispatch, id, userToUpdate]);
 
   const handleSubmit = (e: any) => {
@@ -36,7 +36,7 @@ const UpdateUserAdmin = () => {
     setMessage("User profile is updated");
     if (!_id) return;
     dispatch(updateUserByAdmin(_id, email, firstName, lastName));
-    dispatch(getAllUsersByAdmin());
+    //dispatch(getAllUsersByAdmin());
   };
 
   return (
@@ -80,8 +80,8 @@ const UpdateUserAdmin = () => {
             <Form.Check
               type="checkbox"
               label="Is Admin"
-              checked={isAdmin}
-              onChange={(e: any) => setIsAdmin(e.target.checked)}
+              // checked={isAdmin}
+              // onChange={(e: any) => setIsAdmin(e.target.checked)}
             ></Form.Check>
           </Form.Group>
           <Button type="submit" variant="primary">

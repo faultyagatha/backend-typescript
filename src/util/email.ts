@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const sendEmail = async (options: any) => {
@@ -10,14 +10,14 @@ export const sendEmail = async (options: any) => {
     //   password: process.env['EMAIL_PASSWORD'] as string
     // }
     //ACTIVATE IN GMAIL 'LESS SECURE APP' OPTION
-  })
+  });
   // 2). Define the email options
   const mailOptions = {
     from: 'Martina <martina@test.com>',
     to: options.email,
     subject: options.subject,
     text: options.message,
-  }
+  };
   // 3). Send the email
-  await transporter.sendMail(mailOptions)
-}
+  await transporter.sendMail(mailOptions);
+};

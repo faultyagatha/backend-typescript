@@ -30,8 +30,8 @@ const Menu = () => {
               <Nav.Link as={Link} to="/">
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to="/about">
-                About
+              <Nav.Link as={Link} to="/products">
+                Planets
               </Nav.Link>
             </Nav>
             <Nav className="ml-auto">

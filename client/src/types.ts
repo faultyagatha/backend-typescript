@@ -203,6 +203,13 @@ export type MessageType = ({
   children: any;
 }) => JSX.Element;
 
+export type NavButton = ({
+  children,
+  linkStr,
+}: {
+  children?: any;
+  linkStr: string;
+}) => JSX.Element;
 export type WithChildren = ({ children }: { children?: any }) => JSX.Element;
 
 type Params = { id: string };

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { NotFoundError } from '../helpers/apiError';
 import UserService from '../services/user';
-import { Payload } from '../types/fbgraph';
+import { Payload } from '../types/custom-types';
 
 //GET / users
 export const findAll = async (

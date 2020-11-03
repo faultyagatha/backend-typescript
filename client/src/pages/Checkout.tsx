@@ -22,7 +22,7 @@ const Checkout = () => {
 
   return (
     <div className="m-5">
-      <GoBack>Continue Shopping</GoBack>
+      <GoBack linkStr="/products">Continue Shopping</GoBack>
       {error && <Message variant="danger">{error}</Message>}
       <h1>Place Your Order</h1>
       <Row>

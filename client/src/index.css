@@ -20,3 +20,30 @@ h4, h3, h2, h1 {
   letter-spacing: 0.1em;
 }
 
+.splash {
+  color: rgb(206, 215, 218);
+  letter-spacing: 0.1em;
+  font-size: 300%;
+}
+
+@media only screen and (max-width: 900px) {
+  .splash {
+     font-size: 150%;
+  }
+} 
+
+@media only screen and (max-width: 600px) {
+  .splash {
+     font-size: 0.9rem;
+  }
+}      
+
+.image {
+  filter: grayscale(60%)
+}
+
+.image:hover {
+  transform:scale(.95);
+  filter: grayscale(0%)
+}
+

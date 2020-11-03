@@ -38,9 +38,6 @@ export function setOptions(options: any): any;
 
 export function setVersion(version: any): any;
 
-/**
- * Fairly incomplete. I only added some commonly used fields.
- */
 export type FacebookUser = {
   id: string;
   name: string;
@@ -51,16 +48,4 @@ export type FacebookUser = {
   link: string;
   locale: string;
   timezone: number;
-};
-
-export type Payload = {
-  id: string;
-};
-
-export type TokenPayload = {
-  token: string
-}
-
-export type AdminPayload = {
-  isAdmin: boolean;
 };

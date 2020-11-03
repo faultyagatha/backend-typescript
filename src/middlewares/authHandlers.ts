@@ -9,7 +9,7 @@ import {
 } from '../helpers/apiError';
 
 import User from '../models/User';
-import { AdminPayload } from '../types/fbgraph';
+import { AdminPayload } from '../types/custom-types';
 
 /** Middleware Access handlers */
 export const protect = async (

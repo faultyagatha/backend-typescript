@@ -39,7 +39,7 @@ const Login = () => {
 
   return (
     <>
-      <GoBack>Go Back</GoBack>
+      <GoBack linkStr="/">Go Back</GoBack>
       <FormContainer>
         <h1>Login</h1>
         {error && <Message variant="danger">{error}</Message>}

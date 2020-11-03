@@ -1,7 +1,6 @@
 import Cart, { CartDocument } from '../models/Cart';
 import User, { UserDocument } from '../models/User';
 import Product, { ProductDocument } from '../models/Product';
-import { nextTick } from 'process';
 import { NotFoundError } from '../helpers/apiError';
 
 function create(cart: CartDocument): Promise<CartDocument> {

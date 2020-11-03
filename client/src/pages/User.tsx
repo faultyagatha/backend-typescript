@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, Link } from "react-router-dom";
 import { Form, Button, Row, Col, ListGroup, Image } from "react-bootstrap";
 
-import { AppState, ParamsType, Product } from "../types";
+import { AppState, Product } from "../types";
 import { updateUserData, removeProductFromUser } from "../redux/actions";
 import Message from "../components/Message";
 import GoBack from "../components/BackButton";
@@ -15,7 +15,7 @@ const User = () => {
   const { products } = user;
   const { error } = useSelector((state: AppState) => state.error);
 
-  console.log(user);
+  console.log(user.email);
 
   console.log("USER FROM USER PAGE", user);
 
@@ -28,19 +28,19 @@ const User = () => {
     if (!isLoggedIn) {
       history.push("/login");
     }
-    if (user) {
+    if (user.email) {
       console.log("USER FROM EFFECTS", user);
       if (user.email) setEmail(user.email);
       if (user.firstName) setFirstName(user.firstName);
       if (user.lastName) setLastName(user.lastName);
     }
-  }, [dispatch, error, history, isLoggedIn, user]);
+  }, [dispatch, error, history, isLoggedIn, user, setEmail]);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setMessage("Your profile is updated");
     history.push("/profile");
-    dispatch(updateUserData(email, firstName, lastName));
+    await dispatch(updateUserData(email, firstName, lastName));
   };
 
   const handleEmailChange = (e: any) => {
@@ -61,7 +61,7 @@ const User = () => {
 
   return (
     <div className="m-5">
-      <GoBack>Go Back</GoBack>
+      <GoBack linkStr="/products">Go Back</GoBack>
       <Row>
         <Col md={5}>
           <h2>My Profile</h2>

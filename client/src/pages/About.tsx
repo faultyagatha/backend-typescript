@@ -10,7 +10,7 @@ const About = () => {
       <Row className="py-5">
         <Col md={8}>
           <HowToSteps step1="step1" step2="step2" step3="step3" />
-          <GoBack>
+          <GoBack linkStr="/">
             <h3 className="text-center">
               I've known adventures, seen places you people will never see, I've
               been Offworld and back… frontiers!
@@ -20,7 +20,7 @@ const About = () => {
       </Row>
       <Row className="py-5 justify-content-md-center">
         <Col md={8}>
-          <GoBack>
+          <GoBack linkStr="/">
             <h3 className="text-center">
               I've stood on the back deck of a blinker bound for the Plutition
               Camps with sweat in my eyes watching stars fight on the shoulder
@@ -31,7 +31,7 @@ const About = () => {
       </Row>
       <Row className="py-5 justify-content-md-center">
         <Col md={8}>
-          <GoBack>
+          <GoBack linkStr="/">
             <h3 className="text-center">
               I’ve felt wind in my hair, riding test boats off the black
               galaxies and seen an attack fleet burn like a match and disappear.

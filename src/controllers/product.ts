@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
+
 import {
   NotFoundError,
   BadRequestError,
   AppError,
 } from '../helpers/apiError';
-
 import Product from '../models/Product';
 import ProductService from '../services/product';
 
