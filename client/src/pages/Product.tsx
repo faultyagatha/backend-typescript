@@ -36,10 +36,10 @@ const Product = () => {
       <h1>Planet</h1>
       {message && <Message variant="info">{message}</Message>}
       <Row className="py-3">
-        <Col md={6}>
+        <Col md={4}>
           <Image src={product.imageCover} alt={product.name} fluid />
         </Col>
-        <Col md={3}>
+        <Col md={5}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h3>{product.name}</h3>

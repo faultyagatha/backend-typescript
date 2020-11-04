@@ -23,23 +23,37 @@ h4, h3, h2, h1 {
 .splash {
   color: rgb(206, 215, 218);
   letter-spacing: 0.1em;
+  font-size: 250%;
+}
+
+.splash-bold {
+  font-weight: bold;
+  color: rgb(213, 217, 218);
+  letter-spacing: 0.1em;
   font-size: 300%;
+  /* text-shadow: 1px 1px #d0d0d0; */
 }
 
 @media only screen and (max-width: 900px) {
   .splash {
      font-size: 150%;
   }
+  .splash-bold {
+    font-size: 150%;
+ }
 } 
 
 @media only screen and (max-width: 600px) {
   .splash {
      font-size: 0.9rem;
   }
+  .splash {
+    font-size: 150%;
+ }
 }      
 
 .image {
-  filter: grayscale(60%)
+  filter: 0.9rem;
 }
 
 .image:hover {

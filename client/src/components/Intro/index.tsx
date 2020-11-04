@@ -14,6 +14,7 @@ const Intro = () => {
             alt="First slide"
           />
           <Carousel.Caption>
+            <p className="splash-bold">STEP 1 </p>
             <p className="splash">Choose your planet and place your order</p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -24,6 +25,7 @@ const Intro = () => {
             alt="Second slide"
           />
           <Carousel.Caption>
+            <p className="splash-bold">STEP 2 </p>
             <p className="splash">Follow the instructions sent to your email</p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -34,6 +36,7 @@ const Intro = () => {
             alt="Third slide"
           />
           <Carousel.Caption>
+            <p className="splash-bold">STEP 3 </p>
             <p className="splash">
               Get ready for a breathtaking journey to the outer space
             </p>
