@@ -1,11 +1,11 @@
 import {
   UserState,
   UserActions,
-  LOGIN_REQ,
-  LOGOUT_REQ,
-  SIGNUP_REQ,
-  GET_USER_REQ,
-  UPDATE_USER_REQ,
+  LOGIN,
+  LOGOUT,
+  SIGNUP,
+  GET_USER,
+  UPDATE_USER,
   GET_USERS_ADMIN,
   UPDATE_USER_ADMIN,
   DELETE_USER_ADMIN,
@@ -30,24 +30,24 @@ export default function user(
   action: UserActions
 ): UserState {
   switch (action.type) {
-    case LOGIN_REQ: {
+    case LOGIN: {
       const { user } = action.payload;
       return { ...state, user, isLoggedIn: true };
     }
-    case SIGNUP_REQ: {
+    case SIGNUP: {
       const { user } = action.payload;
       console.log(user);
       return { ...state, user, isLoggedIn: true };
     }
-    case LOGOUT_REQ: {
+    case LOGOUT: {
       const { user } = action.payload;
       return { ...state, user, isLoggedIn: false };
     }
-    case GET_USER_REQ: {
+    case GET_USER: {
       const { user } = action.payload;
       return { ...state, user };
     }
-    case UPDATE_USER_REQ: {
+    case UPDATE_USER: {
       const { user } = action.payload;
       console.log(user);
       return { ...state, user };

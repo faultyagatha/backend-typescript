@@ -13,7 +13,7 @@ const UpdateUserAdmin = () => {
   const { id } = useParams<ParamsType>();
 
   const { allUsers } = useSelector((state: AppState) => state.user);
-  const { error } = useSelector((state: AppState) => state.error);
+  const { error } = useSelector((state: AppState) => state.ui);
 
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");

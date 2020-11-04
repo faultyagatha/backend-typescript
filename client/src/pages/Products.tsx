@@ -14,7 +14,7 @@ export default function Products() {
   const { allProducts, loading } = useSelector(
     (state: AppState) => state.product
   );
-  const { error } = useSelector((state: AppState) => state.error);
+  const { error, isLoading } = useSelector((state: AppState) => state.ui);
 
   useEffect(() => {
     dispatch(fetchProducts());

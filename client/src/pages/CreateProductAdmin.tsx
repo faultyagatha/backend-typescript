@@ -10,7 +10,7 @@ import { AppState } from "../types";
 
 const CreateProductsAdmin = () => {
   const dispatch = useDispatch();
-  const { error } = useSelector((state: AppState) => state.error);
+  const { error } = useSelector((state: AppState) => state.ui);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");

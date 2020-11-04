@@ -12,7 +12,7 @@ const ListProductsAdmin = () => {
   const history = useHistory();
   const { allProducts } = useSelector((state: AppState) => state.product);
   const { user } = useSelector((state: AppState) => state.user);
-  const { error } = useSelector((state: AppState) => state.error);
+  const { error } = useSelector((state: AppState) => state.ui);
   const [message, setMessage] = useState("");
 
   useEffect(() => {

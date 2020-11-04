@@ -2,11 +2,11 @@ import { Dispatch } from "redux";
 import axios from "axios";
 
 import {
-  LOGIN_REQ,
-  SIGNUP_REQ,
-  LOGOUT_REQ,
-  GET_USER_REQ,
-  UPDATE_USER_REQ,
+  LOGIN,
+  SIGNUP,
+  LOGOUT,
+  GET_USER,
+  UPDATE_USER,
   GET_USERS_ADMIN,
   UPDATE_USER_ADMIN,
   DELETE_USER_ADMIN,
@@ -16,7 +16,7 @@ import {
   User,
   Product,
 } from "../../types";
-import { actionFail } from "./errors";
+import { actionFail } from "./ui";
 
 const rootURL = "http://localhost:5000/api/v1/users";
 
@@ -68,14 +68,14 @@ const authFetches = {
 
 function login(data: User): UserActions {
   return {
-    type: LOGIN_REQ,
+    type: LOGIN,
     payload: { user: data },
   };
 }
 
 function logout(): UserActions {
   return {
-    type: LOGOUT_REQ,
+    type: LOGOUT,
     payload: {
       user: {
         email: "",
@@ -92,14 +92,14 @@ function logout(): UserActions {
 
 function signUp(data: User): UserActions {
   return {
-    type: SIGNUP_REQ,
+    type: SIGNUP,
     payload: { user: data },
   };
 }
 
 function getUser(data: User): UserActions {
   return {
-    type: GET_USER_REQ,
+    type: GET_USER,
     payload: { user: data },
   };
 }
@@ -107,7 +107,7 @@ function getUser(data: User): UserActions {
 function updateUser(data: User): UserActions {
   console.log("updateUser action", data);
   return {
-    type: UPDATE_USER_REQ,
+    type: UPDATE_USER,
     payload: { user: data },
   };
 }

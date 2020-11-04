@@ -14,7 +14,7 @@ const UpdateProductAdmin = () => {
   const { id } = useParams<ParamsType>();
 
   const { allProducts } = useSelector((state: AppState) => state.product);
-  const { error } = useSelector((state: AppState) => state.error);
+  const { error } = useSelector((state: AppState) => state.ui);
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");

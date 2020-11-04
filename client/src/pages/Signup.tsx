@@ -11,7 +11,7 @@ import FormContainer from "../components/Form";
 const SignUp = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: AppState) => state.user);
-  const { error } = useSelector((state: AppState) => state.error);
+  const { error } = useSelector((state: AppState) => state.ui);
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

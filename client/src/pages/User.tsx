@@ -13,7 +13,7 @@ const User = () => {
   const history = useHistory();
   const { user, isLoggedIn } = useSelector((state: AppState) => state.user);
   const { products } = user;
-  const { error } = useSelector((state: AppState) => state.error);
+  const { error } = useSelector((state: AppState) => state.ui);
 
   console.log(user.email);
 

@@ -3,7 +3,6 @@ import axios from "axios";
 
 import {
   GET_PRODUCTS,
-  GET_PRODUCTS_SUCCESS,
   ADD_PRODUCT,
   REMOVE_PRODUCT,
   REMOVE_ALL_PRODUCTS,
@@ -13,7 +12,7 @@ import {
   ProductActions,
   Product,
 } from "../../types";
-import { actionFail } from "./errors";
+import { actionFail, loading } from "./ui";
 
 const rootURL = "http://localhost:5000/api/v1/products";
 
@@ -35,13 +34,9 @@ function removeAll(): ProductActions {
   return { type: REMOVE_ALL_PRODUCTS };
 }
 
-function getProducts(): ProductActions {
-  return { type: GET_PRODUCTS };
-}
-
-function getProductsSuccess(data: Product[]): ProductActions {
+function getProducts(data: Product[]): ProductActions {
   return {
-    type: GET_PRODUCTS_SUCCESS,
+    type: GET_PRODUCTS,
     payload: { allProducts: data },
   };
 }
@@ -97,9 +92,9 @@ export function removeAllFromCart(): any {
 export function fetchProducts(): any {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(getProducts());
+      dispatch(loading());
       const { data } = await axios.get(rootURL);
-      return dispatch(getProductsSuccess(data));
+      return dispatch(getProducts(data));
     } catch (err) {
       return dispatch(actionFail(err));
     }

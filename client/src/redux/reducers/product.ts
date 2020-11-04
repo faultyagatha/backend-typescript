@@ -5,7 +5,6 @@ import {
   ADD_PRODUCT,
   REMOVE_PRODUCT,
   REMOVE_ALL_PRODUCTS,
-  GET_PRODUCTS_SUCCESS,
   CREATE_PRODUCT_ADMIN,
   UPDATE_PRODUCT_ADMIN,
   DELETE_PRODUCT_ADMIN,
@@ -29,9 +28,6 @@ export default function product(
 ): ProductState {
   switch (action.type) {
     case GET_PRODUCTS: {
-      return { ...state };
-    }
-    case GET_PRODUCTS_SUCCESS: {
       const { allProducts } = action.payload;
       return { ...state, allProducts, loading: false };
     }

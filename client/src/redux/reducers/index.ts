@@ -2,13 +2,13 @@ import { combineReducers } from "redux";
 
 import product from "./product";
 import user from "./user";
-import error from "./error";
+import ui from "./ui";
 
 const createRootReducer = () =>
   combineReducers({
     product,
     user,
-    error,
+    ui,
   });
 
 export default createRootReducer;

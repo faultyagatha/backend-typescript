@@ -11,7 +11,7 @@ import { AppState } from "../types";
 const Checkout = () => {
   const history = useHistory();
   const { user } = useSelector((state: AppState) => state.user);
-  const { error } = useSelector((state: AppState) => state.error);
+  const { error } = useSelector((state: AppState) => state.ui);
   const { inCart } = useSelector((state: AppState) => state.product);
 
   useEffect(() => {
