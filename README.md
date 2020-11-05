@@ -1,15 +1,35 @@
-# TODO: 
-- google login (cannot set headers after they have been sent)
-https://stackoverflow.com/questions/7042340/error-cant-set-headers-after-they-are-sent-to-the-client
+# Full-stack MongoDB, ExpressJS, NodeJS project in TypeScript 
 
-- edit user data (clean up on save)
-- add cart model and cart functionality
-- add 3D landing page
-- add how it works page with steps
-- add screen shots and deploy the project
-- clean up ts any and warnings 
+# E-Commerce website selling VR experience
 
-# TypeScript MEN (MongoDB, ExpressJS, NodeJS) boilerplate
+![image](./img/main.png)
+
+![image](./img/product.png)
+
+![image](./img/login.png)
+
+![image](./img/signup.png)
+
+![image](./img/profile.png)
+
+![image](./img/cart.png)
+
+![image](./img/checkout.png)
+
+![image](./img/navigation.png)
+
+![image](./img/admin-products.png)
+
+![image](./img/admin-users.png)
+
+![image](./img/admin-product-create.png)
+
+![image](./img/admin-product-update.png)
+
+![image](./img/admin-user-update.png)
+
+___
+
 This boilerplate is based on the [TypeScript Node Starter](https://github.com/microsoft/TypeScript-Node-Starter) whose documentation is below, with some modifications
 
 # TypeScript Node Starter

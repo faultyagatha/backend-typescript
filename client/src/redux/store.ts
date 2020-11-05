@@ -30,6 +30,7 @@ export default function makeStore(initialState = loadState()) {
   return store;
 }
 
+/** state helper functions */
 export const loadState = () => {
   try {
     const serialisedState = localStorage.getItem("state");

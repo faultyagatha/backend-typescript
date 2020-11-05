@@ -18,7 +18,6 @@ const router = express.Router();
 router.get('/', findAll);
 router.get('/:productId', findById);
 
-//remove for testing
 router.use(protect);
 router.patch('/order', placeOrder);
 

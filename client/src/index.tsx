@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import throttle from "lodash";
 
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
@@ -12,6 +13,14 @@ import "./bootstrap.min.css";
 const store = makeStore();
 
 //TODO: add throttle from lodash https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e
+
+// store.subscribe(throttle(() => {
+//   saveState({
+//     user: store.getState().user,
+//     product: store.getState().product,
+//   })
+// }, 1000));
+
 store.subscribe(() => {
   saveState({
     user: store.getState().user,

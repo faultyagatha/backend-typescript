@@ -49,11 +49,6 @@ async function updateProfile(
   }
 
   return user.save();
-
-  // return await User.findByIdAndUpdate(userId, update, {
-  //   new: true,
-  //   runValidators: true,
-  // }).exec();
 }
 
 export default {

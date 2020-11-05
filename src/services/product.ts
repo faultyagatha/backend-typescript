@@ -39,7 +39,6 @@ function deleteProduct(productId: string): Promise<ProductDocument | null> {
 async function placeOrder(productId: string, userId: string): Promise<UserDocument> {
   const product = await Product.findById(productId).exec();
   if (!product) throw new Error(`Product ${productId} not found`);
-  // console.log('PRODUCT _ID: ', product._id)
 
   const user = await User.findById(userId).exec();
   console.log('USER ID: ', userId);

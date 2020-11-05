@@ -106,7 +106,7 @@ export const updateProfile = async (
       update
     );
     if (user) {
-      console.log('UPDATED USER: ', user);
+      // console.log('UPDATED USER: ', user);
       res.status(200).json({
         user
       });
