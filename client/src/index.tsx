@@ -12,8 +12,6 @@ import "./bootstrap.min.css";
 
 const store = makeStore();
 
-//TODO: add throttle from lodash https://medium.com/@jrcreencia/persisting-redux-state-to-local-storage-f81eb0b90e7e
-
 // store.subscribe(throttle(() => {
 //   saveState({
 //     user: store.getState().user,

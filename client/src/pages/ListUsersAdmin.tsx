@@ -12,7 +12,7 @@ const ListUsersAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { allUsers, user } = useSelector((state: AppState) => state.user);
-  const { error, isLoading } = useSelector((state: AppState) => state.ui);
+  const { error } = useSelector((state: AppState) => state.ui);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
