@@ -21,7 +21,6 @@ export default function product(
       price: 1,
     },
     allProducts: [],
-    loading: true,
     inCart: [],
   },
   action: ProductActions
@@ -29,7 +28,7 @@ export default function product(
   switch (action.type) {
     case GET_PRODUCTS: {
       const { allProducts } = action.payload;
-      return { ...state, allProducts, loading: false };
+      return { ...state, allProducts };
     }
     case ADD_PRODUCT: {
       const { product } = action.payload;

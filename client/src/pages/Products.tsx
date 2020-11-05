@@ -11,9 +11,7 @@ import Menu from "../components/Menu";
 
 export default function Products() {
   const dispatch = useDispatch();
-  const { allProducts, loading } = useSelector(
-    (state: AppState) => state.product
-  );
+  const { allProducts } = useSelector((state: AppState) => state.product);
   const { error, isLoading } = useSelector((state: AppState) => state.ui);
 
   useEffect(() => {
@@ -46,7 +44,7 @@ export default function Products() {
     <>
       <Menu />
       <h2 className="text-center">head away from Earth</h2>
-      {loading ? (
+      {isLoading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>

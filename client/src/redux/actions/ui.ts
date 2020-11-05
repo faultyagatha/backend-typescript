@@ -1,4 +1,4 @@
-import { UIActions, ACTION_FAIL, LOADING } from "../../types";
+import { UIActions, ACTION_FAIL, LOADING, RESET_UI } from "../../types";
 
 export function actionFail(error: any): UIActions {
   return {
@@ -12,4 +12,8 @@ export function actionFail(error: any): UIActions {
 
 export function loading(): UIActions {
   return { type: LOADING };
+}
+
+export function resetUI(): UIActions {
+  return { type: RESET_UI };
 }

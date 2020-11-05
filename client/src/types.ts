@@ -25,6 +25,7 @@ export const DELETE_USER_ADMIN = "DELETE_USER_ADMIN";
 
 export const ACTION_FAIL = "ACTION_FAIL";
 export const LOADING = "LOADING";
+export const RESET_UI = "RESET_UI";
 
 /** product actions */
 export type GetProductsAction = {
@@ -148,7 +149,11 @@ export type LoadingAction = {
   type: typeof LOADING;
 };
 
-export type UIActions = ErrorAction | LoadingAction;
+export type ResetAction = {
+  type: typeof RESET_UI;
+};
+
+export type UIActions = ErrorAction | LoadingAction | ResetAction;
 
 /** product type */
 export type Product = {
@@ -177,7 +182,6 @@ export type User = {
 export type ProductState = {
   product: Product;
   allProducts: Product[];
-  loading: boolean;
   inCart: Product[];
 };
 

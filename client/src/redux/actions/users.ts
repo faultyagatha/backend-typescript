@@ -259,7 +259,6 @@ export function getAllUsersByAdmin() {
         },
       };
       const { data } = await axios.get(`${rootURL}`, config);
-
       dispatch(getUsersAdmin(data));
     } catch (err) {
       dispatch(actionFail(err));

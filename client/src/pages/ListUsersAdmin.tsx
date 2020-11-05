@@ -4,6 +4,7 @@ import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
+import Loader from "../components/Loader";
 import { getAllUsersByAdmin, deleteUserByAdmin } from "../redux/actions";
 import { AppState } from "../types";
 
@@ -11,7 +12,7 @@ const ListUsersAdmin = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { allUsers, user } = useSelector((state: AppState) => state.user);
-  const { error } = useSelector((state: AppState) => state.ui);
+  const { error, isLoading } = useSelector((state: AppState) => state.ui);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -35,6 +36,10 @@ const ListUsersAdmin = () => {
       dispatch(getAllUsersByAdmin());
     }
   };
+
+  if (!allUsers) {
+    return <Loader />;
+  }
 
   return (
     <div className="m-5">

@@ -4,6 +4,7 @@ import { Table, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 import Message from "../components/Message";
+import Loader from "../components/Loader";
 import { fetchProducts, deleteProductByAdmin } from "../redux/actions/product";
 import { AppState } from "../types";
 
@@ -32,6 +33,10 @@ const ListProductsAdmin = () => {
       dispatch(fetchProducts());
     }
   };
+
+  if (!allProducts) {
+    return <Loader />;
+  }
 
   return (
     <div className="m-5">

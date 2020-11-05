@@ -12,7 +12,7 @@ import {
   ProductActions,
   Product,
 } from "../../types";
-import { actionFail, loading } from "./ui";
+import { actionFail, loading, resetUI } from "./ui";
 
 const rootURL = "http://localhost:5000/api/v1/products";
 
@@ -94,6 +94,7 @@ export function fetchProducts(): any {
     try {
       dispatch(loading());
       const { data } = await axios.get(rootURL);
+      dispatch(resetUI());
       return dispatch(getProducts(data));
     } catch (err) {
       return dispatch(actionFail(err));
